@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers\Admin;
 use App\Models\MenuModel;
-use App\Models\WidgetModel;
+use App\Models\WindgetModel;
 use App\Libraries\Breadcrumb;
 //==================================================
 // Name : Menu App
@@ -26,7 +26,7 @@ class Menu extends AdminController
 		$this->_permission();
 		helper(['form', 'url']);
 		$this->model = new MenuModel();
-		$this->widget = new WidgetModel();
+		$this->widget = new WindgetModel();
 		$this->breadcrumb = new Breadcrumb();
 		$this->data["link"] = $this->link;
 		$this->data["linkcache"] = $this->link;
