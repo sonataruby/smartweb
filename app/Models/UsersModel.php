@@ -177,4 +177,24 @@ class UsersModel extends BaseModel
         }
     }
 
+
+
+    /*Customs*/
+
+    private function validateEmail($email = ""){
+        if(empty($email)) return false;
+        if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+          return true;
+        }
+        return false;
+
+    }
+    private function validatePassword($password = ""){
+        if(empty($password)) return false;
+        if(strlen($password) > 2){
+            return true;
+        }
+        return false;
+    }
+
 }

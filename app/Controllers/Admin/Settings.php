@@ -2,6 +2,7 @@
 namespace App\Controllers\Admin;
 use App\Models\SettingsModel;
 use App\Libraries\Breadcrumb;
+use App\Libraries\Migration;
 //==================================================
 // Name : Settings App
 // Version : 0.1.1
@@ -103,6 +104,10 @@ class Settings extends AdminController
 
 	//Function Permission
 
+	public function backup(){
+		$data = new Migration;
+		$data->generate("*");
+	}
 
 	
 }

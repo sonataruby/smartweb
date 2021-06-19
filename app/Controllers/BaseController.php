@@ -70,11 +70,14 @@ class BaseController extends Controller
         $this->data['confirm'] = $this->session->getFlashdata('confirm');
         $this->data['errors'] = $this->session->getFlashdata('errors');
         $this->data['language'] = $this->session->get("lang");
-        $this->data["settings"] = $this->getSettings();
+        
         // Arguments to be used in the callback remap
         $segments = $request->uri->getSegments();
         $this->arguments = array_slice($segments, 2);
-        $this->json_config = json_decode(file_get_contents(FCPATH."app.json")); 
+
+        if($segments[0] != "install") $this->data["settings"] = $this->getSettings();
+        //$this->json_config = json_decode(file_get_contents(FCPATH."app.json")); 
+
 	}
 	public function _remap($method = null)
     {
