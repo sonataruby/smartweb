@@ -40,9 +40,66 @@ class Users {
 	Create User
 	*/
 
-	public function login(){
+	public function login($email, $password){
+        $password = $this->validate_password($password);
+        $email = $this->validate_email($email);
+        $data = $this->getDataByEmail($email);
 
+        if(empty($email) || empty($password)){
+            return false;
+        }
+        //print_r($data);
+        //$2a$08$oMp7xSKAlSNOpeLTs84cmetiDuNiULStoH8GuMls.6Z1Ujxoyueza
+
+        if(!is_null($data)){
+            if($this->password_verify($password,$data->password)){
+        
+                $userlogin = [];
+                $userlogin["userlogin"] = json_decode(json_encode([
+                    "account_id" => $data->id, 
+                    "role" => $data->role, 
+                    "email" => $data->email, 
+                    "display_name" => $data->display_name, 
+                    "timezone" => $data->timezone, 
+                    "language" => $data->language,
+                    "avatar"    => $data->avatar,
+                    "logged_in" => true
+                    
+                ]));
+               
+                $this->session->set($userlogin);
+
+                return $this->getToken();
+            }
+        }
 	}
+
+    public function getToken(){
+        $session = $this->getSession();
+        if(intval($session->account_id) < 1) return false;
+        $token = Jsontoken::encode($session,$this->device);
+        return $token;
+    }
+
+    public function checkToken($tokencontent){
+
+    }
+    public function extractToken($tokencontent){
+        
+        $untoken = Jsontoken::decode($tokencontent,$this->device,["HS256"]);
+        return $untoken;
+    }
+
+
+    public function getSession(){
+        
+        return (object)$this->session->get("userlogin");
+    }
+
+    private function hasLogin(){
+        if($this->session->has("userlogin")) return true;
+        return false;
+    }
 
 	public function register($email, $password, $autologin=true){
     	$password = $this->validate_password($password);

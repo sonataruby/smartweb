@@ -67,7 +67,7 @@ class AdminController extends Controller
 
         }
         $this->data['language'] = $this->session->get("lang");
-        $this->data["supportlangauge"] = ["en" => "EN", "vn" => "VN"];
+        $this->data["supportlangauge"] = ["en" => "EN"];
         // Arguments to be used in the callback remap
         $segments = $request->uri->getSegments();
         $this->arguments = array_slice($segments, (($this->directory === '') ? 2 : 3));
@@ -76,6 +76,18 @@ class AdminController extends Controller
         } else {
             $this->request->uri->getSegment(1) . '/' . $this->request->uri->getSegment(2);
         }
+        $this->data["settings"] = $this->getSettings();
+        $slang = explode("|",$this->data["settings"]->mutile_lang);
+        $langsupport = [];
+        if(is_array($slang)){
+            foreach ($slang as $key => $value) {
+                list($k,$val) = explode("=",$value);
+                $langsupport[$k] = $val;
+            }
+        }
+       
+
+        $this->data["supportlangauge"] = array_merge($this->data["supportlangauge"],$langsupport);
     }
 
     /**
@@ -119,6 +131,26 @@ class AdminController extends Controller
 
     }
     
+
+    public function getTemplates(){
+        return getenv("templates");
+    }
+
+    public function setIsHome(){
+        $this->is_home = true;
+    }
+
+    public function getSettings(){
+        $db = \Config\Database::connect();
+        $query = $db->query("SELECT * FROM settings where language='".$this->data['language']."' OR  language='' ORDER BY id ASC")->getResult();
+        $arv = new \stdClass;
+        foreach ($query as $key => $value) {
+            $arv->{$value->name} = $value->value;
+        }
+        //$arv->is_home = $this->is_home;
+
+        return $arv;
+    }
 
 }
 ?>

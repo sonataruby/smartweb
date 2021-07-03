@@ -35,8 +35,8 @@ if(!function_exists("widgets")){
 }
 
 if(!function_exists("nav_language")){
-	function nav_language(){
-		$arv = ["en" => "English", "vn" => "Vietnam"];
+	function nav_language($arv=["en" => "English"]){
+		
 		foreach ($arv as $key => $value) {
 			echo '<li><a href="#">'.$value.'</a></li> ';
 		}

@@ -62,21 +62,41 @@ class BaseController extends Controller
 		$this->session = \Config\Services::session();
         $locale = $_GET['language'] ? $_GET['language'] : "en";
         
-        $this->session->set('lang',$locale);
+        if(!$this->session->has('lang') || ($locale != $this->session->get("lang") && $_GET['language'] != "")) {
+            $this->session->set('lang',$locale);
+            echo '<script>window.location="'.previous_url().'";</script>';
+            exit();
+
+        }
+        $this->data['language'] = $this->session->get("lang");
+        $this->data["supportlangauge"] = ["en" => "EN"];
         
         //--------------------------------------------------------------------
         // Check for flashdata
         //--------------------------------------------------------------------
         $this->data['confirm'] = $this->session->getFlashdata('confirm');
         $this->data['errors'] = $this->session->getFlashdata('errors');
-        $this->data['language'] = $this->session->get("lang");
+        
         
         // Arguments to be used in the callback remap
         $segments = $request->uri->getSegments();
         $this->arguments = array_slice($segments, 2);
 
         if($segments[0] != "install") $this->data["settings"] = $this->getSettings();
-        //$this->json_config = json_decode(file_get_contents(FCPATH."app.json")); 
+        $slang = explode("|",$this->data["settings"]->mutile_lang);
+        $langsupport = [];
+        if(is_array($slang)){
+            foreach ($slang as $key => $value) {
+                list($k,$val) = explode("=",$value);
+                $langsupport[$k] = $val;
+            }
+        }
+       
+
+        $this->data["supportlangauge"] = array_merge($this->data["supportlangauge"],$langsupport);
+        if(file_exists(FCPATH.$this->getTemplates($this->layout))){
+            $this->layout = $this->getTemplates($this->layout);
+        }
 
 	}
 	public function _remap($method = null)
@@ -93,20 +113,24 @@ class BaseController extends Controller
         }
         //Check if it's a redirect or not
         if (isset($redirect) && is_object($redirect) && get_class($redirect) === 'CodeIgniter\HTTP\RedirectResponse') {
+            
             return $redirect;
         }
+        
         $this->data["is_home"] = $this->is_home;
+
         if ($this->view !== false) {
             //print_r($this->layout);
             $this->data['layout'] = (empty($this->layout)) ? 'layout/application' : $this->layout;
             $this->data['body'] = (!empty($this->view)) ? $this->view : strtolower($view_folder . '/' . $router->methodName());
             return view($this->data['body'], $this->data);
         }
+
         return $redirect;
     }
 
-    public function getConfig($key="", $default=""){
-        return $this->json_config->{$key} ? $this->json_config->{$key} : $default;
+    public function getTemplates($src){
+        return getenv("templates");
     }
 
     public function setIsHome(){
