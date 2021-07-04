@@ -84,8 +84,9 @@ class BaseController extends Controller
         $this->arguments = array_slice($segments, 2);
 
         if($segments[0] != "install") {
-            $this->data["settings"] = $this->getSettings();
             $this->settings = $this->getSettings();
+            $this->data["settings"] = $this->settings;
+           
         }
         $slang = explode("|",$this->data["settings"]->mutile_lang);
         $langsupport = [];
@@ -151,6 +152,26 @@ class BaseController extends Controller
         //$arv->is_home = $this->is_home;
 
         return $arv;
+    }
+
+    public function setSEO($arv=[]){
+        foreach ($arv as $key => $value) {
+            if($key == "keyword" && !empty($value)){
+                $this->settings->site_keywords = $value;
+            }
+
+            if($key == "description" && !empty($value)){
+                $this->settings->site_description = $value;
+            }
+
+            if($key == "title" && !empty($value)){
+                $this->settings->site_name = $value . " | ". $this->settings->site_name;
+            }
+            if($key == "image"){
+                $this->settings->site_banner = $value;
+            }
+            
+        }
     }
 
 

@@ -1,9 +1,8 @@
 <?php
 return [
 "modules" => "Posts",
-	"title" => "Posts Controller",
-	"create" => "Posts Manager",
 	"title" => "title",
+	"create" => "Posts Manager",
 	"description" => "description",
 	"contents" => "contents",
 	"keyword" => "keyword",

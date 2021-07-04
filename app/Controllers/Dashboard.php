@@ -9,6 +9,7 @@ class Dashboard extends BaseController
             return redirect()->to("install");
         }
 		$this->setIsHome();
+		
 		//return $this->view = 'home/index';
 	}
 }
