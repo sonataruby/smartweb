@@ -19,7 +19,17 @@
 <script src="https://unpkg.com/feather-icons"></script>
 <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
 <script src="templates/assets/js/jquery.upload.js"></script>
-
+<link rel="stylesheet" href="templates/assets/core/trumbowyg/ui/trumbowyg.css"/>
+<script type='text/javascript' src='templates/assets/core/trumbowyg/trumbowyg.js'></script>
+<?php 
+$file = glob ( FCPATH . "templates/assets/core/trumbowyg/plugins/*/trumbowyg.*.js");
+foreach ($file as $key => $value) { 
+    if(strpos($value,".min") !== false){
+    ?>
+    <script type='text/javascript' src='<?php echo str_replace(FCPATH,'',$value);?>'></script>
+<?php 
+    }
+} ?>
 
 
 </head>

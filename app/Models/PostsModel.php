@@ -8,10 +8,10 @@ use App\Models\BaseModel;
 // Author : VO VAN KHOA
 // Website : https://expressiq.co
 //==================================================
-class UsersModel extends BaseModel
+class PostsModel extends BaseModel
 {
     // ...
-    protected $table      = 'users';
+    protected $table      = 'posts';
     protected $primaryKey = 'id';
 
     protected $useAutoIncrement = true;
@@ -19,7 +19,7 @@ class UsersModel extends BaseModel
     protected $returnType     = 'object';
     protected $useSoftDeletes = false;
 
-    protected $allowedFields = ["username","slug","email","email_status","token","password","role","user_type","display_name","firstname","lastname","midname","facebook_id","google_id","avatar","banner_img","banned","phone_number","timezone","language","country_id","state_id","city_id","address","zip_code","show_email","show_phone","show_location","facebook_url","twitter_url","instagram_url","pinterest_url","linkedin_url","vk_url","youtube_url","last_seen","show_rss_feeds","intivited_code","created_at"];
+    protected $allowedFields = ["title","description","contents","keyword","image","tags"];
 
     protected $useTimestamps = false;
     protected $createdField  = 'created_at';
@@ -35,7 +35,7 @@ class UsersModel extends BaseModel
     
     private $search = [];
     private $NumTotals = 0;
-    private $mutilanguage = true;
+    private $mutilanguage = false;
     private $system_where = [];
 
     function __construct()
@@ -118,7 +118,7 @@ class UsersModel extends BaseModel
     
     public function getTotals()
     {
-        $query = new UsersModel;
+        $query = new PostsModel;
         if($this->system_where){
             $query->where($this->system_where);
         }

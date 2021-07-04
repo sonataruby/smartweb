@@ -57,6 +57,12 @@
     </div>
 </div>
 <div class="mb-3 row">
+    <label for="textdisplay_name" class="col-sm-2 col-form-label"><?php echo lang('users.display_name');?></label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="textdisplay_name" name="post[display_name]" value="<?php echo $item->display_name;?>">
+    </div>
+</div>
+<div class="mb-3 row">
     <label for="textfirstname" class="col-sm-2 col-form-label"><?php echo lang('users.firstname');?></label>
     <div class="col-sm-10">
       <input type="text" class="form-control" id="textfirstname" name="post[firstname]" value="<?php echo $item->firstname;?>">
@@ -150,6 +156,24 @@
     <label for="textphone_number" class="col-sm-2 col-form-label"><?php echo lang('users.phone_number');?></label>
     <div class="col-sm-10">
       <input type="text" class="form-control" id="textphone_number" name="post[phone_number]" value="<?php echo $item->phone_number;?>">
+    </div>
+</div>
+<div class="mb-3 row">
+    <label for="texttimezone" class="col-sm-2 col-form-label"><?php echo lang('users.timezone');?></label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="texttimezone" name="post[timezone]" value="<?php echo $item->timezone;?>">
+    </div>
+</div>
+<div class="mb-3 row">
+    <label for="textlanguage" class="col-sm-2 col-form-label"><?php echo lang('users.language');?></label>
+    <div class="col-sm-10">
+      <select type="text" class="form-select" id="textlanguage" name="post[language]">
+          <option value="<?php echo session()->get("lang");?>">Default</option>
+          <?php foreach ($supportlangauge as $key => $value) { ?>
+            <option value="<?php echo $key;?>" <?php echo ($item->language == $key ? "selected" : "");?>><?php echo $value;?></option>
+          <?php } ?>
+          
+      </select>
     </div>
 </div>
 <div class="mb-3 row">

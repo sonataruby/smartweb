@@ -42,6 +42,7 @@ class BaseController extends Controller
     protected $layout = 'layout/application'; // Set default layout
     protected $arguments = []; // arguments that will be sent to the methods
     protected $json_config;
+    protected $settings;
     public $is_home = false;
 	/**
 	 * Constructor.
@@ -82,7 +83,10 @@ class BaseController extends Controller
         $segments = $request->uri->getSegments();
         $this->arguments = array_slice($segments, 2);
 
-        if($segments[0] != "install") $this->data["settings"] = $this->getSettings();
+        if($segments[0] != "install") {
+            $this->data["settings"] = $this->getSettings();
+            $this->settings = $this->getSettings();
+        }
         $slang = explode("|",$this->data["settings"]->mutile_lang);
         $langsupport = [];
         if(is_array($slang)){
@@ -123,7 +127,7 @@ class BaseController extends Controller
             //print_r($this->layout);
             $this->data['layout'] = (empty($this->layout)) ? 'layout/application' : $this->layout;
             $this->data['body'] = (!empty($this->view)) ? $this->view : strtolower($view_folder . '/' . $router->methodName());
-            return view($this->data['body'], $this->data);
+            return $this->minify_HTML(view($this->data['body'], $this->data));
         }
 
         return $redirect;
@@ -147,5 +151,35 @@ class BaseController extends Controller
         //$arv->is_home = $this->is_home;
 
         return $arv;
+    }
+
+
+    public function minify_HTML($html)
+    {
+        
+            
+
+       $search = array(
+        '/(\n|^)(\x20+|\t)/',
+        '/(\n|^)\/\/(.*?)(\n|$)/',
+        '/\n/',
+        '/\<\!--.*?-->/',
+        '/(\x20+|\t)/', # Delete multispace (Without \n)
+        '/\>\s+\</', # strip whitespaces between tags
+        '/(\"|\')\s+\>/', # strip whitespaces between quotation ("') and end tags
+        '/=\s+(\"|\')/'); # strip whitespaces between = "'
+
+       $replace = array(
+        "\n",
+        "\n",
+        " ",
+        "",
+        " ",
+        "><",
+        "$1>",
+        "=$1");
+
+        $html = str_replace("\n","",preg_replace($search,$replace,$html));
+        return $html;
     }
 }

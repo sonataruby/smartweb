@@ -38,6 +38,9 @@ return [
 	"last_seen" => "last_seen",
 	"show_rss_feeds" => "show_rss_feeds",
 	"intivited_code" => "intivited_code",
-	"created_at" => "created_at"
+	"created_at" => "created_at",
+	"display_name" => "display_name",
+	"timezone" => "timezone",
+	"language" => "language"
 ];
 ?>

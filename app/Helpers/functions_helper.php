@@ -62,3 +62,56 @@ if(!function_exists("editer")){
 	}
 	
 }
+
+
+
+
+
+//generate unique id
+if (!function_exists('generate_unique_id')) {
+	function generate_unique_id()
+	{
+		$id = uniqid("", TRUE);
+		$id = str_replace(".", "-", $id);
+		return $id . "-" . rand(10000000, 99999999);
+	}
+}
+
+//generate short unique id
+if (!function_exists('generate_short_unique_id')) {
+	function generate_short_unique_id()
+	{
+		$id = uniqid("", TRUE);
+		return str_replace(".", "-", $id);
+	}
+}
+//generate order number
+if (!function_exists('generate_transaction_number')) {
+	function generate_transaction_number()
+	{
+		$transaction_number = uniqid("", TRUE);
+		return str_replace(".", "-", $transaction_number);
+	}
+}
+
+//generate token
+if (!function_exists('generate_token')) {
+	function generate_token()
+	{
+		$token = uniqid("", TRUE);
+		$token = str_replace(".", "-", $token);
+		return $token . "-" . rand(10000000, 99999999);
+	}
+}
+
+//generate purchase code
+if (!function_exists('generate_purchase_code')) {
+	function generate_purchase_code()
+	{
+		$id = uniqid("", TRUE);
+		$id = str_replace(".", "-", $id);
+		$id .= "-" . rand(100000, 999999);
+		$id .= "-" . rand(100000, 999999);
+		return $id;
+	}
+}
