@@ -36,21 +36,48 @@
 <body class="nk-body body-wider mode-onepage">
 
   <div class="nk-wrap">
-    <header class="nk-header page-header is-sticky is-shrink is-transparent is-light">
+    <header class="nk-header page-header is-sticky is-shrink is-transparent is-light border-bottom">
               <!-- Header @s -->             <div class="header-main">                 <div class="header-container container">                     <div class="header-wrap">                         <!-- Logo @s -->                         <div class="header-logo logo animated" data-animate="fadeInDown" data-delay=".65">                             <a href="./" class="logo-link">                                 <img class="logo-dark" src="templates/assets/images/logo.png" srcset="templates/assets/images/logo2x.png 2x" alt="logo">                                 <img class="logo-light" src="templates/assets/images/logo.png" srcset="templates/assets/images/logo2x.png 2x" alt="logo">                             </a>                         </div>                          <!-- Menu Toogle @s -->                         <div class="header-nav-toggle">                             <a href="#" class="navbar-toggle" data-menu-toggle="header-menu">                                 <div class="toggle-line">                                     <span></span>                                 </div>                             </a>                         </div>                          <!-- Menu @s -->                         <div class="header-navbar header-navbar-s1">                             <nav class="header-menu" id="header-menu">                                 <ul class="menu animated" data-animate="fadeInDown" data-delay=".75">
 
 
 
 
               </ul>                                 <ul class="menu-btns menu-btns-s3 align-items-center animated" data-animate="fadeInDown" data-delay=".85">                                     <li class="language-switcher language-switcher-s1 toggle-wrap">                                         <a class="toggle-tigger" href="#">English</a>                                         <ul class="toggle-class toggle-drop toggle-drop-left drop-list drop-list-sm"><?php echo nav_language($supportlangauge);?></ul>                                     </li>                                     
-                <li><a href="#" data-toggle="modal" data-target="#register-popup" class="btn btn-md btn-primary btn-outline"><span><?php echo $settings->email;?></span></a></li>                                 </ul>                             </nav>                         </div><!-- .header-navbar @e -->                     </div>                                                                 </div>             </div><!-- .header-main @e -->      
+                <li><a href="#" data-toggle="modal" data-target="#register-popup" class="btn btn-md btn-primary btn-outline"><span><?php echo $user->lastname;?> <?php echo $user->firstname;?></span></a></li>                                 </ul>                             </nav>                         </div><!-- .header-navbar @e -->                     </div>                                                                 </div>             </div><!-- .header-main @e -->      
               
     </header>
-    <main class="nk-pages">
+    <main class="nk-pages" style="padding-top: 80px;">
       <div class="container">
         <div class="row">
             <div class="col-3">
-                <div style="min-height:350px;"></div>
+               
+                <div>
+                    <img src="<?php echo $user->user_avatar;?>" class="img-thumbnail" alt="...">
+                </div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item"><?php echo $user->lastname;?> <?php echo $user->firstname;?></li>
+                  <li class="list-group-item"><i class="fa "></i> <?php echo $user->email;?></li>
+                  <li class="list-group-item"><?php echo $user->phone;?></li>
+                  <li class="list-group-item"><?php echo $user->website;?></li>
+                  <li class="list-group-item"><?php echo $user->address;?></li>
+                </ul>
+
+                <hr>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item"><a href="/profile">Profile</a></li>
+                  <li class="list-group-item"><a href="/wallet">Wallet</a></li>
+                  <li class="list-group-item"><a href="/members">Member</a></li>
+                  <li class="list-group-item">Finance Program</li>
+                  
+                </ul>
+                <hr>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">Profile</li>
+                  <li class="list-group-item">Wallet</li>
+                  <li class="list-group-item">Member</li>
+                  <li class="list-group-item">Program</li>
+                  
+                </ul>
             </div>
             <div class="col-9">
                 <?php echo $this->renderSection('body') ?>

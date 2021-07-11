@@ -11,7 +11,9 @@
 <!-- Site Title  -->
 <title>Token Program</title>
 <!-- Bundle and Base CSS -->
+<link rel="stylesheet" href="templates/assets/css/style.css">
 <link rel="stylesheet" href="templates/assets/css/bootstrap.css">
+
 <link rel="stylesheet" href="templates/assets/theme.css">
 
 <script src="templates/assets/core/apps.js"></script>
@@ -71,7 +73,7 @@ foreach ($file as $key => $value) {
             <li><a class="dropdown-item" href="admin/settings">Settings</a></li>
             <li><a class="dropdown-item" href="admin/settings/backup">Backup</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
+            <li><a class="dropdown-item" href="admin/settings/language">Language</a></li>
           </ul>
         </li>
       </ul>

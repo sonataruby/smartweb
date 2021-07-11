@@ -28,10 +28,11 @@
 <!-- Site Title  -->
 <title><?php echo $settings->site_name; ?></title>
 <!-- Bundle and Base CSS -->
-<link rel="stylesheet" href="templates/assets/css/vendor.bundle.css">
+<link rel="stylesheet" href="templates/assets/css/bootstrap.css">
+<link rel="stylesheet" href="templates/assets/core/core.css">
 <link rel="stylesheet" href="templates/assets/css/style.css">
 <!-- Extra CSS -->
-<link rel="stylesheet" href="templates/assets/css/theme.css">
+
 </head>
 <body class="nk-body body-wider mode-onepage">
 

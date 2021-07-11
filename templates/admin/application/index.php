@@ -5,7 +5,7 @@
     <div class="row">
    <?php
         foreach ($app as $key => $value) { ?>
-            <div class="col-3">
+            <div class="col-3 pb-4">
                 <div class="card">
                     <div class="card-body">
                         <?php echo $value["name"];?>

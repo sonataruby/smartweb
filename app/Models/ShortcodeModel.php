@@ -1,7 +1,6 @@
 <?php
 namespace App\Models;
 use App\Models\BaseModel;
-use App\Libraries\Users;
 //==================================================
 // Smart Blockchain 
 // Builder : v1.22.17
@@ -9,10 +8,10 @@ use App\Libraries\Users;
 // Author : VO VAN KHOA
 // Website : https://expressiq.co
 //==================================================
-class Users_walletModel extends BaseModel
+class ShortcodeModel extends BaseModel
 {
     // ...
-    protected $table      = 'users_wallet';
+    protected $table      = 'shortcode';
     protected $primaryKey = 'id';
 
     protected $useAutoIncrement = true;
@@ -20,7 +19,7 @@ class Users_walletModel extends BaseModel
     protected $returnType     = 'object';
     protected $useSoftDeletes = false;
 
-    protected $allowedFields = ["user_id","wallet_address","wallet_network","created_at"];
+    protected $allowedFields = ["keyword","replace_data","format"];
 
     protected $useTimestamps = false;
     protected $createdField  = 'created_at';
@@ -119,7 +118,7 @@ class Users_walletModel extends BaseModel
     
     public function getTotals()
     {
-        $query = new Users_walletModel;
+        $query = new ShortcodeModel;
         if($this->system_where){
             $query->where($this->system_where);
         }
@@ -176,15 +175,6 @@ class Users_walletModel extends BaseModel
             session()->setFlashdata("errors",lang("globals.delete_error"));
             return $id;
         }
-    }
-
-
-
-
-    public function checkWallet(){
-        $login = new Users();
-        $user = $login->getSession();
-        return $this->where("user_id",$user->user_id)->findAll();
     }
 
 }

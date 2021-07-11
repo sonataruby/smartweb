@@ -1,12 +1,10 @@
 <?php
-return [
-"modules" => "Posts",
-	"title" => "title",
-	"create" => "Posts Manager",
-	"description" => "description",
-	"contents" => "contents",
-	"keyword" => "keyword",
-	"image" => "image",
-	"tags" => "tags"
+ return [
+"modules" => "News",
+"title" => "title",
+"create" => "Posts Manager",
+"contents" => "contents",
+"image" => "image",
+"tags" => "tags"
 ];
 ?>

@@ -109,6 +109,31 @@ class Settings extends AdminController
 		$data->generate("*");
 	}
 
+
+	public function language(){
+		$file = glob(APPPATH . "Language/en/*.php");
+		$this->data["file"] = $file;
+		if(file_exists(APPPATH . "Language/en/".$_GET['file'])){
+			$getInfo = require APPPATH . "Language/en/".$_GET['file'];
+			$this->data["langmode"] = $getInfo;
+		}
+		
+		if($this->request->getVar("lang")){
+			$arv = [];
+			
+			
+			foreach ($this->request->getVar("lang") as $key => $value) {
+				$arv[] = '"'.$key.'" => "'.$value.'"';
+			}
+			
+
+			file_put_contents(APPPATH . "Language/en/".$_GET['file'],'<?php'."\n return [\n".implode($arv, ",\n")."\n];\n".'?>');
+			session()->setFlashdata("confirm",lang("globals.update_confirm"));
+			return redirect()->to("/admin/settings/language?file=".$_GET['file']);
+		}
+		
+	}
+
 	
 }
 ?>

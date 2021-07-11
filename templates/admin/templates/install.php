@@ -9,8 +9,8 @@
         <div class="col-6">
             <h3>Install Template Confirm</h3>
             <p>All Template form smart blockchain database</p>
-            <a href="<?php echo $install_url;?>?cleardata=true" class="btn btn-xxl btn-primary">Install & Clear Data</a>
-            <a href="<?php echo $install_url;?>?cleardata=false" class="btn btn-xxl btn-outline-primary">Install & No Data</a>
+            <a href="<?php echo $install_url;?>?validate=true&cleardata=true" class="btn btn-xxl btn-primary">Install & Clear Data</a>
+            <a href="<?php echo $install_url;?>?validate=true&cleardata=false" class="btn btn-xxl btn-outline-primary">Install & No Data</a>
         </div>
     </div>
 

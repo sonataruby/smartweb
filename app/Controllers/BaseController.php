@@ -128,7 +128,7 @@ class BaseController extends Controller
             //print_r($this->layout);
             $this->data['layout'] = (empty($this->layout)) ? 'layout/application' : $this->layout;
             $this->data['body'] = (!empty($this->view)) ? $this->view : strtolower($view_folder . '/' . $router->methodName());
-            return $this->minify_HTML(view($this->data['body'], $this->data));
+            return $this->minify_HTML($this->replaceShortcode(view($this->data['body'], $this->data)));
         }
 
         return $redirect;
@@ -152,6 +152,20 @@ class BaseController extends Controller
         //$arv->is_home = $this->is_home;
 
         return $arv;
+    }
+
+
+    public function replaceShortcode($html){
+        $db = \Config\Database::connect();
+        $query = $db->query("SELECT * FROM shortcode ORDER BY id ASC")->getResult();
+        $find = [];
+        $replace = [];
+        foreach ($query as $key => $value) {
+            $find[] = '['.$value->keyword.']';
+            $replace[] = $value->replace_data;
+
+        }
+        return str_replace($find,$replace,$html);
     }
 
     public function setSEO($arv=[]){

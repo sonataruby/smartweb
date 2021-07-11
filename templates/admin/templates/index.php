@@ -4,7 +4,29 @@
     <h1>Templates</h1>
     <div class="row">
    <?php
+
         foreach ($app as $key => $value) { ?>
+            <div class="col-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <?php echo ucfirst($value->name);?>
+                    </div>
+                    <div class="card-footer">
+                        <a href="/admin/templates/download/<?php echo $value->name;?>" class="btn btn-sm btn-primary">Download & Install</a>
+                    </div>
+                </div>
+            </div>
+        <?php }
+   ?>
+   </div>
+
+
+
+   <h1>Templates Local</h1>
+    <div class="row">
+   <?php
+
+        foreach ($local as $key => $value) { ?>
             <div class="col-4 mb-4">
                 <div class="card">
                     <div class="card-body">
@@ -18,4 +40,5 @@
         <?php }
    ?>
    </div>
+
 <?php echo $this->endSection() ?>

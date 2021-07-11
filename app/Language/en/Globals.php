@@ -11,5 +11,6 @@ return [
 	"update_confirm" => "Update ok",
 	"update_errors" => "Update Error",
 	"insert_confirm"	=>	"Insert ok",
-	"insert_error"		=>	"Insert Error"
+	"insert_error"		=>	"Insert Error",
+	"language"			=> "Language"
 ];
