@@ -82,7 +82,7 @@ class Menu extends AdminController
 		$this->data["item"] = $this->model->getItem($id);
 		$loadblock = $this->request->getVar("load");
 		if($loadblock){
-			$dataDefault = json_decode(file_get_contents(FCPATH."data/import.json"));
+			$dataDefault = json_decode(file_get_contents(FCPATH."templates/import.json"));
 			if(isset($dataDefault->{$loadblock})){
 				$this->data["item"]->layout = $dataDefault->{$loadblock};
 			}
@@ -97,7 +97,7 @@ class Menu extends AdminController
 
 
 	public function syncdefault(){
-		$dataDefault = json_decode(file_get_contents(FCPATH."data/import.json"));
+		$dataDefault = json_decode(file_get_contents(FCPATH."templates/import.json"));
 		$this->model->truncate();
 		$i = 1;
 		foreach($dataDefault as $k => $v){
