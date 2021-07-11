@@ -37,13 +37,13 @@ class Templates extends AdminController
 
 	public function install($theme=""){
 		if($this->request->getVar("validate") == "true"){
-			$root = FCPATH . "templates/themes/".$sname;
+			
 			$backup = FCPATH . "templates/themes/backup";
 			$attach = FCPATH . "templates";
-			$getdata = file_get_contents($root."/install.json");
+			$getdata = file_get_contents(FCPATH . "templates/themes/".$theme."/install.json");
 			$extract = json_decode($getdata);
 			$sname = $extract->name;
-			
+			$root = FCPATH . "templates/themes/".$sname;
 			$img = FCPATH . "/templates/themes/backup/assets/images";
 			$css = FCPATH . "/templates/themes/backup/assets/css";
 			$js = FCPATH . "/templates/themes/backup/assets/js";
