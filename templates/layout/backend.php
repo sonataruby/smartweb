@@ -11,7 +11,7 @@
 <!-- Site Title  -->
 <title>Token Program</title>
 <!-- Bundle and Base CSS -->
-<link rel="stylesheet" href="templates/assets/css/style.css">
+
 <link rel="stylesheet" href="templates/assets/css/bootstrap.css">
 
 <link rel="stylesheet" href="templates/assets/theme.css">
