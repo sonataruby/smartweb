@@ -9,8 +9,15 @@ class Templates extends AdminController
 
 		$getdata = file_get_contents($this->server."?domain=".base_url());
 		
-		$this->data["app"]  = json_decode($getdata);
+		$app  = json_decode($getdata);
 		$this->data["local"]  = $this->getTemplateItems();
+		$arvApp = [];
+		foreach ($app as $key => $value) {
+			if(!in_array($value->name,$this->data["local"])){
+				$arvApp[] = $value;
+			}
+		}
+		$this->data["app"] = $arvApp;
 	}
 
 	public function getTemplateItems(){
@@ -19,9 +26,9 @@ class Templates extends AdminController
 		$path = directory_map(FCPATH . "templates/themes", TRUE, FALSE);
 		$arv = [];
 		foreach ($path as $key => $value) {
-			//if(is_dir(FCPATH . "templates/".$value)){
-				$arv[] = $value;
-			//}
+			if(file_exists(FCPATH . "templates/themes/".$value."/info.json")){
+				$arv[] = str_replace('/','',$value);
+			}
 		}
 		
 		return $arv;
@@ -52,6 +59,8 @@ class Templates extends AdminController
 			}
 		}
 		$this->data["install_url"] = "admin/templates/install/".$theme;
+		$this->data["info"] = json_decode(file_get_contents(FCPATH . "templates/themes/".$theme."/info.json"));
+
 	}
 
 	public function download($name){

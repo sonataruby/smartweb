@@ -4,11 +4,12 @@
     <h1>Templates</h1>
     <div class="row">
    <?php
-
+        
         foreach ($app as $key => $value) { ?>
             <div class="col-4 mb-4">
                 <div class="card">
                     <div class="card-body">
+                        <img src="<?php echo $value->thumb;?>">
                         <?php echo ucfirst($value->name);?>
                     </div>
                     <div class="card-footer">
@@ -30,9 +31,10 @@
             <div class="col-4 mb-4">
                 <div class="card">
                     <div class="card-body">
+                        <img src="templates/themes/<?php echo $value;?>/thumb.jpg">
                         <?php echo $value;?>
                     </div>
-                    <div class="card-footer">
+                    <div class="border-top pt-3">
                         <a href="/admin/templates/install/<?php echo $value;?>" class="btn btn-sm btn-primary">Install</a>
                     </div>
                 </div>
