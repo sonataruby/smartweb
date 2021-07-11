@@ -53,6 +53,21 @@ class Templates extends AdminController
 			if(!is_dir($css)) mkdir($css,0777,true);
 			if(!is_dir($js)) mkdir($js,0777,true);
 			if(!is_dir($layout)) mkdir($layout,0777,true);
+			//**Clear Image
+			$old_img = glob(FCPATH . "templates/assets/images/*");
+			foreach ($old_img as $key => $value) {
+				@unlink($value);
+			}
+			//**Clear js
+			$old_img = glob(FCPATH . "templates/assets/js/*");
+			foreach ($old_img as $key => $value) {
+				@unlink($value);
+			}
+			//**Clear css
+			$old_img = glob(FCPATH . "templates/assets/css/*");
+			foreach ($old_img as $key => $value) {
+				@unlink($value);
+			}
 
 			foreach ($extract->file as $key => $value) {
 				copy($root."/".$value, $attach."/".$value);
