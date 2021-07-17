@@ -21,7 +21,7 @@
 <link rel="stylesheet" href="templates/assets/core/datepicker.css"/>
 <script src="https://unpkg.com/feather-icons"></script>
 <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-<script src="templates/assets/js/jquery.upload.js"></script>
+<script src="templates/assets/core/jquery.upload.js"></script>
 <link rel="stylesheet" href="templates/assets/core/trumbowyg/ui/trumbowyg.css"/>
 <script type='text/javascript' src='templates/assets/core/trumbowyg/trumbowyg.js'></script>
 
