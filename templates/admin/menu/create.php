@@ -87,10 +87,6 @@
     </div>
 </div>
 
-<h3><?php echo lang('menu.layout');?> <a href="/admin/menu/create/<?php echo $item->id;?>?load=<?php echo str_replace('#', '', $item->router);?>" class="btn btn-sm btn-info">Load Default</a></h3>
-<textarea type="text" class="form-control" id="textlayout" name="post[layout]"><?php echo esc($item->layout);?></textarea>
-
-
 
 <div class="form-group row border-top pt-3">
     <div class="col-sm-2">

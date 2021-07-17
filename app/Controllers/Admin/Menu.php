@@ -105,14 +105,17 @@ class Menu extends AdminController
 		$this->model->truncate();
 		$i = 1;
 		foreach($dataDefault as $k => $v){
-			$data = $this->model->where("router",'#'.$k)->first();
-			if($data->id > 0){
-				$this->model->updateRow($data->id,["main_short" => $i,"short" => $i,"layout" => $v,"oncepage" => "1","status" => "1","display" => "header"]);
-			}else{
-				$this->model->createRow(["name" => ucfirst($k),"main_short" => $i,"short" => $i,"router" => '#'.$k,"layout" => $v,"oncepage" => "1","status" => "1","display" => "header"]);
-			}
+			$this->model->createRow(["name" => ucfirst($k),"main_short" => $i,"short" => $i,"router" => '#'.$k,"layout" => $v,"oncepage" => "1","status" => "1","display" => "header"]);
 			$i++;
 		}
+		
+		$this->widget->truncate();
+		$i = 1;
+		foreach($dataDefault as $k => $v){
+			$this->widget->createRow(["name" => ucfirst($k),"short" => $i,"keyword" => '#'.$k,"contents" => $v,"display" => (trim($k) == "footer" ? "footer" : ($k == "banner" ? "banner" : "main"))]);
+			$i++;
+		}
+
 		return redirect()->to($this->link);
 	}
 
