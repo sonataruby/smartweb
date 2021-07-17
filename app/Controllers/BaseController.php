@@ -155,7 +155,12 @@ class BaseController extends Controller
             //print_r($this->layout);
             $this->data['layout'] = (empty($this->layout)) ? 'layout/application' : $this->layout;
             $this->data['body'] = (!empty($this->view)) ? $this->view : strtolower($view_folder . '/' . $router->methodName());
-            return $this->minify_HTML($this->replaceShortcode(view($this->data['body'], $this->data)));
+
+            if(getenv("minify_html") == "yes"){
+                return $this->minify_HTML($this->replaceShortcode(view($this->data['body'], $this->data)));
+            }else{
+                return $this->replaceShortcode(view($this->data['body'], $this->data));
+            }
         }
 
         return $redirect;
