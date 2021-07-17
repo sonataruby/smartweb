@@ -84,6 +84,10 @@ class Upload extends AdminController
             	}
             }else{
             	$path = "templates/assets/images";
+                if(is_dir(FCPATH . "templates/themes/".getenv("templates")."/assets/images")){
+                    $path = "templates/themes/".getenv("templates")."/assets/images";
+                   
+                }
 
             }
 
