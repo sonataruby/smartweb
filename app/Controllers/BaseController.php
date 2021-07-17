@@ -171,8 +171,14 @@ class BaseController extends Controller
         if(is_dir(FCPATH . "templates/themes/".$env)){
             if($this->data["settings"]->site_logo == ""){
                 $this->data["settings"]->site_logo = "/templates/themes/".$env."/assets/images/logo.png";
-                $this->data["settings"]->site_logo_srcset = "/templates/themes/".$env."/assets/images/logo-full-white.png";
+                $this->data["settings"]->site_logo_srcset = "/templates/themes/".$env."/assets/images/logo.png";
+                
             }
+            if($this->data["settings"]->site_logo_2 == ""){
+                $this->data["settings"]->site_logo_2 = "/templates/themes/".$env."/assets/images/logo-full-white.png";
+                $this->data["settings"]->site_logo_2_srcset = "/templates/themes/".$env."/assets/images/logo-full-white.png";
+            }
+            
             return 'themes/'.$env.'/layout/application';
         }
         return 'layout/application';
