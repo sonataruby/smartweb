@@ -72,7 +72,7 @@ class Upload extends AdminController
        $data = [];
         
 
-        if ($validated) {
+       
 
             $avatar = $this->request->getFile('file');
             $name = basename($this->request->getVar("name"));
@@ -117,7 +117,7 @@ class Upload extends AdminController
 
           ];
        
-        }
+        
 
         echo json_encode($data);
 
