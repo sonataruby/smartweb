@@ -164,7 +164,7 @@ class BaseController extends Controller
     public function getTemplates(){
         $env = getenv("templates");
         if(is_dir(FCPATH . "templates/themes/".$env)){
-            return 'layout/'.$env.'/application';
+            return 'themes/'.$env.'/application';
         }
         return 'layout/application';
     }
