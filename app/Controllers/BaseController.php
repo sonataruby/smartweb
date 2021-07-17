@@ -171,7 +171,7 @@ class BaseController extends Controller
         if(is_dir(FCPATH . "templates/themes/".$env)){
             if($this->data["settings"]->site_logo == ""){
                 $this->data["settings"]->site_logo = "/templates/themes/".$env."/assets/images/logo.png";
-                $this->data["settings"]->site_logo_srcset = "/templates/themes/".$env."/assets/images/logo.png";
+                $this->data["settings"]->site_logo_srcset = "/templates/themes/".$env."/assets/images/logo-full-white.png";
             }
             return 'themes/'.$env.'/layout/application';
         }
