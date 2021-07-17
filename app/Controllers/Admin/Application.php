@@ -3,7 +3,11 @@ namespace App\Controllers\Admin;
 //use App\Controllers\Admin\AdminController
 class Application extends AdminController
 {
+	private $server = "https://expressiq.co/service/templates";
 	public function index(){
+		$getdata = file_get_contents($this->server."?domain=".base_url());
+		$app  = json_decode($getdata);
+		$this->data["appservice"] = $app;
 		$appModel = $this->getAppItems();
 	}
 

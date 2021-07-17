@@ -88,7 +88,7 @@ class BaseController extends Controller
         if(!is_cli()){
             $locale = $_GET['language'] ? $_GET['language'] : "en";
             
-            if(!$this->session->has('lang') || ($locale != $this->session->get("lang") && $_GET['language'] != "")) {
+            if($_GET['language'] != "") {
                 $this->session->set('lang',$locale);
                 echo '<script>window.location="'.previous_url().'";</script>';
                 exit();
