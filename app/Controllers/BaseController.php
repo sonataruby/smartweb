@@ -169,6 +169,10 @@ class BaseController extends Controller
     public function getTemplates(){
         $env = getenv("templates");
         if(is_dir(FCPATH . "templates/themes/".$env)){
+            if($this->data["settings"]->site_logo == ""){
+                $this->data["settings"]->site_logo = "/templates/themes/".$env."/assets/images/logo.png";
+                $this->data["settings"]->site_logo_2x = "/templates/themes/".$env."/assets/images/logo2x.png";
+            }
             return 'themes/'.$env.'/layout/application';
         }
         return 'layout/application';
