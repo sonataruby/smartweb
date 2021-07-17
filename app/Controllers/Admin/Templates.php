@@ -37,41 +37,7 @@ class Templates extends AdminController
 
 	public function install($theme=""){
 		if($this->request->getVar("validate") == "true"){
-			
-			$backup = FCPATH . "templates/themes/backup";
-			$attach = FCPATH . "templates";
-			$getdata = file_get_contents(FCPATH . "templates/themes/".$theme."/install.json");
-			$extract = json_decode($getdata);
-			$sname = $extract->name;
-			$root = FCPATH . "templates/themes/".$sname;
-			$img = FCPATH . "/templates/themes/backup/assets/images";
-			$css = FCPATH . "/templates/themes/backup/assets/css";
-			$js = FCPATH . "/templates/themes/backup/assets/js";
-			$layout = FCPATH . "/templates/themes/backup/layout";
-			if(!is_dir($backup)) mkdir($backup,0777,true);
-			if(!is_dir($img)) mkdir($img,0777,true);
-			if(!is_dir($css)) mkdir($css,0777,true);
-			if(!is_dir($js)) mkdir($js,0777,true);
-			if(!is_dir($layout)) mkdir($layout,0777,true);
-			//**Clear Image
-			$old_img = glob(FCPATH . "templates/assets/images/*");
-			foreach ($old_img as $key => $value) {
-				@unlink($value);
-			}
-			//**Clear js
-			$old_img = glob(FCPATH . "templates/assets/js/*");
-			foreach ($old_img as $key => $value) {
-				@unlink($value);
-			}
-			//**Clear css
-			$old_img = glob(FCPATH . "templates/assets/css/*");
-			foreach ($old_img as $key => $value) {
-				@unlink($value);
-			}
-
-			foreach ($extract->file as $key => $value) {
-				copy($root."/".$value, $attach."/".$value);
-			}
+			putenv('templates='.$theme);
 		}
 		$this->data["install_url"] = "admin/templates/install/".$theme;
 		$this->data["info"] = json_decode(file_get_contents(FCPATH . "templates/themes/".$theme."/info.json"));

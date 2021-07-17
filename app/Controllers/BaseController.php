@@ -128,9 +128,7 @@ class BaseController extends Controller
        
 
         $this->data["supportlangauge"] = array_merge($this->data["supportlangauge"],$langsupport);
-        if(file_exists(FCPATH.$this->getTemplates($this->layout))){
-            $this->layout = $this->getTemplates($this->layout);
-        }
+        $this->layout = $this->getTemplates();
 
 	}
 	public function _remap($method = null)
@@ -163,8 +161,12 @@ class BaseController extends Controller
         return $redirect;
     }
 
-    public function getTemplates($src){
-        return getenv("templates");
+    public function getTemplates(){
+        $env = getenv("templates");
+        if(is_dir(FCPATH . "templates/themes/".$env)){
+            return 'layout/'.$env.'/application';
+        }
+        return 'layout/application';
     }
 
     public function setIsHome(){
