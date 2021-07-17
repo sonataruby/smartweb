@@ -89,7 +89,11 @@ class Windget extends AdminController
 	}
 
 	public function syncdefault(){
-		$dataDefault = json_decode(file_get_contents(FCPATH."data/import.json"));
+		$file = FCPATH."templates/import.json";
+		if(file_exists(FCPATH."templates/themes/".getenv("templates")."/import.json")){
+			$file = FCPATH."templates/themes/".getenv("templates")."/import.json";
+		}
+		$dataDefault = json_decode(file_get_contents($file));
 		$this->model->truncate();
 		$i = 1;
 		foreach($dataDefault as $k => $v){
