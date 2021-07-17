@@ -58,13 +58,38 @@ class AdminController extends Controller
         //--------------------------------------------------------------------
         $this->data['confirm'] = $this->session->getFlashdata('confirm');
         $this->data['errors'] = $this->session->getFlashdata('errors');
-        $locale = $_GET['language'] ? $_GET['language'] : "en";
-        
-        if(!$this->session->has('lang') || ($locale != $this->session->get("lang") && $_GET['language'] != "")) {
-            $this->session->set('lang',$locale);
-            echo '<script>window.location="'.previous_url().'";</script>';
-            exit();
+        $agent = $this->request->getUserAgent();
 
+        if ($agent->isBrowser())
+        {
+                $this->agent = $agent->getBrowser().' '.$agent->getVersion();
+        }
+        elseif ($agent->isRobot())
+        {
+                $this->agent = $this->agent->robot();
+        }
+        elseif ($agent->isMobile())
+        {
+                $this->agent = $agent->getMobile();
+        }
+        else
+        {
+                $this->agent = 'Unidentified User Agent';
+        }
+
+        $this->session = \Config\Services::session();
+        if(!is_cli()){
+            $locale = $_GET['language'] ? $_GET['language'] : "en";
+            
+            if(!$this->session->has('lang') || ($locale != $this->session->get("lang") && $_GET['language'] != "")) {
+                $this->session->set('lang',$locale);
+                echo '<script>window.location="'.previous_url().'";</script>';
+                exit();
+
+            }
+        }
+        if(is_cli()){
+            $locale = "en";
         }
         $this->data['language'] = $this->session->get("lang");
         $this->data["supportlangauge"] = ["en" => "EN"];

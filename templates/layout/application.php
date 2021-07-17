@@ -30,7 +30,7 @@
 
 
 <!-- Bundle and Base CSS -->
-<link rel="stylesheet" href="templates/assets/css/bootstrap.css">
+<link rel="stylesheet" href="templates/assets/core/bootstrap.css">
 <link rel="stylesheet" href="templates/assets/css/style.css">
 <!-- Extra CSS -->
 <link rel="stylesheet" href="templates/assets/css/theme.css">
@@ -53,7 +53,7 @@
   <div class="preloader"><span class="spinner spinner-round"></span></div>
   
   <!-- JavaScript -->
-  <script src="templates/assets/js/jquery.js"></script>
+  <script src="templates/assets/core/jquery.js"></script>
   <script src="templates/assets/js/scripts.js"></script>
   <script src="templates/assets/js/charts.js"></script>
 </body>

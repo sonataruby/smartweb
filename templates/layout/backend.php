@@ -12,17 +12,19 @@
 <title>Token Program</title>
 <!-- Bundle and Base CSS -->
 
-<link rel="stylesheet" href="templates/assets/css/bootstrap.css">
+<link rel="stylesheet" href="templates/assets/core/bootstrap.css">
 
 <link rel="stylesheet" href="templates/assets/theme.css">
 
 <script src="templates/assets/core/apps.js"></script>
-
+<script src="templates/assets/core/bootstrap-datepicker.js"></script>
+<link rel="stylesheet" href="templates/assets/core/datepicker.css"/>
 <script src="https://unpkg.com/feather-icons"></script>
 <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
 <script src="templates/assets/js/jquery.upload.js"></script>
 <link rel="stylesheet" href="templates/assets/core/trumbowyg/ui/trumbowyg.css"/>
 <script type='text/javascript' src='templates/assets/core/trumbowyg/trumbowyg.js'></script>
+
 <?php 
 $file = glob ( FCPATH . "templates/assets/core/trumbowyg/plugins/*/trumbowyg.*.js");
 foreach ($file as $key => $value) { 
@@ -37,7 +39,7 @@ foreach ($file as $key => $value) {
 </head>
 <body>
 <header class="navbar navbar-expand-md navbar-dark bd-navbar">
-  <nav class="container-xxl flex-wrap flex-md-nowrap" aria-label="Main navigation">
+  <nav class="container-xl flex-wrap flex-md-nowrap" aria-label="Main navigation">
     <a class="navbar-brand p-0 me-2" href="/" aria-label="Bootstrap">
       AD
     </a>

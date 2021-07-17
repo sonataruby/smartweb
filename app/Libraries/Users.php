@@ -114,12 +114,16 @@ class Users extends Model{
     }
 
 
+    public function getAccountID(){
+        $id = $this->getSession()->account_id;
+        return $id > 0 ? $id : 0;
+    }
     public function getSession(){
         
         return (object)$this->session->get("userlogin");
     }
 
-    private function hasLogin(){
+    public function hasLogin(){
         if($this->session->has("userlogin")) return true;
         return false;
     }

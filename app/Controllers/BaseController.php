@@ -8,6 +8,7 @@ use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
+use App\Libraries\Users;
 
 /**
  * Class BaseController
@@ -44,6 +45,7 @@ class BaseController extends Controller
     protected $json_config;
     protected $settings;
     public $is_home = false;
+    protected $agent;
 	/**
 	 * Constructor.
 	 *
@@ -60,14 +62,41 @@ class BaseController extends Controller
 		// Preload any models, libraries, etc, here.
 		//--------------------------------------------------------------------
 		// E.g.: $this->session = \Config\Services::session();
-		$this->session = \Config\Services::session();
-        $locale = $_GET['language'] ? $_GET['language'] : "en";
-        
-        if(!$this->session->has('lang') || ($locale != $this->session->get("lang") && $_GET['language'] != "")) {
-            $this->session->set('lang',$locale);
-            echo '<script>window.location="'.previous_url().'";</script>';
-            exit();
+        $agent = $this->request->getUserAgent();
 
+        if ($agent->isBrowser())
+        {
+                $this->agent = $agent->getBrowser().' '.$agent->getVersion();
+        }
+        elseif ($agent->isRobot())
+        {
+                $this->agent = $this->agent->robot();
+        }
+        elseif ($agent->isMobile())
+        {
+                $this->agent = $agent->getMobile();
+        }
+        else
+        {
+                $this->agent = 'Unidentified User Agent';
+        }
+
+		$this->session = \Config\Services::session();
+        $this->user = new Users();
+        $this->data["users"] = $this->user->getSession();
+        $this->data["is_login"] = ($this->data["users"]->user_id > 0 ? "yes" : "no");
+        if(!is_cli()){
+            $locale = $_GET['language'] ? $_GET['language'] : "en";
+            
+            if(!$this->session->has('lang') || ($locale != $this->session->get("lang") && $_GET['language'] != "")) {
+                $this->session->set('lang',$locale);
+                echo '<script>window.location="'.previous_url().'";</script>';
+                exit();
+
+            }
+        }
+        if(is_cli()){
+            $locale = "en";
         }
         $this->data['language'] = $this->session->get("lang");
         $this->data["supportlangauge"] = ["en" => "EN"];
