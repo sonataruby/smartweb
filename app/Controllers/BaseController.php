@@ -178,7 +178,10 @@ class BaseController extends Controller
                 $this->data["settings"]->site_logo_2 = "/templates/themes/".$env."/assets/images/logo-full-white.png";
                 $this->data["settings"]->site_logo_2_srcset = "/templates/themes/".$env."/assets/images/logo-full-white.png";
             }
-            
+            if($this->data["settings"]->site_banner == ""){
+                $this->data["settings"]->site_banner = "/templates/themes/".$env."/assets/images/banner.png";
+            }
+
             return 'themes/'.$env.'/layout/application';
         }
         return 'layout/application';
