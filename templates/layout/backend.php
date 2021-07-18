@@ -106,7 +106,7 @@ foreach ($file as $key => $value) {
 
 <nav class="bd-subnavbar py-2" aria-label="Secondary navigation">
   
-  <div class="container-xxl d-flex align-items-md-center">
+  <div class="container d-flex align-items-md-center">
     
 
     <?php echo form_open("",["method" => "get","class" => "bd-search position-relative me-auto"]);?>
@@ -134,7 +134,7 @@ foreach ($file as $key => $value) {
   </div>
   <?php if($breadcrumbs){ ?>
   <div class="border-top">
-    <div class="container-xxl">
+    <div class="container">
       <?php echo $breadcrumbs;?>
     </div>
   </div>
@@ -142,7 +142,7 @@ foreach ($file as $key => $value) {
 </nav>
 
 <?php if($confirm){ ?>
-<div class="container-xxl alert alert-success d-flex align-items-center" role="alert">
+<div class="container alert alert-success d-flex align-items-center" role="alert">
   <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
   <div>
     <?php echo $confirm;?>
@@ -152,7 +152,7 @@ foreach ($file as $key => $value) {
 
 
 <?php if($errors){ ?>
-<div class="container-xxl alert alert-danger d-flex align-items-center" role="alert">
+<div class="container alert alert-danger d-flex align-items-center" role="alert">
   <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
   <div>
     <?php echo $errors;?>
@@ -160,7 +160,7 @@ foreach ($file as $key => $value) {
 </div>
 <?php } ?>
 
-<div class="container-xxl my-md-4 bd-layout">
+<div class="container my-md-4 bd-layout">
   <aside class="bd-sidebar"></aside>
   <main class="bd-main order-1">
     <?php echo $this->renderSection('body') ?>

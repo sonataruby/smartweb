@@ -46,6 +46,10 @@ class BaseController extends Controller
     protected $settings;
     public $is_home = false;
     protected $agent;
+    protected $javascript = [];
+    protected $javascriptEx = [];
+    protected $stylesheet = [];
+    protected $stylesheetEx = [];
 	/**
 	 * Constructor.
 	 *
@@ -106,10 +110,12 @@ class BaseController extends Controller
         //--------------------------------------------------------------------
         $this->data['confirm'] = $this->session->getFlashdata('confirm');
         $this->data['errors'] = $this->session->getFlashdata('errors');
-        
-        
+
+       
+
         // Arguments to be used in the callback remap
         $segments = $request->uri->getSegments();
+
         $this->arguments = array_slice($segments, 2);
 
         if($segments[0] != "install") {
@@ -150,6 +156,8 @@ class BaseController extends Controller
         }
         
         $this->data["is_home"] = $this->is_home;
+        $this->data["javascript"] = $this->getJavascript();
+        $this->data["stylesheet"] = $this->getStylesheet();
 
         if ($this->view !== false) {
             //print_r($this->layout);
@@ -266,4 +274,75 @@ class BaseController extends Controller
         $html = str_replace("\n","",preg_replace($search,$replace,$html));
         return $html;
     }
+
+
+    /*
+    Access Member
+    */
+
+    public function setAccess($type=""){
+
+    }
+
+
+    public function getJavascript(){
+
+        return $this->javascript;
+    }
+    
+
+    public function getStylesheet(){
+        if($this->is_home == false){
+            $cssChild = str_replace('layout/application','assets/css/child.css',$this->layout);
+            
+            if(file_exists(FCPATH . "templates/". $cssChild)){
+                $this->stylesheet[] = $cssChild;
+            }
+        }
+        return $this->stylesheet;
+    }
+    public function getStylesheetEx(){
+        return $this->stylesheetEx;
+    }
+    
+    /*
+    Load JS
+    */
+
+    public function jsLoad($file=[]){
+
+        $js = [];
+        if(!is_array($file)){
+            $js[md5($file)] = $file;
+        }else if(is_array($file)){
+            foreach ($file as $key => $value) {
+                $js[md5($value)] = $value;
+            }
+        }
+
+        $this->javascript = array_merge($this->javascript,$js);
+        return $this;
+    }
+
+   
+    /*
+    Load CSS
+    */
+
+    public function cssLoad($file=[]){
+        $css = [];
+
+        if(!is_array($file)){
+            $css[md5($file)] = $file;
+        }else if(is_array($file)){
+            foreach ($file as $key => $value) {
+                $css[md5($value)] = $value;
+            }
+        }
+
+        $this->stylesheet = array_merge($this->stylesheet,$css);
+        return $this;
+    }
+
+    
 }

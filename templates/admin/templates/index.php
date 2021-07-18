@@ -31,7 +31,7 @@
             <div class="col-4 mb-4">
                 <div class="card">
                     <div class="card-body">
-                        <img src="templates/themes/<?php echo $value;?>/thumb.jpg">
+                        <img src="templates/themes/<?php echo $value;?>/thumb.jpg" style="width: 100%;">
                         <?php echo $value;?>
                     </div>
                     <div class="border-top pt-3">

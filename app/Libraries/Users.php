@@ -204,7 +204,7 @@ class Users extends Model{
         return $this->where("slug",$slug)->first();
     }
 
-
+    
     //generate uniqe username
     public function generate_uniqe_username($username)
     {
