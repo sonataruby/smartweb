@@ -66,7 +66,7 @@ class AdminController extends Controller
         }
         elseif ($agent->isRobot())
         {
-                $this->agent = $this->agent->robot();
+                $this->agent = $this->agent->getRobot();
         }
         elseif ($agent->isMobile())
         {
