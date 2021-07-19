@@ -28,10 +28,39 @@
 <!-- Site Title  -->
 <title><?php echo $settings->site_name; ?></title>
 <!-- Bundle and Base CSS -->
-<link rel="stylesheet" href="templates/assets/css/vendor.bundle.css">
+
+<link rel="stylesheet" href="templates/assets/core/bootstrap.css">
 <link rel="stylesheet" href="templates/assets/css/style.css">
 <!-- Extra CSS -->
 <link rel="stylesheet" href="templates/assets/css/theme.css">
+<?php 
+  if(is_array($stylesheet) && $stylesheet){
+  foreach ($stylesheet as $key => $value) { ?>
+    <link rel="stylesheet" href="templates/<?php echo $value;?>" type="text/css">
+  <?php 
+    }
+  } 
+?>
+<?php 
+  if(is_array($stylesheetEx) && $stylesheetEx){
+  ?>
+  <style type="text/css">
+  <?php foreach ($stylesheetEx as $key => $value) { ?>
+    <?php echo $value;?>
+  <?php } ?>
+  </style>
+<?php } ?>
+<style type="text/css">
+    .header-main{
+        background-color: #5d46e8;
+        margin-bottom: 20px;
+    }
+    .nk-footer{
+        padding-top: 30px;
+        padding-bottom: 30px;
+        background-color: #f2f2f2;
+    }
+</style>
 </head>
 <body class="nk-body body-wider mode-onepage">
 
@@ -46,10 +75,17 @@
                 <li><a href="#" data-toggle="modal" data-target="#register-popup" class="btn btn-md btn-primary btn-outline"><span><?php echo $user->lastname;?> <?php echo $user->firstname;?></span></a></li>                                 </ul>                             </nav>                         </div><!-- .header-navbar @e -->                     </div>                                                                 </div>             </div><!-- .header-main @e -->      
               
     </header>
-    <main class="nk-pages" style="padding-top: 80px;">
+    <main class="nk-pages" style="padding-top: 120px;">
+      <?php if($breadcrumbs){ ?>
+      <div class="border-bottom mb-3">
+        <div class="container">
+          <?php echo $breadcrumbs;?>
+        </div>
+      </div>
+      <?php } ?>
       <div class="container">
         <div class="row">
-            <div class="col-3">
+            <div class="col-md-3 col-12">
                
                 <div>
                     <img src="<?php echo $user->user_avatar;?>" class="img-thumbnail" alt="...">
@@ -70,16 +106,9 @@
                   <li class="list-group-item">Finance Program</li>
                   
                 </ul>
-                <hr>
-                <ul class="list-group list-group-flush">
-                  <li class="list-group-item">Profile</li>
-                  <li class="list-group-item">Wallet</li>
-                  <li class="list-group-item">Member</li>
-                  <li class="list-group-item">Program</li>
-                  
-                </ul>
+                
             </div>
-            <div class="col-9">
+            <div class="col-md-9 col-12">
                 <?php echo $this->renderSection('body') ?>
             </div>
         </div>
@@ -106,7 +135,7 @@
   <div class="preloader"><span class="spinner spinner-round"></span></div>
   
   <!-- JavaScript -->
-  <script src="templates/assets/js/jquery.js"></script>
+  <script src="templates/assets/core/jquery.js"></script>
   <script src="templates/assets/js/scripts.js"></script>
   <script src="templates/assets/js/charts.js"></script>
 </body>

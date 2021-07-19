@@ -99,7 +99,7 @@ class Users extends Model{
 
     public function getToken(){
         $session = $this->getSession();
-        if(intval($session->account_id) < 1) return false;
+        if(intval($session->user_id) < 1) return false;
         $token = Jsontoken::encode($session,$this->device);
         return $token;
     }
@@ -115,7 +115,7 @@ class Users extends Model{
 
 
     public function getAccountID(){
-        $id = $this->getSession()->account_id;
+        $id = $this->getSession()->user_id;
         return $id > 0 ? $id : 0;
     }
     public function getSession(){

@@ -24,11 +24,12 @@
 <meta property="og:image:width" content="1000">
 <meta property="og:image:height" content="500">
 <!-- Fav Icon  -->
-<link rel="shortcut icon" href="templates/assets/images/favicon.png">
+<link rel="shortcut icon" href="favicon.png">
 <!-- Site Title  -->
 <title><?php echo $settings->site_name; ?></title>
 <!-- Bundle and Base CSS -->
-<link rel="stylesheet" href="templates/assets/css/vendor.bundle.css">
+<link rel="stylesheet" href="templates/assets/core/bootstrap.css">
+<link rel="stylesheet" href="templates/assets/core/core.css">
 <link rel="stylesheet" href="templates/assets/css/style.css">
 <!-- Extra CSS -->
 <link rel="stylesheet" href="templates/assets/css/theme.css">
@@ -45,7 +46,7 @@
   <div class="preloader"><span class="spinner spinner-round"></span></div>
   
   <!-- JavaScript -->
-  <script src="templates/assets/js/jquery.js"></script>
+  <script src="templates/assets/core/jquery.js"></script>
   <script src="templates/assets/js/scripts.js"></script>
   <script src="templates/assets/js/charts.js"></script>
 </body>
