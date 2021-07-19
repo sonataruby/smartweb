@@ -20,7 +20,7 @@ class Users_walletModel extends BaseModel
     protected $returnType     = 'object';
     protected $useSoftDeletes = false;
 
-    protected $allowedFields = ["user_id","wallet_address","wallet_network","created_at"];
+    protected $allowedFields = ["user_id","wallet_address","wallet_network","created_at","wallet_money","balance"];
 
     protected $useTimestamps = false;
     protected $createdField  = 'created_at';
@@ -30,7 +30,7 @@ class Users_walletModel extends BaseModel
     protected $validationRules    = [];
     protected $validationMessages = [];
     protected $skipValidation     = false;
-
+    protected $user;
     public $page = 1;
     public $per_page = 20;
     
@@ -44,6 +44,7 @@ class Users_walletModel extends BaseModel
         if($this->mutilanguage == true){
             $this->setLanguage();
         }
+        $this->user = new Users();
         parent::__construct();
     }
     public function getItems($where=[]){
@@ -78,7 +79,10 @@ class Users_walletModel extends BaseModel
         
     }
 
-    public function getItem($id=false,$where=[],$next=false){
+    public function getItem($id=false,$where=[],$next=false,$user_id=false){
+        if($user_id){
+            $where["user_id"] = $this->user->getAccountID();
+        }
 
         if($where){
             $this->where($where);
@@ -140,9 +144,16 @@ class Users_walletModel extends BaseModel
     }
 
 
-    public function createRow($data=[]){
+    public function createRow($data=[], $user_id=false){
         if($this->mutilanguage != false){
             $data["language"] = $this->mutilanguage;
+        }
+        if($user_id){
+            $data["user_id"] = $this->user->getAccountID();
+            if($data["user_id"] == 0){
+                 session()->setFlashdata("errors",lang("globals.update_error"));
+                return 0;
+            }
         }
 
         if($data && $this->insert($data)){
@@ -154,9 +165,17 @@ class Users_walletModel extends BaseModel
         }
     }
 
-    public function updateRow($id, $data=[]){
+    public function updateRow($id, $data=[], $user_id=false){
         if($this->mutilanguage != false){
             $this->where("language",$this->mutilanguage);
+        }
+        if($user_id){
+            $read = $this->getItem($id);
+            if($read->user_id != $this->user->getAccountID()){
+                 session()->setFlashdata("errors",lang("globals.update_error"));
+                return 0;
+            }
+            
         }
 
         if($data && $this->update($id,$data)){
@@ -168,7 +187,10 @@ class Users_walletModel extends BaseModel
         }
     }
 
-    public function removeRow($id){
+    public function removeRow($id, $user_id=false){
+        if($user_id==true){
+            $this->where(["user_id" => $this->user->getAccountID()]);
+        }
         if($this->delete($id)){
             session()->setFlashdata("confirm",lang("globals.delete_confirm"));
             return $id;
@@ -182,9 +204,34 @@ class Users_walletModel extends BaseModel
 
 
     public function checkWallet(){
-        $login = new Users();
-        $user = $login->getSession();
-        return $this->where("user_id",$user->user_id)->findAll();
+        
+        return $this->where("user_id",$this->user->getAccountID())->findAll();
     }
 
+    public function getBalance($service){
+        $data = $this->where(["user_id" => $this->user->getAccountID(),"wallet_network" => $service])->findAll();
+        $money = 0;
+        foreach ($data as $key => $value) {
+            $money += $value->balance;
+        }
+        return $money;
+    }
+
+
+    public function setBalance($service, $remove){
+        $data = $this->where(["user_id" => $this->user->getAccountID(),"wallet_network" => $service])->findAll();
+       
+        $miss = $remove;
+        foreach ($data as $key => $value) {
+            if($value->balance >= $remove && $miss > 0){
+                $aod = new Users_walletModel;
+                if($aod->update(["id" => $value->id,"user_id" => $value->user_id],["balance" => $value->balance - $remove])){
+                    $miss = 0;
+                    return true;
+                }
+            }
+        }
+        if($miss == 0) return true;
+        return false;
+    }
 }
