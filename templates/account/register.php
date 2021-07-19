@@ -1,0 +1,49 @@
+<?php echo $this->extend($layout); ?>
+
+<?php echo $this->section('body') ?>
+    
+    
+    <div class="ath-container">
+        
+        <div class="ath-body">
+            <h5 class="ath-heading title">Sign Up <small class="tc-default">Create New <?php echo $settings->site_name;?> Account</small></h5>
+            <?php echo form_open();?>
+                <div class="field-item">
+                    <div class="field-wrap">
+                        <input type="text" name="fullname" class="input-bordered" placeholder="Your Name">
+                    </div>
+                </div>
+                <div class="field-item">
+                    <div class="field-wrap">
+                        <input type="email" name="email" class="input-bordered" placeholder="Your Email">
+                    </div>
+                </div>
+                <div class="field-item">
+                    <div class="field-wrap">
+                        <input type="password" name="password" class="input-bordered" placeholder="Password">
+                    </div>
+                </div>
+                <div class="field-item">
+                    <div class="field-wrap">
+                        <input type="password" name="repassword" class="input-bordered" placeholder="Repeat Password">
+                    </div>
+                </div>
+                <div class="field-item">
+                    <input class="input-checkbox" id="agree-term-2" type="checkbox">
+                    <label for="agree-term-2">I agree to Icos <a href="/page/privacy-policy.html">Privacy Policy</a> &amp; <a href="#">Terms</a>.</label>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block btn-md">Sign Up</button>
+            <?php echo form_close();?>
+            <div class="sap-text"><span>Or Sign Up With</span></div>
+
+            <ul class="btn-grp gutter-20px gutter-vr-20px">
+                <li class="col"><a href="/account/facebook" class="btn btn-md btn-facebook btn-block"><em class="icon fab fa-facebook-f"></em><span>Facebook</span></a></li>
+                <li class="col"><a href="/account/google" class="btn btn-md btn-google btn-block"><em class="icon fab fa-google"></em><span>Google</span></a></li>
+            </ul>
+        </div>
+        <div class="ath-note text-center pb-3">
+            Already have an account? <a href="/account/login"> <strong>Sign in here</strong></a>
+        </div>
+    </div>
+    
+<?php echo $this->endSection() ?>
