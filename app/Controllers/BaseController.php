@@ -92,7 +92,7 @@ class BaseController extends Controller
         
         $locale = $this->request->getVar("language") ? $this->request->getVar("language") : "en";
         
-        if(trum($this->request->getVar("language")) != "" && !is_cli()) {
+        if(trim($this->request->getVar("language")) != "" && !is_cli()) {
             $this->session->set('lang',$locale);
             echo '<script>window.location="'.previous_url().'";</script>';
             exit();
