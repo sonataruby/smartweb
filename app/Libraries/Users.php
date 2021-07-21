@@ -4,6 +4,7 @@ use CodeIgniter\Database\ConnectionInterface;
 use CodeIgniter\Model;
 use App\Libraries\Jsontoken;
 use App\Libraries\Bcrypt;
+use App\Libraries\UsersRelaytion;
 class Users extends Model{
 	//protected $db;
    
@@ -61,6 +62,36 @@ class Users extends Model{
     }
 
 
+    /*
+    Update Info After Login
+    */
+    public function UpdateProfile($arv = []){
+        $ac_id = $this->getAccountID();
+        if(intval($ac_id) > 0){
+            $this->update($ac_id,$arv);
+            session()->setFlashdata("confirm",lang("users.profile_update"));
+            return true;
+        }
+        session()->setFlashdata("errors",lang("users.profile_error"));
+        return false;
+    }
+
+    /*
+    Change Password
+    */
+
+    public function UpdatePassword($newpass){
+        $bcrypt = new Bcrypt;
+        $ac_id = $this->getAccountID();
+        if(intval($ac_id) > 0){
+            $arv["password"] = $bcrypt->hash_password($newpass);
+            $this->update($ac_id,$arv);
+            session()->setFlashdata("confirm",lang("globals.password_update"));
+            return true;
+        }
+        session()->setFlashdata("errors",lang("users.password_error"));
+        return false;
+    }
 	/*
 	Create User
 	*/
@@ -118,6 +149,17 @@ class Users extends Model{
         $id = $this->getSession()->user_id;
         return $id > 0 ? $id : 0;
     }
+
+    //Info User after Login
+    public function getInfoProfile(){
+        return $this->get_user_by_id($this->getAccountID());
+    }
+
+
+    public function getRelaytionShip(){
+        $relay = new UsersRelaytion;
+        return $relay->getRelaytion($this->getAccountID());
+    }
     public function getSession(){
         
         return (object)$this->session->get("userlogin");
@@ -144,6 +186,7 @@ class Users extends Model{
         }
         
 
+
         $arv = [];
         $arv['user_type'] = "registered";
         $arv["username"] = $this->generate_uniqe_username($username);
@@ -158,6 +201,15 @@ class Users extends Model{
 
     	if(!$data){
     		if($this->insert($arv) !== false){
+                $account_id = $this->insertID();
+                $code = $this->session->get("intivite");
+                if($this->session->has("intivite")){
+                    $intivite_id = $this->getUserIDFormIntivite($code);
+                    if($intivite_id > 0){
+                        $relay = new UsersRelaytion;
+                        $relay->addRelaytion($intivite_id,$code,$account_id);
+                    }
+                }
                 if($autologin) return $this->login($email, $password);
             }
     		
@@ -165,6 +217,11 @@ class Users extends Model{
     	return false;
     }
 
+    public function getUserIDFormIntivite($code){
+        
+        $data = $this->where("intivited_code",$code)->first();
+        return intval($data->id) > 0 ? $data->id : 0;
+    }
 
    
 
@@ -183,24 +240,26 @@ class Users extends Model{
             'display_name' => $user->display_name,
             'language' =>  $data->language,
             'timezone' =>  $data->timezone,
-            'user_avatar' => $user->avatar
+            'user_avatar' => $user->avatar,
+            'refcode' => $user->intivited_code
         );
         $this->update_last_seen($user->id);
         $this->session->set(["userlogin" => $user_data]);
     }
 
 
-    public function get_user_by_email($email){
+    private function get_user_by_email($email){
         return $this->where("email",$email)->first();
     }
-    public function get_user_by_id($id){
+    private function get_user_by_id($id){
+        if(intval($id) == 0) return false;
         return $this->where("id",$id)->first();
     }
 
-    public function get_user_by_username($username){
+    private function get_user_by_username($username){
         return $this->where("username",$username)->first();
     }
-    public function get_user_by_slug($slug){
+    private function get_user_by_slug($slug){
         return $this->where("slug",$slug)->first();
     }
 
@@ -319,6 +378,8 @@ class Users extends Model{
             }
         }
     }
+
+
 
 
 }

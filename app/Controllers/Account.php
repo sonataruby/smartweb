@@ -67,12 +67,18 @@ class Account extends BaseController
 		$this->layout = "layout/nolayout";
 	}
 
-	public function changepassword(){
-
+	
+	public function intivite($code = ""){
+		if($code != ""){
+			session()->set(["intivite" => $code]);
+		}
+		//print_r(session()->get("intivite"));
+		return redirect()->to("/account/register");
 	}
 
-	public function share(){
-		
+	public function logout(){
+		session_destroy();
+		return redirect()->to("/");
 	}
 
 	public function google(){

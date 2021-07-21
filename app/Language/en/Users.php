@@ -41,6 +41,11 @@ return [
 	"created_at" => "created_at",
 	"display_name" => "display_name",
 	"timezone" => "timezone",
-	"language" => "language"
+	"language" => "language",
+	"profile_update" => "Profile Change",
+	"profile_error" => "Profile Error",
+	"password_update" => "Password Update",
+	"password_error" => "Password Error",
+	"login_ok"		=>	"You are login"
 ];
 ?>

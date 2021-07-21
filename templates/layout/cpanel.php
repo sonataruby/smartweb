@@ -33,6 +33,10 @@
 <link rel="stylesheet" href="templates/assets/css/style.css">
 <!-- Extra CSS -->
 <link rel="stylesheet" href="templates/assets/css/theme.css">
+<script src="templates/assets/core/jquery.js"></script>
+  <script src="https://unpkg.com/feather-icons"></script>
+<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+<script src="templates/assets/core/jquery.upload.js"></script>
 <?php 
   if(is_array($stylesheet) && $stylesheet){
   foreach ($stylesheet as $key => $value) { ?>
@@ -65,14 +69,34 @@
 <body class="nk-body body-wider mode-onepage">
 
   <div class="nk-wrap">
-    <header class="nk-header page-header is-sticky is-shrink is-transparent is-light border-bottom">
+    <header class="nk-header page-header is-transparent is-sticky is-shrink" id="header">
               <!-- Header @s -->             <div class="header-main">                 <div class="header-container container">                     <div class="header-wrap">                         <!-- Logo @s -->                         <div class="header-logo logo animated" data-animate="fadeInDown" data-delay=".65">                             <a href="./" class="logo-link">                                 <img class="logo-dark" src="templates/assets/images/logo.png" srcset="templates/assets/images/logo2x.png 2x" alt="logo">                                 <img class="logo-light" src="templates/assets/images/logo.png" srcset="templates/assets/images/logo2x.png 2x" alt="logo">                             </a>                         </div>                          <!-- Menu Toogle @s -->                         <div class="header-nav-toggle">                             <a href="#" class="navbar-toggle" data-menu-toggle="header-menu">                                 <div class="toggle-line">                                     <span></span>                                 </div>                             </a>                         </div>                          <!-- Menu @s -->                         <div class="header-navbar header-navbar-s1">                             <nav class="header-menu" id="header-menu">                                 <ul class="menu animated" data-animate="fadeInDown" data-delay=".75">
 
 
 
 
-              </ul>                                 <ul class="menu-btns menu-btns-s3 align-items-center animated" data-animate="fadeInDown" data-delay=".85">                                     <li class="language-switcher language-switcher-s1 toggle-wrap">                                         <a class="toggle-tigger" href="#">English</a>                                         <ul class="toggle-class toggle-drop toggle-drop-left drop-list drop-list-sm"><?php echo nav_language($supportlangauge);?></ul>                                     </li>                                     
-                <li><a href="#" data-toggle="modal" data-target="#register-popup" class="btn btn-md btn-primary btn-outline"><span><?php echo $user->lastname;?> <?php echo $user->firstname;?></span></a></li>                                 </ul>                             </nav>                         </div><!-- .header-navbar @e -->                     </div>                                                                 </div>             </div><!-- .header-main @e -->      
+              </ul>                                 
+
+            <ul class="menu menu-s2 animated" data-animate="fadeInDown" data-delay=".85">                                     
+                <li class="language-switcher language-switcher-s1 toggle-wrap">                                         
+                    <a class="toggle-tigger" href="#">English</a>                                         
+                    <ul class="toggle-class toggle-drop toggle-drop-left drop-list drop-list-sm"><?php echo nav_language($supportlangauge);?></ul>
+                </li>
+                <li class="toggle-wrap has-sub">                                         
+                    <a class="toggle-tigger"><?php echo $user->lastname;?> <?php echo $user->firstname;?></a>                                         
+                    <ul class="toggle-class toggle-drop toggle-drop-right drop-list drop-list-md">
+                        <li><a href="/account/profile">Settings</a></li>
+                        <li><a href="/wallet">Wallet</a></li>
+                        <li><a href="/wallet">Finance Apps</a></li>
+                        <li><a href="/account/logout">Logout</a></li>
+                    </ul>
+                </li> 
+
+                
+                                                
+            </ul>                             
+
+        </nav>                         </div><!-- .header-navbar @e -->                     </div>                                                                 </div>             </div><!-- .header-main @e -->      
               
     </header>
     <main class="nk-pages" style="padding-top: 120px;">
@@ -83,6 +107,26 @@
         </div>
       </div>
       <?php } ?>
+
+<?php if($confirm){ ?>
+<div class="container alert alert-success d-flex align-items-center" role="alert">
+  <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+  <div>
+    <?php echo $confirm;?>
+  </div>
+</div>
+<?php } ?>
+
+
+<?php if($errors){ ?>
+<div class="container alert alert-danger d-flex align-items-center" role="alert">
+  <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+  <div>
+    <?php echo $errors;?>
+  </div>
+</div>
+<?php } ?>
+
       <div class="container">
         <div class="row">
             <div class="col-md-3 col-12">
@@ -92,10 +136,18 @@
                 </div>
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item"><?php echo $user->lastname;?> <?php echo $user->firstname;?></li>
-                  <li class="list-group-item"><i class="fa "></i> <?php echo $user->email;?></li>
+                  <?php if($user->phone){ ?>
+                  <li class="list-group-item"><?php echo $user->email;?></li>
+                  <?php } ?>
+                  <?php if($user->phone){ ?>
                   <li class="list-group-item"><?php echo $user->phone;?></li>
+                  <?php } ?>
+                  <?php if($user->website){ ?>
                   <li class="list-group-item"><?php echo $user->website;?></li>
+                  <?php } ?>
+                  <?php if($user->address){ ?>
                   <li class="list-group-item"><?php echo $user->address;?></li>
+                  <?php } ?>
                 </ul>
 
                 <hr>
@@ -135,9 +187,10 @@
   <div class="preloader"><span class="spinner spinner-round"></span></div>
   
   <!-- JavaScript -->
-  <script src="templates/assets/core/jquery.js"></script>
+
   <script src="templates/assets/js/scripts.js"></script>
   <script src="templates/assets/js/charts.js"></script>
+
 </body>
 
 </html>

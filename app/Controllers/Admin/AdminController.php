@@ -91,7 +91,9 @@ class AdminController extends Controller
         if(is_cli()){
             $locale = "en";
         }
-        $this->data['language'] = $this->session->get("lang");
+        $this->data['language'] = $this->session->get("lang") ? $this->session->get("lang") : $locale;
+        $this->request->setLocale($this->data['language']);
+        
         $this->data["supportlangauge"] = ["en" => "EN"];
         // Arguments to be used in the callback remap
         $segments = $request->uri->getSegments();
