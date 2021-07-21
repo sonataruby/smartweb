@@ -21,7 +21,7 @@ if(!function_exists("nav_menu")){
 if(!function_exists("widgets")){
 	function widgets($display="", $format="html"){
 		$db = \Config\Database::connect();
-		$query = $db->query("SELECT * FROM windget where language='".session()->get("lang")."' AND  display='".$display."' AND format='".$format."' ORDER BY short ASC")->getResult();
+		$query = $db->query("SELECT * FROM windget where language='".service('request')->getLocale()."' AND  display='".$display."' AND format='".$format."' ORDER BY short ASC")->getResult();
 		if($format == "html"){
 			$html = [];
 			foreach($query as $k => $v){
