@@ -98,7 +98,7 @@ class BaseController extends Controller
             exit();
 
         }
-        
+        if(!$this->session->has("lang")) $this->session->set('lang',$this->request->getLocale());
         if(is_cli()){
             $locale = "en";
         }

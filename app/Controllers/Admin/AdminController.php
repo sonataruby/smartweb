@@ -78,20 +78,20 @@ class AdminController extends Controller
         }
 
         $this->session = \Config\Services::session();
-        if(!is_cli()){
-            $locale = $_GET['language'] ? $_GET['language'] : "en";
-            
-            if(!$this->session->has('lang') || ($locale != $this->session->get("lang") && $_GET['language'] != "")) {
-                $this->session->set('lang',$locale);
-                echo '<script>window.location="'.previous_url().'";</script>';
-                exit();
+         $locale = $this->request->getVar("language") ? $this->request->getVar("language") : "en";
+        
+        if(trim($this->request->getVar("language")) != "" && !is_cli()) {
+            $this->session->set('lang',$locale);
+            echo '<script>window.location="'.previous_url().'";</script>';
+            exit();
 
-            }
         }
+        if(!$this->session->has("lang")) $this->session->set('lang',$this->request->getLocale());
+        
         if(is_cli()){
             $locale = "en";
         }
-        $this->data['language'] = $this->session->get("lang") ? $this->session->get("lang") : $locale;
+        $this->data['language'] = $this->session->has("lang") ? $this->session->get("lang") : $locale;
         $this->request->setLocale($this->data['language']);
         
         $this->data["supportlangauge"] = ["en" => "EN"];
