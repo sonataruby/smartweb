@@ -89,20 +89,20 @@ class BaseController extends Controller
         $this->user = new Users();
         $this->data["users"] = $this->user->getSession();
         $this->data["is_login"] = ($this->data["users"]->user_id > 0 ? "yes" : "no");
-        if(!is_cli()){
-            $locale = $_GET['language'] ? $_GET['language'] : "en";
-            
-            if($_GET['language'] != "") {
-                $this->session->set('lang',$locale);
-                echo '<script>window.location="'.previous_url().'";</script>';
-                exit();
+        
+        $locale = $this->request->getVar("language") ? $this->request->getVar("language") : "en";
+        
+        if(trum($this->request->getVar("language")) != "" && !is_cli()) {
+            $this->session->set('lang',$locale);
+            echo '<script>window.location="'.previous_url().'";</script>';
+            exit();
 
-            }
         }
+        
         if(is_cli()){
             $locale = "en";
         }
-        $this->data['language'] = $this->session->get("lang") ? $this->session->get("lang") : $locale;
+        $this->data['language'] = $this->session->has("lang") ? $this->session->get("lang") : $locale;
         $this->request->setLocale($this->data['language']);
         $this->data["supportlangauge"] = ["en" => "EN"];
         
