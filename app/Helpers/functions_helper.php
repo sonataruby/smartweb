@@ -25,7 +25,7 @@ if(!function_exists("widgets")){
 		if($format == "html"){
 			$html = [];
 			foreach($query as $k => $v){
-				$html[] = $v->contents;
+				$html[] = trim($v->contents);
 			}
 			return implode($html, "\n");
 		}
