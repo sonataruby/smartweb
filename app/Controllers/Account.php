@@ -89,7 +89,7 @@ class Account extends BaseController
 		$provider = new \League\OAuth2\Client\Provider\Google([
 			'clientId' => $this->settings->google_client_id,
 			'clientSecret' => $this->settings->google_secret,
-			'redirectUri' => base_url("account/connect/google")
+			'redirectUri' => base_url("account/google")
 		]);
 		//$provider->setAccessType("offline");
 
@@ -151,7 +151,7 @@ class Account extends BaseController
 
 	public function facebook(){
 
-		$fb_url = "https://www.facebook.com/v3.3/dialog/oauth?client_id=" . $this->settings->facebook_app_id . "&redirect_uri=" . base_url("account/connect/fbcallback") . "&scope=email&state=" . generate_unique_id();
+		$fb_url = "https://www.facebook.com/v3.3/dialog/oauth?client_id=" . $this->settings->facebook_app_id . "&redirect_uri=" . base_url("account/fbcallback") . "&scope=email&state=" . generate_unique_id();
 
 		//$this->session->set_userdata('fb_login_referrer', $this->agent->referrer());
 		return redirect()->to($fb_url);
