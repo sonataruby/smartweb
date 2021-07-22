@@ -92,7 +92,7 @@ class WindgetModel extends BaseModel
     }
 
     public function setLanguage($lang=""){
-        $this->mutilanguage = session()->get("lang");
+        $this->mutilanguage = service('request')->getLocale();
         $this->system_where["language"] = $this->mutilanguage;
         return $this;
     }

@@ -9,7 +9,7 @@ if(!function_exists("admin_url")){
 if(!function_exists("nav_menu")){
 	function nav_menu($key="", $parent=0){
 		$db = \Config\Database::connect();
-		$query = $db->query("SELECT * FROM menu where status='1' AND  display='".$key."' AND parent='".$parent."' ORDER BY short ASC")->getResult();
+		$query = $db->query("SELECT * FROM menu where language='".service('request')->getLocale()."' AND status='1' AND  display='".$key."' AND parent='".$parent."' ORDER BY short ASC")->getResult();
 		$html = [];
 		foreach($query as $k => $v){
 			$html[] = '<li class="menu-item"><a class="menu-link nav-link" href="'.$v->router.'">'.$v->name.'</a></li>';
