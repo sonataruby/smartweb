@@ -35,7 +35,7 @@ class UsersModel extends BaseModel
     
     private $search = [];
     private $NumTotals = 0;
-    private $mutilanguage = true;
+    private $mutilanguage = false;
     private $system_where = [];
 
     function __construct()
