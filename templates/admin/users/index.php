@@ -5,7 +5,6 @@
 
 <h3 class="title">
 			<i data-feather="server"></i> <?php echo lang("users.title");?>
-			
 </h3>
 
 
@@ -13,7 +12,7 @@
 <div class="table-responsive">
 	<table class="table table-hover">
 	<thead>
-		<td><?php echo lang("globals.stt");?></td>
+		<td></td>
 		<td><a href="<?php echo $linkcache;?>username"><?php echo lang("users.username");?></a></td>
 		
 		<td><a href="<?php echo $linkcache;?>email"><?php echo lang("users.email");?></a></td>
@@ -35,8 +34,8 @@
 
 	<?php foreach($data["items"] as $key => $item){?>
 		<tr>
-			<td><?php echo (($key+1) + $data["offset"]);?></td>
-			<td><img src="<?php echo $item->avatar;?>" style="width: 48px;"><?php echo $item->username;?></td>
+			<td><img src="<?php echo $item->avatar;?>" style="width: 48px;"></td>
+			<td><?php echo $item->username;?></td>
 
 <td><?php echo $item->email;?></td>
 
