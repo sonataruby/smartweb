@@ -174,7 +174,7 @@ class Users extends Model{
         return false;
     }
 
-	public function register($email, $password, $username="",$autologin=true){
+	public function register($email, $password, $username="",$firstname="",$lastname="",$autologin=true){
         $bcrypt = new Bcrypt;
         
 
@@ -201,6 +201,8 @@ class Users extends Model{
         $arv['email_status'] = 1;
         $arv['intivited_code'] = generate_short_unique_id();
         $arv["password"] = $bcrypt->hash_password($password);
+        $arv['firstname'] = $lastname;
+        $arv['lastname'] = $lastname;
     	$data = $this->get_user_by_email($email);
 
     	if(!$data){
@@ -273,11 +275,11 @@ class Users extends Model{
     {
         $new_username = $username;
         if (!empty($this->get_user_by_username($new_username))) {
-            $new_username = $username . " 1";
+            $new_username = increment_string($username,"-",1);
             if (!empty($this->get_user_by_username($new_username))) {
-                $new_username = $username . " 2";
+                $new_username = increment_string($username,"-",2);
                 if (!empty($this->get_user_by_username($new_username))) {
-                    $new_username = $username . " 3";
+                    $new_username = increment_string($username,"-",3);
                     if (!empty($this->get_user_by_username($new_username))) {
                         $new_username = $username . "-" . uniqid();
                     }
@@ -291,15 +293,15 @@ class Users extends Model{
     public function generate_uniqe_slug($username)
     {
         
-        $slug = str_slug($username);
+        $slug = increment_string($username);
         if (!empty($this->get_user_by_slug($slug))) {
-            $slug = str_slug($username . "-1");
+            $slug = increment_string($username,"-",1);
             if (!empty($this->get_user_by_slug($slug))) {
-                $slug = str_slug($username . "-2");
+                $slug = increment_string($username,"-",2);
                 if (!empty($this->get_user_by_slug($slug))) {
-                    $slug = str_slug($username . "-3");
+                    $slug = increment_string($username,"-",3);
                     if (!empty($this->get_user_by_slug($slug))) {
-                        $slug = str_slug($username . "-" . uniqid());
+                        $slug = increment_string($username . "-" . uniqid());
                     }
                 }
             }

@@ -37,7 +37,7 @@ class BaseController extends Controller
 	 *
 	 * @var array
 	 */
-	protected $helpers = ["url","form","functions"];
+	protected $helpers = ["url","form","functions","text"];
     protected $view = null; // Set default yield view
     protected $data = []; // Set default data array
     protected $layout = 'layout/application'; // Set default layout

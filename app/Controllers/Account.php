@@ -16,7 +16,7 @@ class Account extends BaseController
 			$this->user = new Users();
 			$info = $this->user->login($this->request->getVar("email"), $this->request->getVar("password"));
 			if(is_string($info)) {
-				$this->session->setFlashdata("confirm",lang("account.login_ok"));
+				$this->session->setFlashdata("confirm",lang("users.login_ok"));
 				session()->set(["token" => $info]);
 			}
 			$pre_link = str_replace(base_url(),"",previous_url());
@@ -27,19 +27,19 @@ class Account extends BaseController
 
 			//Error password
 			if($info == 1){
-				$this->session->setFlashdata("errors",lang("account.error_password"));
+				$this->session->setFlashdata("errors",lang("users.error_password"));
 				$pre = "/account/login";
 			}
 
 			//Email Not validate
 			if($info == 2){
-				$this->session->setFlashdata("errors",lang("account.error_emailactive"));
+				$this->session->setFlashdata("errors",lang("users.error_emailactive"));
 				$pre = "/account/login";
 			}
 
 			//Account Banner
 			if($info == 3){
-				$this->session->setFlashdata("errors",lang("account.error_account_banner"));
+				$this->session->setFlashdata("errors",lang("users.error_account_banner"));
 				$pre = "/account/login";
 			}
 
@@ -50,9 +50,16 @@ class Account extends BaseController
 
 	public function register(){
 		$this->layout = "layout/nolayout";
-		if($this->request->getVar("email") && $this->request->getVar("password")){
+		$repass = $this->request->getVar("repassword");
+		$password = $this->request->getVar("password");
+		$email = $this->request->getVar("email");
+		$username = $this->request->getVar("username");
+		$firstname = $this->request->getVar("firstname");
+		$lastname = $this->request->getVar("lastname");
+
+		if($email && $password){
 			$this->user = new Users();
-			$info = $this->user->register($this->request->getVar("email"), $this->request->getVar("password"));
+			$info = $this->user->register($email, $password,$username,$firstname,$lastname);
 			session()->set(["token" => $info]);
 			$pre_link = str_replace(base_url(),"",previous_url());
 			$pre = ($pre_link == "/account/register" ? "/account/login" : previous_url());

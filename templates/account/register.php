@@ -3,33 +3,43 @@
 <?php echo $this->section('body') ?>
     
     
-    <div class="ath-container">
+    <div class="ath-container" style="min-width:550px;">
         
         <div class="ath-body">
             <h5 class="ath-heading title">Sign Up <small class="tc-default">Create New <?php echo $settings->site_name;?> Account</small></h5>
             <?php echo form_open();?>
+                <div class="field-item row">
+                    <div class="col-6">
+                        <input type="text" name="firstname" required class="input-bordered" placeholder="First Name">
+                    </div>
+                    <div class="col-6">
+                        <input type="text" name="lastname" required class="input-bordered" placeholder="Last Name">
+                    </div>
+                </div>
+
                 <div class="field-item">
                     <div class="field-wrap">
-                        <input type="text" name="fullname" class="input-bordered" placeholder="Your Name">
+                        <input type="text" name="username" required class="input-bordered" placeholder="Username">
+                    </div>
+                </div>
+
+                <div class="field-item">
+                    <div class="field-wrap">
+                        <input type="email" name="email" required class="input-bordered" placeholder="Your Email">
                     </div>
                 </div>
                 <div class="field-item">
                     <div class="field-wrap">
-                        <input type="email" name="email" class="input-bordered" placeholder="Your Email">
+                        <input type="password" name="password" required class="input-bordered" placeholder="Password">
                     </div>
                 </div>
                 <div class="field-item">
                     <div class="field-wrap">
-                        <input type="password" name="password" class="input-bordered" placeholder="Password">
+                        <input type="password" name="repassword" required class="input-bordered" placeholder="Repeat Password">
                     </div>
                 </div>
                 <div class="field-item">
-                    <div class="field-wrap">
-                        <input type="password" name="repassword" class="input-bordered" placeholder="Repeat Password">
-                    </div>
-                </div>
-                <div class="field-item">
-                    <input class="input-checkbox" id="agree-term-2" type="checkbox">
+                    <input class="input-checkbox" id="agree-term-2" type="checkbox" required>
                     <label for="agree-term-2">I agree to Icos <a href="/page/privacy-policy.html">Privacy Policy</a> &amp; <a href="#">Terms</a>.</label>
                 </div>
                 <button type="submit" class="btn btn-primary btn-block btn-md">Sign Up</button>
