@@ -8,10 +8,10 @@ use App\Models\BaseModel;
 // Author : VO VAN KHOA
 // Website : https://expressiq.co
 //==================================================
-class SignalsModel extends BaseModel
+class Signals_accessModel extends BaseModel
 {
     // ...
-    protected $table      = 'signals';
+    protected $table      = 'signals_access';
     protected $primaryKey = 'id';
 
     protected $useAutoIncrement = true;
@@ -19,7 +19,7 @@ class SignalsModel extends BaseModel
     protected $returnType     = 'object';
     protected $useSoftDeletes = false;
 
-    protected $allowedFields = ["is_free","symbol","type","open","sl","tp1","tp2","tp3","status","active","profits","opendate","closedate"];
+    protected $allowedFields = ["account_id","symbol","status","created_at","starttime","endtime"];
 
     protected $useTimestamps = false;
     protected $createdField  = 'created_at';
@@ -83,7 +83,7 @@ class SignalsModel extends BaseModel
             $this->where($where);
         }
         if($next == true){
-            return ["items" => $this->find($id),"next" => $this->getNextRow(), "last" => $this->getPreviousRow()];
+            return ["items" => $this->find($id),"next" => "", "last" => ""];
         }else{
             return $this->find($id);
         }
@@ -118,7 +118,7 @@ class SignalsModel extends BaseModel
     
     public function getTotals()
     {
-        $query = new SignalsModel;
+        $query = new Signals_accessModel;
         if($this->system_where){
             $query->where($this->system_where);
         }
@@ -143,9 +143,7 @@ class SignalsModel extends BaseModel
         if($this->mutilanguage != false){
             $data["language"] = $this->mutilanguage;
         }
-        if($data["is_free"] == "yes"){
-            $this->sendTelegram($data);
-        }
+
         if($data && $this->insert($data)){
             session()->setFlashdata("confirm",lang("globals.insert_confirm"));
             return $this->getID();
@@ -158,10 +156,6 @@ class SignalsModel extends BaseModel
     public function updateRow($id, $data=[]){
         if($this->mutilanguage != false){
             $this->where("language",$this->mutilanguage);
-        }
-
-        if($data["is_free"] == "yes"){
-            $this->sendTelegram($data,"update");
         }
 
         if($data && $this->update($id,$data)){
@@ -181,36 +175,6 @@ class SignalsModel extends BaseModel
             session()->setFlashdata("errors",lang("globals.delete_error"));
             return $id;
         }
-    }
-
-
-    private function sendTelegram($data,$type){
-        $token = "1005922514:AAEPO0P1Wdt4VyFY-oz9L3IxISFLPyNcXTM";
-        $channel = "@vsmartchannel";
-
-        $msg =  "=======================\n";
-        if($type == "update"){
-        $msg .= $data["symbol"]." - ".$data["type"]." [UPDATE]\n";
-        }else{
-        $msg .= $data["symbol"]." - ".$data["type"]." [NEW]\n";
-        }
-        $msg .=  "Open : ".$data["open"]."\n";
-        $msg .=  "SL   : ".$data["sl"]."\n";
-        $msg .=  "TP   : ".$data["tp1"]."\n";
-        $msg .=  "VIP Signal : https://vsmart.ltd/trader\n";
-        $msg .=  "======================\n";
-
-        $url = "https://api.telegram.org/bot" . $token . "/sendMessage?chat_id=" . $channel;
-        $url = $url . "&text=" . urlencode($msg);
-        $ch = curl_init();
-        $optArray = array(
-                CURLOPT_URL => $url,
-                CURLOPT_RETURNTRANSFER => true,
-        );
-        curl_setopt_array($ch, $optArray); 
-        $result = curl_exec($ch);
-        curl_close($ch);
-
     }
 
 }
