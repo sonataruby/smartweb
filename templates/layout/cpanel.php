@@ -24,7 +24,7 @@
 <meta property="og:image:width" content="1000">
 <meta property="og:image:height" content="500">
 <!-- Fav Icon  -->
-<link rel="shortcut icon" href="templates/assets/images/favicon.png">
+<link rel="shortcut icon" href="<?php echo $settings->site_favicon;?>">
 <!-- Site Title  -->
 <title><?php echo $settings->site_name; ?></title>
 <!-- Bundle and Base CSS -->
