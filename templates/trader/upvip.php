@@ -34,7 +34,9 @@
 		<button class="btn btn-primary btn-sm">Update</button>
 		<?php echo form_close();?>
 		<?php }else{?>
-			
+				<div class="alert alert-danger" role="alert">
+				   Your account balance is not enough. You can buy <b><?php echo $tokenname;?></b> in the options below
+				</div>
 				<h3>Buy <?php echo $tokenname;?> Token </h3>
 				<div class="row">
 					<div class="col-12">
