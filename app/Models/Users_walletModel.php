@@ -240,8 +240,8 @@ class Users_walletModel extends BaseModel
         return $this->where("user_id",$this->user->getAccountID())->findAll();
     }
 
-    public function getBalance($wallet){
-        $data = $this->where(["user_id" => $this->user->getAccountID(),"wallet_address" => $wallet])->first();
+    public function getBalance($network){
+        $data = $this->where(["user_id" => $this->user->getAccountID(),"wallet_network" => $network])->first();
         $money = $value->balance + $value->local_balance;
         
         return $money;
@@ -300,7 +300,7 @@ class Users_walletModel extends BaseModel
     }
 
     //Set Balance When Use Service
-    
+
     public function setBalance($service, $remove){
         $data = $this->where(["user_id" => $this->user->getAccountID(),"wallet_network" => $service])->first();
         $total = $value->balance + $value->local_balance;
