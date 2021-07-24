@@ -18,7 +18,7 @@
 		</div>
 	</div>
 	<div class="container">
-		<?php if(intval($balance_token) > 0){ ?>
+		<?php if(intval($balance_token) > 0 && intval($balance_token) >= $price_signals){ ?>
 		<?php echo form_open();?>
 		<h3>Select Symbol</h3>
 		<select class="form-select" name="symbol">
