@@ -315,9 +315,9 @@ class Users_walletModel extends BaseModel
             $aod = new Users_walletModel;
             $arvUpdate = [];
             if($data->balance >= $remove){
-                $arvUpdate["balance"] = $data->balance - $remove;
+                $arvUpdate["balance"] = $data->balance - $amount;
             }else{
-                $in_balance = $remove - $data->balance;
+                $in_balance = $amount - $data->balance;
                 $arvUpdate["balance"] = 0;
                 $arvUpdate["local_balance"] = $data->local_balance - $in_balance;
             }
