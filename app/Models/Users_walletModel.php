@@ -255,7 +255,7 @@ class Users_walletModel extends BaseModel
 
 
     //Set Balance When Payment
-    public function setBalanceToken($total,$money,$paymentid,$payerid,$serviceInfo){
+    public function setBalanceToken($total,$money,$paymentid,$payerid,$serviceInfo, $user_id=0){
         $getPrice = $this->getTokenPrice();
         if($money == "BTC"){
             $getPrice = $this->getTokenPrice("BTC");
@@ -265,12 +265,12 @@ class Users_walletModel extends BaseModel
         }
 
         $totaltokenbuy = number_format($total / $getPrice,0);
-
-        $data = $this->where(["user_id" => $this->user->getAccountID(),"wallet_network" => "token"])->first();
+        if($user_id == 0) $user_id  = $this->user->getAccountID();
+        $data = $this->where(["user_id" => $user_id,"wallet_network" => "token"])->first();
 
         if($data == ""){
             $this->createRow(["wallet_network" => "token"],true);
-            $value = $this->where(["user_id" => $this->user->getAccountID(),"wallet_network" => "token"])->first();
+            $value = $this->where(["user_id" => $user_id,"wallet_network" => "token"])->first();
         }else{
             $value = $data;
         }
