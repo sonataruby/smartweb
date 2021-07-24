@@ -18,59 +18,43 @@
 		</div>
 	</div>
 	<div class="container">
-		<?php if(intval($balance_token) > 0){ ?>
-		<?php echo form_open();?>
-		<h3>Select Symbol</h3>
-		<select class="form-select" name="symbol">
-			<?php foreach ($symbol as $key => $value) { ?>
-				<option value="<?php echo $key;?>"><?php echo $key;?></option>
-			<?php } ?>
-			
-		</select>
-		<br>
-		<button class="btn btn-primary btn-sm">Update</button>
-		<?php echo form_close();?>
-		<?php }else{?>
-			
-				<h3>Buy <?php echo $tokenname;?> Token </h3>
-				<div class="row">
-					<div class="col-12">
-						<b>Amount</b>
-						<div class="pb-3"><input type="number" class="form-control" name="numbertoken" value="1000"></div>
-					</div>
-					<div class="col-md-4 col-6 pb-3">
-						<div class="border rounded p-4">
-							
-							<h5 class="priceusd">0 USD</h5>
-							<hr>
-							<div class="text-center"><a data-payment="paypal" class="btn btn-primary btn-sm">Payment Paypal</a></div>
-						</div>
-					</div>
-					<div class="col-md-4 col-6 pb-3">
-						<div class="border rounded p-4">
-							
-							<h5 class="pricebtc">0.0000 BTC</h5>
-							<hr>
-							<div class="text-center"><a data-payment="btc" class="btn btn-primary btn-sm">Payment BTC</a></div>
-						</div>
-					</div>
-
-					<div class="col-md-4 col-6 pb-3">
-						<div class="border rounded p-4">
-							
-							<h5 class="priceeth">0.000 ETH</h5>
-							<hr>
-							<div class="text-center"><a data-payment="eth" class="btn btn-primary btn-sm">Payment ETH</a></div>
-						</div>
-					</div>
-
+		<div class="row">
+			<div class="col-12">
+				<b>Amount</b>
+				<div class="pb-3"><input type="number" class="form-control" name="numbertoken" value="1000"></div>
+			</div>
+			<div class="col-md-4 col-6 pb-3">
+				<div class="border rounded p-4">
+					
+					<h5 class="priceusd">0 USD</h5>
+					<hr>
+					<div class="text-center"><a data-payment="paypal" class="btn btn-primary btn-sm">Payment Paypal</a></div>
 				</div>
+			</div>
+			<div class="col-md-4 col-6 pb-3">
+				<div class="border rounded p-4">
+					
+					<h5 class="pricebtc">0.0000 BTC</h5>
+					<hr>
+					<div class="text-center"><a data-payment="btc" class="btn btn-primary btn-sm">Payment BTC</a></div>
+				</div>
+			</div>
 
-				<div class="paymentdata"></div>
-			
-		<?php } ?>
+			<div class="col-md-4 col-6 pb-3">
+				<div class="border rounded p-4">
+					
+					<h5 class="priceeth">0.000 ETH</h5>
+					<hr>
+					<div class="text-center"><a data-payment="eth" class="btn btn-primary btn-sm">Payment ETH</a></div>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="paymentdata"></div>
 	</div>
 </section>
+
 <script type="text/javascript">
 	var priceusd = <?php echo $price_token;?>;
 	var pricebtc = <?php echo $price_btc;?>;
@@ -105,8 +89,6 @@
 		        	}else{
 		        		$(".paymentdata").html(res);
 		        	}
-		           
-		            
 		        }
 		    });
 		});

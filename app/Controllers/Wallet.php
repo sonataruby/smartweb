@@ -62,4 +62,15 @@ class Wallet extends AccountController
 	public function deposit($network=""){
 
 	}
+
+
+	public function buytoken(){
+		$wallet = new Users_walletModel();
+		$this->setSEO(["title" => "Buy ".$wallet->getTokenName()]);
+		$this->data["balance_token"] = $wallet->getBalance("token");
+		$this->data["tokenname"] = $wallet->getTokenName();
+		$this->data["price_token"] = $wallet->getTokenPrice();
+		$this->data["price_btc"] = $wallet->getTokenPrice("BTC");
+		$this->data["price_eth"] = $wallet->getTokenPrice("ETH");
+	}
 }
