@@ -2,7 +2,7 @@
 namespace App\Controllers;
 
 use App\Libraries\SmartQrcode;
-use App\Libraries\Users_walletModel;
+use App\Models\Users_walletModel;
 class Payment extends BaseController
 {
 	//AZgXuZZ0zqKppoB1GgPNQ4ymTqssQMCKvgEjT1dJTeDaNtGr-qSdPiCajuS_Hu8w4TKT94LorYmrEYMG
@@ -19,7 +19,7 @@ class Payment extends BaseController
 		if($service == "paypal"){
 			$wallet = new Users_walletModel;
 			$sum = $wallet->converTokenToUSD($total);
-			session()->set(["payment_amount" => $sum]);
+			session()->set(["payment_amount" => $sum,"payment_name" => "BUY ".$wallet->getTokenName()]);
 			echo "paypal";
 			exit();
 		}
@@ -47,7 +47,7 @@ class Payment extends BaseController
 
 
 	public function paypal(){
-		$wallet = new Users_walletModel;
+		
 		$paypal_client = $this->settings->paypal_client;
 		$paypal_secret = $this->settings->paypal_secret;
 		$paypal_mode = "live";
@@ -57,7 +57,7 @@ class Payment extends BaseController
 			$paypal_mode = "sandbox";
 		}
 		$total = session()->get("payment_amount");
-
+		$nameinvoice = session()->get("payment_name");
 		require APPPATH.'ThirdParty/paypal/vendor/autoload.php';
 		$apiContext = new \PayPal\Rest\ApiContext(
             new \PayPal\Auth\OAuthTokenCredential(
@@ -77,7 +77,7 @@ class Payment extends BaseController
         $payer->setPaymentMethod('paypal');
 
         $item1 = new \PayPal\Api\Item();
-        $item1->setName('BUY : '.$wallet->getTokenName());
+        $item1->setName($nameinvoice);
         $item1->setCurrency('USD');
         $item1->setQuantity(1);
         $item1->setPrice((float)$total);
