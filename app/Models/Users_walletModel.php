@@ -248,7 +248,7 @@ class Users_walletModel extends BaseModel
 
     public function getBalance($network){
         $data = $this->where(["user_id" => $this->user->getAccountID(),"wallet_network" => $network])->first();
-        $money = $value->balance + $value->local_balance;
+        $money = $data->balance + $data->local_balance;
         
         return $money;
     }
