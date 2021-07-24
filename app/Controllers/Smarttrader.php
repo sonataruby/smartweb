@@ -23,6 +23,11 @@ class Smarttrader extends AccountController
 			if($wallet->setBalancePaymentService("token",$this->price_signals)){
 				
 				$this->setAccessVip($this->request->getVar("symbol"));
+				session()->setFlashdata("confirm","Your are access VIP ".$this->request->getVar("symbol")." signals");
+				return redirect()->to("/smarttrader/upvip");
+			}else{
+				session()->setFlashdata("error","Update VIP Signals".$this->request->getVar("symbol")." Error");
+				return redirect()->to("/smarttrader/upvip");
 			}
 		}
 
