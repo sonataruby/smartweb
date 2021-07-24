@@ -41,6 +41,12 @@
 						<b>Amount</b>
 						<div class="pb-3"><input type="number" class="form-control" name="numbertoken" value="1000"></div>
 					</div>
+
+					<div class="col-12">
+						<b>Price : </b>
+						<?php echo $price_token;?> USD
+					</div>
+
 					<div class="col-md-4 col-6 pb-3">
 						<div class="border rounded p-4">
 							

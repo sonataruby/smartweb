@@ -8,7 +8,7 @@ use App\Controllers\Trader;
 class Smarttrader extends AccountController
 {
 	
-	private $price_signals = 5;
+	private $price_signals = 12;
 	
 	public function index()
 	{
