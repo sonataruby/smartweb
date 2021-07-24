@@ -12,5 +12,7 @@ return [
 	"update_errors" => "Update Error",
 	"insert_confirm"	=>	"Insert ok",
 	"insert_error"		=>	"Insert Error",
-	"language"			=> "Language"
+	"language"			=> "Language",
+	"payment_cancel" => "Payment Cancel",
+	"payment_ok"	=>	"Payment Complete"
 ];

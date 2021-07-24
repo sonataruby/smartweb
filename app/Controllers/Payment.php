@@ -201,6 +201,8 @@ class Payment extends BaseController
 	public function cancel($service){
 		if($service == "paypal"){
 			$token = "";
+			session()->setFlashdata("confirm",lang("globals.payment_cancel"));
 		}
+		return redirect()->to("/cpanel");
 	}
 }
