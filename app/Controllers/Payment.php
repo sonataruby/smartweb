@@ -17,7 +17,9 @@ class Payment extends BaseController
 
 	public function genservice($service, $total){
 		if($service == "paypal"){
-			session()->set(["payment_amount" => $total]);
+			$wallet = new Users_walletModel;
+			$sum = $wallet->converTokenToUSD($total);
+			session()->set(["payment_amount" => $sum]);
 			echo "paypal";
 			exit();
 		}
@@ -26,7 +28,7 @@ class Payment extends BaseController
         $save_name  = $hex_data . '.png';
         if($service == "btc"){
 			$params['data']     = "0x3aebc70aa356187b2f7391f842bc72da67e46b04";
-			$this->data["service"] = "BTC BEP20(BSC)";
+			$this->data["service"] = "BTC BEP20 (BSC)";
 		}
 		if($service == "eth"){
 			$params['data']     = "0xd2D1e9a0E2Ba929c5114e5aF4e2B0F45586422C0";
@@ -45,6 +47,7 @@ class Payment extends BaseController
 
 
 	public function paypal(){
+		$wallet = new Users_walletModel;
 		$paypal_client = $this->settings->paypal_client;
 		$paypal_secret = $this->settings->paypal_secret;
 		$paypal_mode = "live";
@@ -74,7 +77,7 @@ class Payment extends BaseController
         $payer->setPaymentMethod('paypal');
 
         $item1 = new \PayPal\Api\Item();
-        $item1->setName('setName');
+        $item1->setName('BUY : '.$wallet->getTokenName());
         $item1->setCurrency('USD');
         $item1->setQuantity(1);
         $item1->setPrice((float)$total);
@@ -106,6 +109,7 @@ class Payment extends BaseController
 
             $data['payment']     =  $payment;
             $data['approval_url'] =  $payment->getApprovalLink();
+            //Write Invoice Start Payment
             return redirect()->to($data['approval_url']);
 
         }
@@ -194,7 +198,9 @@ class Payment extends BaseController
 		}
 	}
 
-	public function cancel(){
-
+	public function cancel($service){
+		if($service == "paypal"){
+			$token = "";
+		}
 	}
 }

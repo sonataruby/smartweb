@@ -61,6 +61,10 @@ class Users_walletModel extends BaseModel
         return $data->USD;
     }
 
+    public function converTokenToUSD($tokenNumber){
+        return number_format($tokenNumber * $this->getTokenPrice(),2);
+    }
+
     public function getTokenBTC(){
         return $this->tokenname;
     }
@@ -239,6 +243,8 @@ class Users_walletModel extends BaseModel
         
         return $this->where("user_id",$this->user->getAccountID())->findAll();
     }
+
+
 
     public function getBalance($network){
         $data = $this->where(["user_id" => $this->user->getAccountID(),"wallet_network" => $network])->first();
