@@ -21,7 +21,7 @@ class Users_walletModel extends BaseModel
     protected $returnType     = 'object';
     protected $useSoftDeletes = false;
 
-    protected $allowedFields = ["user_id","wallet_address","wallet_network","created_at","wallet_money","balance"];
+    protected $allowedFields = ["user_id","wallet_address","wallet_network","created_at","wallet_money","balance","local_balance"];
 
     protected $useTimestamps = false;
     protected $createdField  = 'created_at';
