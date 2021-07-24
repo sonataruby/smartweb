@@ -5,14 +5,16 @@ use CodeIgniter\Model;
 use App\Libraries\Jsontoken;
 use App\Libraries\Bcrypt;
 use App\Libraries\Users;
+use App\Libraries\WhatToDo;
 class UsersRelaytion extends Model{
 	//protected $db;
    
     protected $table      = 'users_relaytionship';
     protected $primaryKey = 'id';
     protected $returnType     = 'object';
-    protected $allowedFields = ["intivite_id","intivite_code","account_id","created_at"];
+    protected $allowedFields = ["intivite_id","intivite_code","account_id","created_at","reward"];
     protected $request;
+    public   $reward = 3;
     public function __construct()
     {
         //$this->db = \Config\Database::connect();
@@ -39,9 +41,15 @@ class UsersRelaytion extends Model{
         $arv = [
             "intivite_id" => $intivite_id,
             "intivite_code" => $code,
-            "account_id" => $account_id
+            "account_id" => $account_id,
+            "reward" =>  $this->reward
         ];
 
-        if($this->checkReadyRealay($account_id) == 0) $this->insert($arv);
+        if($this->checkReadyRealay($account_id) == 0) {
+            if($this->insert($arv)){
+                $whattodo = new WhatToDo();
+                $whattodo->runQueryAction("intivite",(object)$arv);
+            }
+        }
     }
 }

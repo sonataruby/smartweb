@@ -248,7 +248,7 @@ class Users_walletModel extends BaseModel
 
     public function getBalance($network){
         $data = $this->where(["user_id" => $this->user->getAccountID(),"wallet_network" => $network])->first();
-        $money = $data->balance + $data->local_balance;
+        $money = $data->balance  + $data->local_balance;
         
         return $money;
     }
@@ -266,16 +266,16 @@ class Users_walletModel extends BaseModel
 
         $totaltokenbuy = number_format($total / $getPrice,0);
 
-        $data = $this->where(["user_id" => $this->user->getAccountID(),"wallet_network" => "BSC"])->first();
+        $data = $this->where(["user_id" => $this->user->getAccountID(),"wallet_network" => "token"])->first();
 
         if($data == ""){
-            $this->createRow(["wallet_network" => "BSC"],true);
-            $value = $this->where(["user_id" => $this->user->getAccountID(),"wallet_network" => "BSC"])->first();
+            $this->createRow(["wallet_network" => "token"],true);
+            $value = $this->where(["user_id" => $this->user->getAccountID(),"wallet_network" => "token"])->first();
         }else{
             $value = $data;
         }
         
-
+        $value->balance = $value->balance > 0 ? $value->balance : 0;
         $aod = new Users_walletModel;
         if($aod->update(["id" => $value->id,"user_id" => $value->user_id],["balance" => $value->balance + $totaltokenbuy])){
             return true;
@@ -285,20 +285,24 @@ class Users_walletModel extends BaseModel
 
 
     //Set Balance When Aidrop
-    public function setBalanceTokenAirdrop($amount=0){
+    public function setBalanceTokenAirdrop($amount=0,$user_id=0){
      
         $totaltokenbuy = number_format($amount,0);
+        $user_id = intval($user_id);
 
-        $data = $this->where(["user_id" => $this->user->getAccountID(),"wallet_network" => "BSC"])->first();
+        if($user_id == 0) $user_id  = $this->user->getAccountID();
+
+        $data = $this->where(["user_id" => $user_id,"wallet_network" => "token"])->first();
 
         if($data == ""){
-            $this->createRow(["wallet_network" => "BSC"],true);
-            $value = $this->where(["user_id" => $this->user->getAccountID(),"wallet_network" => "BSC"])->first();
+            $this->createRow(["wallet_network" => "token"],true);
+            $value = $this->where(["user_id" => $user_id,"wallet_network" => "token"])->first();
         }else{
             $value = $data;
         }
         
-
+        $value->local_balance = $value->local_balance > 0 ? $value->local_balance : 0;
+        
         $aod = new Users_walletModel;
         if($aod->update(["id" => $value->id,"user_id" => $value->user_id],["local_balance" => $value->local_balance + $totaltokenbuy])){
             return true;

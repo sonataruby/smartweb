@@ -18,10 +18,10 @@
 						<a href="/wallet/token/<?php echo $value->wallet_address;?>"><div class="limitChatter"><?php echo $value->wallet_address;?></div></a>
 					</div>
 				</td>
-				<td><?php echo $value->wallet_network;?></td>
+				<td><?php echo $value->wallet_network == "token" ? "Smart Crypto" : $value->wallet_network;?></td>
 				
 
-				<td><?php echo $value->balance;?> <?php echo $value->wallet_money;?></td>
+				<td><?php echo ($value->balance + $value->local_balance);?> <?php echo $value->wallet_money;?></td>
 
 				<td class="text-end" style="white-space: nowrap;">
 					<a href="/wallet/deposit/<?php echo $value->id;?>" class="btn btn-sm btn-primary"><i data-feather="edit"></i> Deposit</a>

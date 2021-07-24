@@ -128,7 +128,7 @@ class Users extends Model{
                 $this->setlogin($data);
                 if($data->login_first == 1){
                     $todo = new WhatToDo;
-                    $todo->runQueryAction("loginfirst");
+                    $todo->runQueryAction("loginfirst",(object)$data);
                     $this->setOffLoginFirst();
                 }
                 return $this->getToken();
@@ -228,7 +228,8 @@ class Users extends Model{
                         $relay = new UsersRelaytion;
                         $relay->addRelaytion($intivite_id,$code,$account_id);
                         $todo = new WhatToDo;
-                        $todo->runQueryAction("register");
+                        $arv["id"] = $account_id;
+                        $todo->runQueryAction("register",(object)$arv);
                     }
                 }
                 if($autologin) return $this->login($email, $password);
