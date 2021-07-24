@@ -19,10 +19,10 @@
     <label for="textwallet_network" class="col-sm-2 col-form-label"><?php echo lang('users_wallet.wallet_network');?></label>
     <div class="col-sm-10">
       <select type="text" class="form-control" id="textwallet_network" name="post[wallet_network]">
-          <option value="ETH" <?php echo ($item->wallet_network == "ETH" ? "selected" : "");?>>ETH Network</option>
-          <option value="BTC" <?php echo ($item->wallet_network == "BTC" ? "selected" : "");?>>BTC Network</option>
-          <option value="BSC" <?php echo ($item->wallet_network == "BSC" ? "selected" : "");?>>BSC Network</option>
-          <option value="PAYPAL" <?php echo ($item->wallet_network == "PAYPAL" ? "selected" : "");?>>Paypal Network</option>
+          <option value="ETH" <?php echo ($item->wallet_network == "eth" ? "selected" : "");?>>ETH Network</option>
+          <option value="BTC" <?php echo ($item->wallet_network == "btc" ? "selected" : "");?>>BTC Network</option>
+          <option value="BSC" <?php echo ($item->wallet_network == "token" ? "selected" : "");?>><?php echo $tokenname;?> Network</option>
+          <option value="PAYPAL" <?php echo ($item->wallet_network == "paypal" ? "selected" : "");?>>Paypal Network</option>
       </select>
     </div>
 </div>

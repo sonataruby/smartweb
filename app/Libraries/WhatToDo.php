@@ -7,5 +7,9 @@ class WhatToDo extends Model{
 	public function register_complete(){
 		
 	}
+
+	public function runQueryAction($action=""){
+
+	}
 }
 ?>

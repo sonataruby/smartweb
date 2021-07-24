@@ -99,7 +99,7 @@
         </nav>                         </div><!-- .header-navbar @e -->                     </div>                                                                 </div>             </div><!-- .header-main @e -->      
               
     </header>
-    <main class="nk-pages" style="padding-top: 120px;">
+    <div class="nk-pages" style="padding-top: 120px;">
       <?php if($breadcrumbs){ ?>
       <div class="border-bottom mb-3">
         <div class="container">
@@ -126,14 +126,68 @@
   </div>
 </div>
 <?php } ?>
+<style type="text/css">
+    .bd-layout {
+        grid-template-columns: 1fr 5fr;
+    }
+    .bd-layout {
+        display: grid;
+        gap: 1.5rem;
+        grid-template-areas: "sidebar main";
+        grid-template-columns: 1fr 3fr;
+    }
+    .bd-sidebar {
+        grid-area: sidebar;
+        column-rule: 1px solid lightblue;
+    }
+    .bd-links {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 5rem;
+        display: block !important;
+        height: calc(100vh - 7rem);
+       
+        overflow-y: auto;
+    }
+    .bd-links {
+        overflow: auto;
+        overflow-y: auto;
+        
+    }
+    .skippy {
+ background-color:#563d7c
+}
+.skippy a {
+ color:#fff
+}
+@media (max-width: 768px) {
+ .bd-layout {
+  display:grid;
+  gap:inherit;
+  grid-template-areas:"sidebar main";
+  grid-template-columns:auto auto;
+  
+ }
+}
 
-      <div class="container">
-        <div class="row">
-            <div class="col-md-3 col-12">
-               
-                <div>
-                    <img src="<?php echo $user->user_avatar;?>" class="img-thumbnail" alt="...">
-                </div>
+
+@media (min-width: 992px) {
+ .bd-layout {
+  grid-template-columns:1fr 5fr
+ }
+}
+
+
+
+
+</style>
+<div class="container my-md-4 bd-layout">
+    <aside class="bd-sidebar d-none d-sm-block">
+        <nav class="collapse bd-links" id="bd-docs-nav" aria-label="Docs navigation">
+            <div class="bg-primary rounded p-4 text-center" style="margin-bottom: 20%;">
+                    <img src="<?php echo $user->user_avatar;?>" class="img-thumbnail" alt="..." style="border-radius: 100%; margin-bottom: -40%;">
+            </div>
+            <div class="collapse show" id="getting-started-collapse">
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item"><?php echo $user->lastname;?> <?php echo $user->firstname;?></li>
                   <?php if($user->phone){ ?>
@@ -158,14 +212,15 @@
                   <li class="list-group-item">Finance Program</li>
                   
                 </ul>
-                
             </div>
-            <div class="col-md-9 col-12">
-                <?php echo $this->renderSection('body') ?>
-            </div>
-        </div>
-      </div>
+            <div style="position:absolute ;bottom: 0;  width: 100%;"><a href="/account/logout" class="btn btn-sm btn-danger btn-block" style="width: 100%;">Logout</a></div>
+        </nav>
+    </aside>
+    <main class="bd-main order-1">
+        <?php echo $this->renderSection('body') ?>
     </main>
+</div>
+      </div>
     <footer class="nk-footer">
         <div class="container">
             <div class="row">

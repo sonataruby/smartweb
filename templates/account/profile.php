@@ -122,13 +122,13 @@
 	<div class="mb-3 row">
 	    <label class="col-sm-2 col-form-label">New Password</label>
 	    <div class="col-sm-10">
-	      <input type="password" class="form-control" name="password">
+	      <input type="password" class="form-control" required name="password">
 	    </div>
 	</div>
 	<div class="mb-3 row">
 	    <label class="col-sm-2 col-form-label">Re-Password</label>
 	    <div class="col-sm-10">
-	      <input type="password" class="form-control" name="repassword">
+	      <input type="password" class="form-control" required name="repassword">
 	    </div>
 	</div>
 

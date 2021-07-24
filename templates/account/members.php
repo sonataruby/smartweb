@@ -13,17 +13,22 @@
 	<table class="table">
 		<thead>
 			<th>Full Name</th>
+			<th>Email</th>
 			<th>Join Date</th>
 			<th>Reward</th>
 			<th></th>
 		</thead>
 		<tbody>
+			<?php foreach ($membership as $key => $value) { ?>
+				
 			<tr>
-				<td></td>
-				<td></td>
-				<td></td>
+				<td><?php echo $value->firstname;?> <?php echo $value->lastname;?></td>
+				<td><?php echo $value->email;?></td>
+				<td><?php echo $value->created_at;?></td>
+				<td><?php echo $value->reward;?></td>
 				<td></td>
 			</tr>
+			<?php } ?>
 		</tbody>
 	</table>
 <script type="text/javascript">

@@ -11,6 +11,7 @@ use App\Libraries\Users;
 //==================================================
 class Users_walletModel extends BaseModel
 {
+    protected $price_token = 0.1;
     // ...
     protected $table      = 'users_wallet';
     protected $primaryKey = 'id';
@@ -39,6 +40,7 @@ class Users_walletModel extends BaseModel
     private $mutilanguage = false;
     private $system_where = [];
 
+    private $tokenname = "SMFX";
     function __construct()
     {
         if($this->mutilanguage == true){
@@ -47,6 +49,26 @@ class Users_walletModel extends BaseModel
         $this->user = new Users();
         parent::__construct();
     }
+
+    public function getTokenName(){
+        return $this->tokenname;
+    }
+
+    public function getTokenPrice($symbol=""){
+        if($symbol == "") return $this->price_token;
+        $data = json_decode(file_get_contents("https://min-api.cryptocompare.com/data/price?fsym=".$symbol."&tsyms=USD&api_key=c0cc3568f034c2ab6eaf1e70a429b1aae1a6aa10187eabfd3849fa59eccc35e4"));
+       
+        return $data->USD;
+    }
+
+    public function getTokenBTC(){
+        return $this->tokenname;
+    }
+    
+    public function getTokenETH(){
+        return $this->tokenname;
+    }
+
     public function getItems($where=[]){
         $request = service('request');
 
@@ -156,6 +178,11 @@ class Users_walletModel extends BaseModel
             }
         }
 
+        $walletExit = $this->checkWalletExit($data["wallet_network"]);
+        if($walletExit >= 1){
+            session()->setFlashdata("errors",lang("wallet.wallet_exit"));
+            return 0;
+        }
         if($data && $this->insert($data)){
             session()->setFlashdata("confirm",lang("globals.insert_confirm"));
             return $this->getID();
@@ -177,6 +204,8 @@ class Users_walletModel extends BaseModel
             }
             
         }
+
+        
 
         if($data && $this->update($id,$data)){
             session()->setFlashdata("confirm",lang("globals.update_confirm"));
@@ -201,6 +230,9 @@ class Users_walletModel extends BaseModel
     }
 
 
+    public function checkWalletExit($service){
+         return $this->where("user_id",$this->user->getAccountID())->where("wallet_network",$service)->countAllResults();
+    }
 
 
     public function checkWallet(){
@@ -208,30 +240,87 @@ class Users_walletModel extends BaseModel
         return $this->where("user_id",$this->user->getAccountID())->findAll();
     }
 
-    public function getBalance($service){
-        $data = $this->where(["user_id" => $this->user->getAccountID(),"wallet_network" => $service])->findAll();
-        $money = 0;
-        foreach ($data as $key => $value) {
-            $money += $value->balance;
-        }
+    public function getBalance($wallet){
+        $data = $this->where(["user_id" => $this->user->getAccountID(),"wallet_address" => $wallet])->first();
+        $money = $value->balance + $value->local_balance;
+        
         return $money;
     }
 
 
+    //Set Balance When Payment
+    public function setBalanceToken($total,$money,$paymentid,$payerid,$serviceInfo){
+        $getPrice = $this->getTokenPrice();
+        if($money == "BTC"){
+            $getPrice = $this->getTokenPrice("BTC");
+        }
+        if($money == "ETH"){
+            $getPrice = $this->getTokenPrice("ETH");
+        }
+
+        $totaltokenbuy = number_format($total / $getPrice,0);
+
+        $data = $this->where(["user_id" => $this->user->getAccountID(),"wallet_network" => "BSC"])->first();
+
+        if($data == ""){
+            $this->createRow(["wallet_network" => "BSC"],true);
+            $value = $this->where(["user_id" => $this->user->getAccountID(),"wallet_network" => "BSC"])->first();
+        }else{
+            $value = $data;
+        }
+        
+
+        $aod = new Users_walletModel;
+        if($aod->update(["id" => $value->id,"user_id" => $value->user_id],["balance" => $value->balance + $totaltokenbuy])){
+            return true;
+        }
+    }
+
+
+
+    //Set Balance When Aidrop
+    public function setBalanceTokenAirdrop($amount=0){
+     
+        $totaltokenbuy = number_format($amount,0);
+
+        $data = $this->where(["user_id" => $this->user->getAccountID(),"wallet_network" => "BSC"])->first();
+
+        if($data == ""){
+            $this->createRow(["wallet_network" => "BSC"],true);
+            $value = $this->where(["user_id" => $this->user->getAccountID(),"wallet_network" => "BSC"])->first();
+        }else{
+            $value = $data;
+        }
+        
+
+        $aod = new Users_walletModel;
+        if($aod->update(["id" => $value->id,"user_id" => $value->user_id],["local_balance" => $value->local_balance + $totaltokenbuy])){
+            return true;
+        }
+    }
+
+    //Set Balance When Use Service
+    
     public function setBalance($service, $remove){
-        $data = $this->where(["user_id" => $this->user->getAccountID(),"wallet_network" => $service])->findAll();
-       
-        $miss = $remove;
-        foreach ($data as $key => $value) {
-            if($value->balance >= $remove && $miss > 0){
-                $aod = new Users_walletModel;
-                if($aod->update(["id" => $value->id,"user_id" => $value->user_id],["balance" => $value->balance - $remove])){
-                    $miss = 0;
-                    return true;
-                }
+        $data = $this->where(["user_id" => $this->user->getAccountID(),"wallet_network" => $service])->first();
+        $total = $value->balance + $value->local_balance;
+
+        if($total >= $remove){
+            $aod = new Users_walletModel;
+            $arvUpdate = [];
+            if($value->balance >= $remove){
+                $arvUpdate["balance"] = $value->balance - $remove;
+            }else{
+                $in_balance = $remove - $value->balance;
+                $arvUpdate["balance"] = 0;
+                $arvUpdate["local_balance"] = $value->local_balance - $in_balance;
+            }
+
+            if($aod->update(["id" => $value->id,"user_id" => $value->user_id],$arvUpdate)){
+                $miss = 0;
+                return true;
             }
         }
-        if($miss == 0) return true;
         return false;
     }
 }

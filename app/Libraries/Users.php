@@ -14,7 +14,7 @@ class Users extends Model{
     protected $primaryKey = 'id';
     protected $returnType     = 'object';
     protected $allowedFields = [
-            "username","slug","email","email_status","token","password","role","user_type","display_name","firstname","lastname","midname","facebook_id","google_id","avatar","banner_img","banned","phone_number","timezone","language","country_id","state_id","city_id","address","zip_code","show_email","show_phone","show_location","facebook_url","twitter_url","instagram_url","pinterest_url","linkedin_url","vk_url","youtube_url","last_seen","show_rss_feeds","intivited_code","created_at"
+            "username","slug","email","email_status","token","password","role","user_type","display_name","firstname","lastname","midname","facebook_id","google_id","avatar","banner_img","banned","phone_number","timezone","language","country_id","state_id","city_id","address","zip_code","show_email","show_phone","show_location","facebook_url","twitter_url","instagram_url","pinterest_url","linkedin_url","vk_url","youtube_url","last_seen","show_rss_feeds","intivited_code","created_at","login_first"
     ];
     protected $request;
     public function __construct()
@@ -126,11 +126,23 @@ class Users extends Model{
             }
             if($error == ""){
                 $this->setlogin($data);
+                if($data->login_first == 1){
+                    $todo = new WhatToDo;
+                    $todo->runQueryAction("loginfirst");
+                    $this->setOffLoginFirst();
+                }
                 return $this->getToken();
             }
         }
         return false;
 	}
+
+    public function setOffLoginFirst(){
+        $ac_id = $this->getAccountID();
+        $arv["login_first"] = 0;
+        $this->update($ac_id,$arv);
+        
+    }
 
     public function getToken(){
         $session = $this->getSession();
@@ -203,6 +215,7 @@ class Users extends Model{
         $arv["password"] = $bcrypt->hash_password($password);
         $arv['firstname'] = $lastname;
         $arv['lastname'] = $lastname;
+        $arv['login_first'] = 1;
     	$data = $this->get_user_by_email($email);
 
     	if(!$data){
@@ -214,6 +227,8 @@ class Users extends Model{
                     if($intivite_id > 0){
                         $relay = new UsersRelaytion;
                         $relay->addRelaytion($intivite_id,$code,$account_id);
+                        $todo = new WhatToDo;
+                        $todo->runQueryAction("register");
                     }
                 }
                 if($autologin) return $this->login($email, $password);
