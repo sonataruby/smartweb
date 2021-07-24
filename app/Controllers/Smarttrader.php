@@ -31,7 +31,7 @@ class Smarttrader extends AccountController
 		$this->breadcrumb->add('Signals', "/trader");
 		$this->breadcrumb->add('Update VIP', '/index');
 		$this->data['breadcrumbs'] = $this->breadcrumb->render();
-		$this->data["balance_token"] = $wallet->getBalance($tokenMethod);
+		$this->data["balance_token"] = $wallet->getBalance("token");
 		$trade = new Trader;
 		$this->data["symbol"] = $trade->symbol();
 		$this->data["price_token"] = $wallet->getTokenPrice();
