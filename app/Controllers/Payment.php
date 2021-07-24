@@ -65,7 +65,7 @@ class Payment extends BaseController
         $apiContext->setConfig(
             array(
                 'mode' => $paypal_mode,
-                'log.LogEnabled' => true,
+                'log.LogEnabled' => false,
                 'log.FileName' => 'PayPal.log',
                 'log.LogLevel' => 'FINE'
             )
@@ -143,7 +143,7 @@ class Payment extends BaseController
         $apiContext->setConfig(
             array(
                 'mode' => "sandbox",
-                'log.LogEnabled' => true,
+                'log.LogEnabled' => false,
                 'log.FileName' => 'PayPal.log',
                 'log.LogLevel' => 'FINE'
             )
