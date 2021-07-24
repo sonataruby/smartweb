@@ -209,7 +209,7 @@
                   <li class="list-group-item"><a href="/profile">Profile</a></li>
                   <li class="list-group-item"><a href="/wallet">Wallet</a></li>
                   <li class="list-group-item"><a href="/members">Member</a></li>
-                  <li class="list-group-item">Finance Program</li>
+                  <li class="list-group-item"><a href="/finance">Finance Apps</a></li>
                   
                 </ul>
             </div>
