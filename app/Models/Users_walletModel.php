@@ -307,22 +307,22 @@ class Users_walletModel extends BaseModel
 
     //Set Balance When Use Service
 
-    public function setBalancePaymentService($service, $remove){
+    public function setBalancePaymentService($service,$amount){
         $data = $this->where(["user_id" => $this->user->getAccountID(),"wallet_network" => $service])->first();
-        $total = $value->balance + $value->local_balance;
+        $total = $data->balance + $data->local_balance;
 
-        if($total >= $remove){
+        if($total >= $amount){
             $aod = new Users_walletModel;
             $arvUpdate = [];
-            if($value->balance >= $remove){
-                $arvUpdate["balance"] = $value->balance - $remove;
+            if($data->balance >= $remove){
+                $arvUpdate["balance"] = $data->balance - $remove;
             }else{
-                $in_balance = $remove - $value->balance;
+                $in_balance = $remove - $data->balance;
                 $arvUpdate["balance"] = 0;
-                $arvUpdate["local_balance"] = $value->local_balance - $in_balance;
+                $arvUpdate["local_balance"] = $data->local_balance - $in_balance;
             }
 
-            if($aod->update(["id" => $value->id,"user_id" => $value->user_id],$arvUpdate)){
+            if($aod->update(["id" => $data->id,"user_id" => $data->user_id],$arvUpdate)){
                 $miss = 0;
                 return true;
             }

@@ -26,7 +26,7 @@ class Smarttrader extends AccountController
 				session()->setFlashdata("confirm","Your are access VIP ".$this->request->getVar("symbol")." signals");
 				return redirect()->to("/smarttrader/upvip");
 			}else{
-				session()->setFlashdata("error","Update VIP Signals".$this->request->getVar("symbol")." Error");
+				session()->setFlashdata("errors","Update VIP Signals".$this->request->getVar("symbol")." Error");
 				return redirect()->to("/smarttrader/upvip");
 			}
 		}
