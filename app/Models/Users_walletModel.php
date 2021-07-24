@@ -307,7 +307,7 @@ class Users_walletModel extends BaseModel
 
     //Set Balance When Use Service
 
-    public function setBalance($service, $remove){
+    public function setBalancePaymentService($service, $remove){
         $data = $this->where(["user_id" => $this->user->getAccountID(),"wallet_network" => $service])->first();
         $total = $value->balance + $value->local_balance;
 

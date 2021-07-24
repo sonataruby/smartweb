@@ -27,6 +27,7 @@
 			<?php } ?>
 			
 		</select>
+		<h5><?php echo $price_signals;?> <?php echo $tokenname;?> / Month</h5>
 		<br>
 		<button class="btn btn-primary btn-sm">Update</button>
 		<?php echo form_close();?>

@@ -7,10 +7,9 @@ use App\Models\Wallet;
 use App\Controllers\Trader;
 class Smarttrader extends AccountController
 {
-	private $tokenMethod = "token";
+	
 	private $price_signals = 5;
-	private $price_token = 0.1;//0.1 USD
-
+	
 	public function index()
 	{
 		$this->view = 'trader/index';
@@ -21,7 +20,7 @@ class Smarttrader extends AccountController
 		$this->setSEO(["title" => "Update VIP Signals"]);
 
 		if($this->request->getVar("symbol")){
-			if($wallet->setBalance($service,$this->price_signals)){
+			if($wallet->setBalancePaymentService("token",$this->price_signals)){
 				
 				$this->setAccessVip($this->request->getVar("symbol"));
 			}
