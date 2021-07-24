@@ -177,4 +177,25 @@ class SettingsModel extends BaseModel
         }
     }
 
+    //Function Create Settings
+    public function setSettings($arv=[]){
+        foreach ($arv as $key => $value) {
+            $ad = new SettingsModel;
+            $data = $ad->where("name",$key)->first();
+
+            $arv = [];
+            $arv["name"] = $key;
+            $arv["value"] = $value;
+            if(!$data){
+                $this->insert($arv);
+            }
+        }
+    }
+
+    //Function get Record Settings
+    public function getSettings($name=""){
+        $data = $this->where("name",$name)->first();
+        return $data->value;
+    }
+
 }
