@@ -37,7 +37,7 @@ class AccountController extends BaseController
 	 *
 	 * @var array
 	 */
-	protected $helpers = ["url","form","functions"];
+	protected $helpers = ["url","form","functions","text"];
     protected $view = null; // Set default yield view
     protected $data = []; // Set default data array
     protected $layout = 'layout/cpanel'; // Set default layout
@@ -55,7 +55,8 @@ class AccountController extends BaseController
 	{
 		// Do Not Edit This Line
 		parent::initController($request, $response, $logger);
-
+        $this->data['language'] = $this->session->has("lang") ? $this->session->get("lang") : "en";
+        $this->request->setLocale($this->data['language']);
 		$this->layout = $this->getTemplates();
         $this->breadcrumb = new Breadcrumb();
 
