@@ -19,7 +19,7 @@ class Smarttrader extends AccountController
 		$wallet = new Users_walletModel();
 		$this->setSEO(["title" => "Update VIP Signals"]);
 
-		if($this->request->getVar("symbol")){
+		if($this->request->getVar("symbol") && $this->request->getVar("symbol") != ""){
 			if($wallet->setBalancePaymentService("token",$this->price_signals)){
 				
 				$this->setAccessVip($this->request->getVar("symbol"));

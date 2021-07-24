@@ -22,6 +22,7 @@
 		<?php echo form_open();?>
 		<h3>Select Symbol</h3>
 		<select class="form-select" name="symbol">
+			<option value="">Select Symbol</option>
 			<?php foreach ($symbol as $key => $value) { ?>
 				<option value="<?php echo $key;?>"><?php echo $key;?></option>
 			<?php } ?>
