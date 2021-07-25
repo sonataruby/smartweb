@@ -144,7 +144,7 @@ class SignalsModel extends BaseModel
             $data["language"] = $this->mutilanguage;
         }
         //if($data["is_free"] == "yes"){
-        $this->sendTelegram($data);
+        $this->sendTelegram($data,"create");
         //}
         if($data && $this->insert($data)){
             session()->setFlashdata("confirm",lang("globals.insert_confirm"));
@@ -199,7 +199,7 @@ class SignalsModel extends BaseModel
             $msg .=  "SL   : ".$data["sl"]."\n";
             $msg .=  "TP   : ".$data["tp1"]."\n";
         }
-        
+
         $msg .=  "Full Signal : https://vsmart.ltd/trader\n";
         $msg .=  "======================\n";
 
