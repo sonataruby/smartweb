@@ -41,6 +41,7 @@ class Users_walletModel extends BaseModel
     private $system_where = [];
 
     private $tokenname = "SMFX";
+    private $airdropAmount = 3;
     function __construct()
     {
         if($this->mutilanguage == true){
@@ -52,6 +53,10 @@ class Users_walletModel extends BaseModel
 
     public function getTokenName(){
         return $this->tokenname;
+    }
+
+    public function getTokenAmountAirdrop(){
+        return $this->airdropAmount;
     }
 
     public function getTokenPrice($symbol=""){

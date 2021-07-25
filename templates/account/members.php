@@ -8,6 +8,8 @@
 		  <input type="text" class="form-control" id="myCode" readonly="true" value="<?php echo base_url("account/intivite/".$code);?>" >
 		  <button class="btn btn-primary btn-sm" id="basic-addon2" onclick="myFunction();">Copy</button>
 		</div>
+
+		Share your link get free : <?php echo $airdrop;?> <b><?php echo $token;?></b>
 	</div>
 	<h3>Your Member</h3>
 	<table class="table">

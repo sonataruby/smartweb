@@ -18,7 +18,7 @@ class WhatToDo extends Model{
 
 	public function intivite_complete($arv){
 		$wallet = new Users_walletModel();
-		$wallet->setBalanceTokenAirdrop(3,$arv->intivite_id);
+		$wallet->setBalanceTokenAirdrop($wallet->getTokenAmountAirdrop(),$arv->intivite_id);
 	}
 
 
