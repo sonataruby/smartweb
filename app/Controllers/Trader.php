@@ -21,7 +21,6 @@ class Trader extends BaseController
 			["link" => "https://secure.tickmill.com?utm_campaign=ib_link&utm_content=IB21222244","image" => "https://cdn.tickmill.com/promotional/3/banners/static/Welcome-Account_240x400_en.png"]
 		];
 		$this->data["video"] = [];
-
 		
 	}
 
@@ -157,9 +156,11 @@ class Trader extends BaseController
 			$arv["status"] = "active";
 		}
 		$arv["ticket"] = $ticket;
+		$arv["symbol"] = $symbol;
 		$arv["is_free"] = "no";
 		$arv["opendate"] = date("Y-m-d h:i:s");
-		if($symbol != "") $signals->createRow($arv);
+		$supportSymbol = $this->symbol();
+		if($supportSymbol[$symbol] != "") $signals->createRow($arv);
 
 		//$this->sendTelegram($arv);
 		//$this->sendDiscord($arv);
