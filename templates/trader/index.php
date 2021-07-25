@@ -52,8 +52,7 @@
 
 <section>
 	<div class="container">
-		<h3>Signal Trader</h3>
-		<br>
+		
 		<div class="row">
 			
 			<div class="col-md-9">
@@ -76,8 +75,8 @@
 									<hr>
 									<div class="row">
 										<?php if($value->is_free == "no" && $value->access == "guest"){ ?>
-											<div class="col-9"><a href="/trader/upvip">Unlock VIP <br>Join VIP 5$/Month</a></div>
-											<div class="col-3 text-end"><?php echo ucfirst($value->status);?> <br><a href="https://one.exness.link/a/tjm6vjm6?p=250x250_VI_Registration_AccessFunds" class="btn btn-sm btn-danger" target="_bank">Trade Now</a></div>
+											<div class="col-9"><a href="/smarttrader/upvip">Unlock VIP <br>Join VIP 5$/Month</a></div>
+											<div class="col-3 text-end"><?php echo ucfirst($value->status);?> <br><a href="https://one.exness.link/a/tjm6vjm6" class="btn btn-sm btn-danger" target="_bank">Trade Now</a></div>
 											
 										<?php }else{ ?>
 
@@ -91,7 +90,7 @@
 										</div>
 
 										<div class="col-3 text-end">
-											<b><?php echo ucfirst($value->status);?></b> <br><a href="https://one.exness.link/a/tjm6vjm6?p=250x250_VI_Registration_AccessFunds" target="_bank" class="btn btn-sm btn-danger">Trade Now</a>
+											<b><?php echo ucfirst($value->status);?></b> <br><a href="https://one.exness.link/a/tjm6vjm6" target="_bank" class="btn btn-sm btn-danger">Trade Now</a>
 										</div>
 										
 										
@@ -133,8 +132,8 @@
 				<script>
 				     (adsbygoogle = window.adsbygoogle || []).push({});
 				</script>
+
 				<h5>Symbol Support</h5>
-				
 				<ul class="list-group list-group-flush">
 					<?php 
 					$i = 0;
