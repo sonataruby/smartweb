@@ -1,24 +1,13 @@
 <?php
 namespace App\Controllers\Admin;
 
-/**
- * Class BaseController
- * BaseController provides a convenient place for loading components
- * and performing functions that are needed by all your controllers.
- * Extend this class in any new controllers:
- *     class Home extends BaseController
- * For security be sure to declare any new methods as protected or private.
- * @package CodeIgniter
- *
- * @author Marco Monteiro @marcogmonteiro
- * @license    https://opensource.org/licenses/MIT  MIT License
- *
- * @link       https://github.com/mpmont/ci4-adminController
- * @link       https://blog.marcomonteiro.net
- */
 use CodeIgniter\Controller;
-use CodeIgniter\Router;
-
+use CodeIgniter\HTTP\CLIRequest;
+use CodeIgniter\HTTP\IncomingRequest;
+use CodeIgniter\HTTP\RequestInterface;
+use CodeIgniter\HTTP\ResponseInterface;
+use Psr\Log\LoggerInterface;
+use App\Libraries\Users;
 class AdminController extends Controller
 {
 
@@ -29,7 +18,7 @@ class AdminController extends Controller
      *
      * @var array
      */
-    protected $helpers = ["url","functions","form"];
+    protected $helpers = ["url","form","functions","text"];
     protected $view = null; // Set default yield view
     protected $data = []; // Set default data array
     protected $directory = 'admin'; // Set default directory
@@ -66,7 +55,7 @@ class AdminController extends Controller
         }
         elseif ($agent->isRobot())
         {
-                $this->agent = $this->agent->getRobot();
+                $this->agent = $agent->getRobot();
         }
         elseif ($agent->isMobile())
         {
@@ -77,7 +66,10 @@ class AdminController extends Controller
                 $this->agent = 'Unidentified User Agent';
         }
 
-        $this->session = \Config\Services::session();
+
+        $this->user = new Users;
+
+        $this->data["users"] = $this->user->getSession();
          $locale = $this->request->getVar("language") ? $this->request->getVar("language") : "en";
         
         if(trim($this->request->getVar("language")) != "" && !is_cli()) {
@@ -103,6 +95,7 @@ class AdminController extends Controller
         } else {
             $this->request->uri->getSegment(1) . '/' . $this->request->uri->getSegment(2);
         }
+
         $this->data["settings"] = $this->getSettings();
         $slang = explode("|",$this->data["settings"]->mutile_lang);
         $langsupport = [];
@@ -135,6 +128,18 @@ class AdminController extends Controller
         $controller_full_name = explode('\\', $router->controllerName());
         $view_folder = strtolower($this->directory . '/' . end($controller_full_name));
         
+        /** Access Admin **/
+
+        if(!$this->session->has('userlogin') ){
+            return redirect()->to("/account/login?return=".current_url());
+            exit();
+        }
+
+        if($this->user->isAdmin() == false){
+            return redirect()->to("/account/permission");
+            exit();
+        }
+
         //Checks if it's a 404 or not
         if (method_exists($this, $method)) {
             $redirect = call_user_func_array(array($this, $method), $this->arguments);
@@ -145,6 +150,9 @@ class AdminController extends Controller
         if (isset($redirect) && is_object($redirect) && get_class($redirect) === 'CodeIgniter\HTTP\RedirectResponse') {
             return $redirect;
         }
+
+        
+
         if ($this->view !== false) {
             $this->data['layout'] = (empty($this->layout)) ? 'layout/nolayout' : $this->layout;
             $this->data['body'] = (!empty($this->view)) ? $this->view : strtolower($view_folder . '/' . $router->methodName());
@@ -155,7 +163,8 @@ class AdminController extends Controller
 
 
     public function _permission(){
-
+       
+        
     }
     
 

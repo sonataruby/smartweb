@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="templates/assets/core/bootstrap.css">
 
 <link rel="stylesheet" href="templates/assets/theme.css">
-
+<link rel="stylesheet" href="templates/assets/core/admin.css">
 <script src="templates/assets/core/apps.js"></script>
 <script src="templates/assets/core/bootstrap-datepicker.js"></script>
 <link rel="stylesheet" href="templates/assets/core/datepicker.css"/>
@@ -38,8 +38,14 @@ foreach ($file as $key => $value) {
 
 </head>
 <body>
+  <div class="skippy visually-hidden-focusable overflow-hidden">
+  <div class="container-xl">
+    <a class="d-inline-flex p-2 m-1" href="#content">Skip to main content</a>
+    <a class="d-none d-md-inline-flex p-2 m-1" href="#bd-docs-nav">Skip to docs navigation</a>
+  </div>
+</div>
 <header class="navbar navbar-expand-md navbar-dark bd-navbar">
-  <nav class="container-xl flex-wrap flex-md-nowrap" aria-label="Main navigation">
+  <nav class="container-fluid flex-wrap flex-md-nowrap" aria-label="Main navigation">
     <a class="navbar-brand p-0 me-2" href="/" aria-label="Bootstrap">
       AD
     </a>
@@ -106,7 +112,7 @@ foreach ($file as $key => $value) {
 
 <nav class="bd-subnavbar py-2" aria-label="Secondary navigation">
   
-  <div class="container d-flex align-items-md-center">
+  <div class="container-fluid d-flex align-items-md-center">
     
 
     <?php echo form_open("",["method" => "get","class" => "bd-search position-relative me-auto"]);?>
@@ -116,33 +122,14 @@ foreach ($file as $key => $value) {
     </div>
     <?php echo form_close();?>
     <div>
-      <?php if($link != "" && $action == "list"){ ?>
-      <div class="btn-group rounded-pill" role="group" aria-label="Basic example">
-        <a type="button" href="<?php echo $linkcache2;?>desc" class="btn <?php echo $_GET["des"] == "desc" ? "btn-primary" : "btn-outline-secondary";?>"><i data-feather="arrow-up"></i></a>
-        <a type="button" href="<?php echo $linkcache2;?>asc" class="btn <?php echo $_GET["des"] == "asc" ? "btn-primary" : "btn-outline-secondary";?>"><i data-feather="arrow-down"></i></a>
-        
-      </div>
-        <a href="<?php echo $link;?>/create" class="btn btn-md btn-info"><i data-feather="plus-circle"></i> <?php echo lang("globals.create");?></a>
-        <button class="btn btn-md btn-danger"><i data-feather="x-circle"></i> <?php echo lang("globals.delete");?></button>
       
-      <?php } ?>
-      <?php if($link != "" && $action == "create"){ ?>
-        <a href="<?php echo $link;?>" class="btn btn-md btn-outline-primary"><i data-feather="arrow-left"></i> <?php echo lang("globals.back");?></a>
-        <button class="btn btn-md btn-primary" onclick="$('main form').submit();"><i data-feather="save"></i> <?php echo lang("globals.save");?></button>
-      <?php } ?>
     </div>
   </div>
-  <?php if($breadcrumbs){ ?>
-  <div class="border-top">
-    <div class="container">
-      <?php echo $breadcrumbs;?>
-    </div>
-  </div>
-  <?php } ?>
+  
 </nav>
 
 <?php if($confirm){ ?>
-<div class="container alert alert-success d-flex align-items-center" role="alert">
+<div class="container-fluid alert alert-success d-flex align-items-center" role="alert">
   <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
   <div>
     <?php echo $confirm;?>
@@ -152,7 +139,7 @@ foreach ($file as $key => $value) {
 
 
 <?php if($errors){ ?>
-<div class="container alert alert-danger d-flex align-items-center" role="alert">
+<div class="container-fluid alert alert-danger d-flex align-items-center" role="alert">
   <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
   <div>
     <?php echo $errors;?>
@@ -160,10 +147,49 @@ foreach ($file as $key => $value) {
 </div>
 <?php } ?>
 
-<div class="container my-md-4 bd-layout">
-  <aside class="bd-sidebar"></aside>
+<div class="container-fluid my-md-4 bd-layout">
+  <aside class="bd-sidebar">
+    <nav class="collapse bd-links" id="bd-docs-nav" aria-label="Docs navigation">
+      <h4>Admin Apps</h4>
+      <ul class="list-unstyled mb-0 py-3 pt-md-1">
+        <li class="mb-1"><a href="/admin/users">Account</a></li>
+        <li class="mb-1"><a href="/admin/settings">System</a></li>
+        <li class="mb-1"><a href="/admin/application">Apps</a></li>
+      </ul>
+  </nav>
+  </aside>
   <main class="bd-main order-1">
-    <?php echo $this->renderSection('body') ?>
+    <div class="bd-intro ps-lg-4">
+      <div class="justify-content-between d-flex">
+      <?php if($breadcrumbs){ ?>
+      <?php echo $breadcrumbs;?>
+      <?php } ?>
+      <div>
+        <?php if($link != "" && $action == "list"){ ?>
+        <div class="btn-group rounded-pill" role="group" aria-label="Basic example">
+          <a type="button" href="<?php echo $linkcache2;?>desc" class="btn <?php echo $_GET["des"] == "desc" ? "btn-primary" : "btn-outline-secondary";?>"><i data-feather="arrow-up"></i></a>
+          <a type="button" href="<?php echo $linkcache2;?>asc" class="btn <?php echo $_GET["des"] == "asc" ? "btn-primary" : "btn-outline-secondary";?>"><i data-feather="arrow-down"></i></a>
+          
+        </div>
+          <a href="<?php echo $link;?>/create" class="btn btn-md btn-info"><i data-feather="plus-circle"></i> <?php echo lang("globals.create");?></a>
+          <button class="btn btn-md btn-danger"><i data-feather="x-circle"></i> <?php echo lang("globals.delete");?></button>
+        
+        <?php } ?>
+        <?php if($link != "" && $action == "create"){ ?>
+          <a href="<?php echo $link;?>" class="btn btn-md btn-outline-primary"><i data-feather="arrow-left"></i> <?php echo lang("globals.back");?></a>
+          <button class="btn btn-md btn-primary" onclick="$('main form').submit();"><i data-feather="save"></i> <?php echo lang("globals.save");?></button>
+        <?php } ?>
+        </div>
+      </div>
+
+      <?php echo $this->renderSection('bodyTop') ?>
+    </div>
+    <div class="bd-toc mt-4 mb-5 my-md-0 ps-xl-3 mb-lg-5 text-muted">
+      <?php echo $this->renderSection('bodyRight') ?>
+    </div>
+    <div class="bd-content ps-lg-4">
+      <?php echo $this->renderSection('body') ?>
+    </div>
   </main>
 </div>
 

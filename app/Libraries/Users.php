@@ -166,6 +166,12 @@ class Users extends Model{
         return $id > 0 ? $id : 0;
     }
 
+    //get Role Admin
+    public function isAdmin(){
+        $role = $this->getSession()->role;
+        return $role == "admin" ? true : false;
+        
+    }
     //Info User after Login
     public function getInfoProfile(){
         return $this->get_user_by_id($this->getAccountID());

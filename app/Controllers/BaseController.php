@@ -74,7 +74,7 @@ class BaseController extends Controller
         }
         elseif ($agent->isRobot())
         {
-                $this->agent = $this->agent->getRobot();
+                $this->agent = $this->getRobot();
         }
         elseif ($agent->isMobile())
         {

@@ -1,24 +1,40 @@
 <?php echo $this->extend($layout); ?>
 
-<?php echo $this->section('body') ?>
+<?php echo $this->section('bodyTop') ?>
 
 
 <h3 class="d-flex justify-content-between">
 			<div><i data-feather="server"></i> Language</div>
-			
-			<div>
-				<select class="form-select" aria-label="Default select example">
-				  <option selected>Open this select menu</option>
-				  <option value="1">One</option>
-				  <option value="2">Two</option>
-				  <option value="3">Three</option>
-				</select>
-			</div>
 </h3>
+<table class="table">
+	<thead>
+		<td>Name</td>
+		<td>Dir</td>
+		<td>Status</td>
+		<td></td>
+	</thead>
+<?php foreach ($supportlangauge as $key => $value) { 
+
+	?>
+	<tr>
+		<td><a href="/admin/settings/language/<?php echo $key;?>"><?php echo $value;?></a></td>
+		<td><?php echo $key;?></td>
+		<td><?php echo is_dir(APPPATH . "Language/".$key) ? "Ready" : "None";?></td>
+		<td class="text-end">
+			<?php if($key != "en"){ ?>
+			<a href="/admin/settings/makelang/<?php echo $key;?>" class="btn btn-sm btn-primary">Make</a>
+			<?php } ?>
+		</td>
+	</tr>
+<?php } ?>
+</table>
+<?php echo $this->endSection() ?>
+
+<?php echo $this->section('body') ?>
 <?php echo form_open();?>
 <div class="input-group mb-3">
   <span class="input-group-text" id="basic-addon1">Select File</span>
-  	<select class="form-select" name="filesave" aria-label="Default select example" onchange="window.location.href='/admin/settings/language?file='+this.value">
+  	<select class="form-select" name="filesave" aria-label="Default select example" onchange="window.location.href='/admin/settings/language/<?php echo $active;?>?file='+this.value">
 	  <option value="<?php echo $_GET['file'];?>" selected><?php echo $_GET['file'];?></option>
 	  <?php foreach ($file as $key => $value) { ?>
 	  	<option value="<?php echo basename($value);?>"><?php echo basename($value);?></option>
@@ -36,7 +52,7 @@
 			<th width="20%">Key</th>
 			<th>Data</th>
 		</thead>
-		<?php foreach ($langmode as $key => $value) { ?>
+		<?php foreach (@$langmode as $key => $value) { ?>
 			<?php if(!in_array($key,$ingore) && $_GET['file'] != "Globals.php"){ ?>
 			<tr>
 				<td><?php echo $key;?></td>

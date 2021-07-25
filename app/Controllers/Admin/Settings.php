@@ -110,11 +110,16 @@ class Settings extends AdminController
 	}
 
 
-	public function language(){
-		$file = glob(APPPATH . "Language/en/*.php");
+	public function language($lang="en"){
+
+		
+		$file = glob(APPPATH . "Language/".$lang."/*.php");
 		$this->data["file"] = $file;
-		if(file_exists(APPPATH . "Language/en/".$_GET['file'])){
-			$getInfo = require APPPATH . "Language/en/".$_GET['file'];
+		$this->data["langmode"] = [];
+		$reFile = $this->request->getVar('file');
+		$this->data["active"] = $lang;
+		if($reFile != "" && file_exists(APPPATH . "Language/".$lang."/".$reFile)){
+			$getInfo = require APPPATH . "Language/".$lang."/".$reFile;
 			$this->data["langmode"] = $getInfo;
 		}
 		
@@ -127,11 +132,27 @@ class Settings extends AdminController
 			}
 			
 
-			file_put_contents(APPPATH . "Language/en/".$_GET['file'],'<?php'."\n return [\n".implode($arv, ",\n")."\n];\n".'?>');
+			file_put_contents(APPPATH . "Language/".$lang."/".$_GET['file'],'<?php'."\n return [\n".implode($arv, ",\n")."\n];\n".'?>');
 			session()->setFlashdata("confirm",lang("globals.update_confirm"));
-			return redirect()->to("/admin/settings/language?file=".$_GET['file']);
+			return redirect()->to("/admin/settings/language/".$lang."?file=".$_GET['file']);
 		}
+
 		
+	}
+
+	public function makelang($dir){
+		if(!is_dir(APPPATH . "Language/".$dir)){
+			mkdir(APPPATH . "Language/".$dir,0777,true);
+		}
+
+		$file = glob(APPPATH . "Language/en/*.php");
+
+		foreach ($file as $key => $value) {
+			copy($value, APPPATH . "Language/".$dir."/".basename($value));
+		}
+		session()->setFlashdata("confirm",lang("globals.update_confirm"));
+		return redirect()->to("/admin/settings/language/".$dir);
+
 	}
 
 	

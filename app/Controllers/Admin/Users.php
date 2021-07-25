@@ -22,8 +22,8 @@ class Users extends AdminController
 	
 	function __construct()
 	{
-		$this->_permission();
-		helper(['form', 'url']);
+		
+		
 		$this->model = new UsersModel();
 		$this->breadcrumb = new Breadcrumb();
 		$this->data["link"] = $this->link;

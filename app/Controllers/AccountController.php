@@ -55,8 +55,8 @@ class AccountController extends BaseController
 	{
 		// Do Not Edit This Line
 		parent::initController($request, $response, $logger);
-        $this->data['language'] = $this->session->has("lang") ? $this->session->get("lang") : "en";
-        $this->request->setLocale($this->data['language']);
+        //$this->data['language'] = $this->session->has("lang") ? $this->session->get("lang") : "en";
+        //$this->request->setLocale($this->data['language']);
 		$this->layout = $this->getTemplates();
         $this->breadcrumb = new Breadcrumb();
 
