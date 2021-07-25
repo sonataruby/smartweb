@@ -143,9 +143,9 @@ class SignalsModel extends BaseModel
         if($this->mutilanguage != false){
             $data["language"] = $this->mutilanguage;
         }
-        if($data["is_free"] == "yes"){
-            $this->sendTelegram($data);
-        }
+        //if($data["is_free"] == "yes"){
+        $this->sendTelegram($data);
+        //}
         if($data && $this->insert($data)){
             session()->setFlashdata("confirm",lang("globals.insert_confirm"));
             return $this->getID();
@@ -160,9 +160,9 @@ class SignalsModel extends BaseModel
             $this->where("language",$this->mutilanguage);
         }
 
-        if($data["is_free"] == "yes"){
-            $this->sendTelegram($data,"update");
-        }
+        //if($data["is_free"] == "yes"){
+        $this->sendTelegram($data,"update");
+        //}
 
         if($data && $this->update($id,$data)){
             session()->setFlashdata("confirm",lang("globals.update_confirm"));
@@ -194,10 +194,13 @@ class SignalsModel extends BaseModel
         }else{
         $msg .= $data["symbol"]." - ".$data["type"]." [NEW]\n";
         }
-        $msg .=  "Open : ".$data["open"]."\n";
-        $msg .=  "SL   : ".$data["sl"]."\n";
-        $msg .=  "TP   : ".$data["tp1"]."\n";
-        $msg .=  "VIP Signal : https://vsmart.ltd/trader\n";
+        if($data["is_free"] == "yes"){
+            $msg .=  "Open : ".$data["open"]."\n";
+            $msg .=  "SL   : ".$data["sl"]."\n";
+            $msg .=  "TP   : ".$data["tp1"]."\n";
+        }
+        
+        $msg .=  "Full Signal : https://vsmart.ltd/trader\n";
         $msg .=  "======================\n";
 
         $url = "https://api.telegram.org/bot" . $token . "/sendMessage?chat_id=" . $channel;
