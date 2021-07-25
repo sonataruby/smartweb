@@ -129,11 +129,11 @@ class Trader extends BaseController
 		];
 		return (object)$arv;
 	}
-	public function cratesignals($data){
+	public function cratesignals($data=""){
 		$signals = new SignalsModel;
 		//{"ticket":"232437174","symbol":"BTCUSD","type":"SELLLIMIT","open":"35387.02","sl":"0","tp":"0"}
 		//$json = json_decode($data);
-		$json = json_decode(urldecode($urldecode));
+		$json = json_decode(urldecode($data));
 		$type = $json->type;
 		$symbol = $json->symbol;
 		$ticket = $json->ticket;
