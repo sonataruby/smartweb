@@ -143,10 +143,11 @@ class SignalsModel extends BaseModel
         if($this->mutilanguage != false){
             $data["language"] = $this->mutilanguage;
         }
-        //if($data["is_free"] == "yes"){
-        $this->sendTelegram($data,"create");
-        //}
+        
         if($data && $this->insert($data)){
+            //if($data["is_free"] == "yes"){
+            $this->sendTelegram($data,"create");
+            //}
             session()->setFlashdata("confirm",lang("globals.insert_confirm"));
             return $this->getID();
         }else{
@@ -160,11 +161,12 @@ class SignalsModel extends BaseModel
             $this->where("language",$this->mutilanguage);
         }
 
-        //if($data["is_free"] == "yes"){
-        $this->sendTelegram($data,"update");
-        //}
+        
 
         if($data && $this->update($id,$data)){
+            //if($data["is_free"] == "yes"){
+            $this->sendTelegram($data,"update");
+            //}
             session()->setFlashdata("confirm",lang("globals.update_confirm"));
             return $id;
         }else{
