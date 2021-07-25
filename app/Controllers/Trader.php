@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 use App\Libraries\Users;
+use App\Models\SignalsModel;
 class Trader extends BaseController
 {
 	private $SocketIOServer = "127.0.0.1";
@@ -126,14 +127,43 @@ class Trader extends BaseController
 		];
 		return (object)$arv;
 	}
-	public function cratesignals(){
-		$json = $this->request->getJSON();
-		$this->sendTelegram($arv);
-		$this->sendDiscord($arv);
-		$this->alertSocket();
-		$this->alertApps();
+	public function cratesignals($data){
+		$signals = new SignalsModel;
+		//{"ticket":"232437174","symbol":"BTCUSD","type":"SELLLIMIT","open":"35387.02","sl":"0","tp":"0"}
+		$json = json_decode($data);
+		$type = $json->type;
+		$symbol = $json->symbol;
+		$ticket = $json->ticket;
+
+		$arv["open"] 	= $json->open;
+		$arv["sl"] 	= $json->sl;
+		$arv["tp1"] 	= $json->tp;
+		$arv["type"] = $type;
+		if($type == "SELLLIMIT" || $type == "SELLSTOP"){
+			$arv["type"] = "SELL";
+			$arv["status"] = "pending";
+		}
+
+		if($type == "BUYLIMIT" || $type == "BUYSTOP"){
+			$arv["type"] = "BUY";
+			$arv["status"] = "pending";
+		}
+		if($type == "BUY" || $type == "SELL"){
+			$arv["status"] = "active";
+		}
+		$arv["ticket"] = $ticket;
+		$arv["is_free"] = "no";
+		$arv["opendate"] = date("Y-m-d h:i:s");
+		$signals->createRow($arv);
+
+		//$this->sendTelegram($arv);
+		//$this->sendDiscord($arv);
+		//$this->alertSocket();
+		//$this->alertApps();
 		exit();
 	}
+
+
 	public function closesignals(){
 		$json = $this->request->getJSON();
 		exit();

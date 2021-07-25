@@ -27,15 +27,16 @@ class Payment extends BaseController
 		$hex_data   = bin2hex($data);
         $save_name  = $hex_data . '.png';
         if($service == "btc"){
-			$params['data']     = "0x3aebc70aa356187b2f7391f842bc72da67e46b04";
+			$params['data']     = "0x3aebc70aa356187b2f7391f842bc72da67e46b04?amount=0.01";
 			$this->data["service"] = "BTC BEP20 (BSC)";
 		}
 		if($service == "eth"){
-			$params['data']     = "0xd2D1e9a0E2Ba929c5114e5aF4e2B0F45586422C0";
+			$params['data']     = "0xd2D1e9a0E2Ba929c5114e5aF4e2B0F45586422C0?amount=0.01";
 			$this->data["service"] = "Ethereum";
 		}
         $params['level']    = 'R';
         $params['size']     = 10;
+
         //$params['savename'] = FCPATH . "/uploads/qrcode/" . $save_name;
 
 		$this->data["qrcode"] = $qrcode->getQrcode64($params);
