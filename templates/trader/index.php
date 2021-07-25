@@ -57,7 +57,7 @@
 			
 			<div class="col-md-9">
 				
-				<div style="max-height:950px; overflow-y: auto;overflow-x: hidden;" class="border">
+				<div style="max-height:950px; overflow-y: auto;overflow-x: hidden;">
 					
 						<ul>
 							<?php 
