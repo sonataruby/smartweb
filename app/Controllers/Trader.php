@@ -130,7 +130,8 @@ class Trader extends BaseController
 	public function cratesignals($data){
 		$signals = new SignalsModel;
 		//{"ticket":"232437174","symbol":"BTCUSD","type":"SELLLIMIT","open":"35387.02","sl":"0","tp":"0"}
-		$json = json_decode($data);
+		//$json = json_decode($data);
+		$json = $this->request->getJSON();
 		$type = $json->type;
 		$symbol = $json->symbol;
 		$ticket = $json->ticket;
