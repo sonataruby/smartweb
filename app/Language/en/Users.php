@@ -1,6 +1,6 @@
 <?php
 return [
-"modules" => "Users",
+	"modules" => "Users",
 	"title" => "Users Controller",
 	"create" => "Users Manager",
 	"username" => "username",

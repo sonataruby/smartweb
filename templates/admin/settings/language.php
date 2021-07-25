@@ -41,7 +41,7 @@
 	  <?php } ?>
 	  
 	</select>
-	<button class="btn btn-primary" type="submit">Save</button>
+	<button class="btn btn-primary" type="submit">Save Update Data</button>
 </div>
 <?php 
 	$ingore = ["language","languge","groups","value","keyword","description","format"];

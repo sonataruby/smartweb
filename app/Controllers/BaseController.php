@@ -223,6 +223,28 @@ class BaseController extends Controller
             $replace[] = $value->replace_data;
 
         }
+
+       
+        /*
+        Replace Social
+        */
+        $social_find = [
+            '<a href="#"><em class="icon fab fa-facebook-f"></em></a>',
+            '<a href="#"><em class="icon fab fa-twitter"></em></a>',
+            '<a href="#"><em class="icon fab fa-youtube"></em></a>',
+            '<a href="#"><em class="icon fab fa-github"></em></a>',
+            '<a href="#"><em class="icon fab fa-bitcoin"></em></a>',
+            '<a href="#"><em class="icon fab fa-medium-m"></em></a>'
+        ];
+        $social_replace = [
+            '<a href="#" target="_bank"><em class="icon fab fa-facebook-f"></em></a>',
+            '<a href="https://twitter.com/laravelcms" target="_bank"><em class="icon fab fa-twitter"></em></a>',
+            '<a href="https://www.youtube.com/channel/UCj8D3MumkbD74cSna7QBdLA" target="_bank"><em class="icon fab fa-youtube"></em></a>',
+            '<a href="https://github.com/smartfinace" target="_bank"><em class="icon fab fa-github"></em></a>',
+            '<a href="#" target="_bank"><em class="icon fab fa-bitcoin"></em></a>',
+            '<a href="#" target="_bank"><em class="icon fab fa-medium-m"></em></a>'
+        ];
+        $html = str_replace($social_find, $social_replace, $html);
         return str_replace($find,$replace,$html);
     }
 
