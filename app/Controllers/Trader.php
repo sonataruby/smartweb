@@ -133,7 +133,7 @@ class Trader extends BaseController
 		$signals = new SignalsModel;
 		//{"ticket":"232437174","symbol":"BTCUSD","type":"SELLLIMIT","open":"35387.02","sl":"0","tp":"0"}
 		//$json = json_decode($data);
-		print_r($data);
+		$data = $this->request->getVar("data");
 		$json = json_decode(urldecode($data));
 		$type = $json->type;
 		$symbol = $json->symbol;
