@@ -129,13 +129,13 @@ class Trader extends BaseController
 		];
 		return (object)$arv;
 	}
-	public function cratesignals($data=""){
-		print_r($_SERVER['argv'][1]);
+	public function cratesignals(){
+		
 		$signals = new SignalsModel;
 		//{"ticket":"232437174","symbol":"BTCUSD","type":"SELLLIMIT","open":"35387.02","sl":"0","tp":"0"}
 		//$json = json_decode($data);
 
-		$json = json_decode(urldecode($data));
+		$json = json_decode(urldecode($_SERVER['argv'][3]));
 		$type = $json->type;
 		$symbol = $json->symbol;
 		$ticket = $json->ticket;
@@ -159,7 +159,7 @@ class Trader extends BaseController
 		$arv["ticket"] = $ticket;
 		$arv["is_free"] = "no";
 		$arv["opendate"] = date("Y-m-d h:i:s");
-		$signals->createRow($arv);
+		if($symbol != "") $signals->createRow($arv);
 
 		//$this->sendTelegram($arv);
 		//$this->sendDiscord($arv);
