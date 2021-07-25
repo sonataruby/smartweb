@@ -21,6 +21,8 @@ class Trader extends BaseController
 			["link" => "https://secure.tickmill.com?utm_campaign=ib_link&utm_content=IB21222244","image" => "https://cdn.tickmill.com/promotional/3/banners/static/Welcome-Account_240x400_en.png"]
 		];
 		$this->data["video"] = [];
+
+		
 	}
 
 	public function account($meta_id){
@@ -127,11 +129,11 @@ class Trader extends BaseController
 		];
 		return (object)$arv;
 	}
-	public function cratesignals($data=""){
+	public function cratesignals($data){
 		$signals = new SignalsModel;
 		//{"ticket":"232437174","symbol":"BTCUSD","type":"SELLLIMIT","open":"35387.02","sl":"0","tp":"0"}
 		//$json = json_decode($data);
-		$json = $this->request->getJSON();
+		$json = json_decode(urldecode($urldecode));
 		$type = $json->type;
 		$symbol = $json->symbol;
 		$ticket = $json->ticket;
