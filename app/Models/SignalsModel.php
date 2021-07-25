@@ -188,7 +188,7 @@ class SignalsModel extends BaseModel
         $token = "1005922514:AAEPO0P1Wdt4VyFY-oz9L3IxISFLPyNcXTM";
         $channel = "@vsmartchannel";
 
-        $msg =  "=======================\n";
+        $msg =  "============================\n";
         if($type == "update"){
         $msg .= $data["symbol"]." - ".$data["type"]." [UPDATE]\n";
         }else{
@@ -201,7 +201,7 @@ class SignalsModel extends BaseModel
         }
 
         $msg .=  "Full Signal : https://vsmart.ltd/trader\n";
-        $msg .=  "======================\n";
+        $msg .=  "===========================\n";
 
         $url = "https://api.telegram.org/bot" . $token . "/sendMessage?chat_id=" . $channel;
         $url = $url . "&text=" . urlencode($msg);
