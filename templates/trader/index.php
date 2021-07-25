@@ -113,15 +113,14 @@
 				<div class="bg-primary p-3 rounded text-center">
 					<a href="/smarttrader/upvip"><h3 class="text-light">JOIN VIP</h3><h5 class="text-light">5$/month</h5></a>
 				</div>
-
+				<br>
 				<h3>Service</h3>
 				
 				<ul class="list-group list-group-flush">
 				  <li class="list-group-item"><a  href="/smarttrader/copytrade" class="link">COPY TRADE</a></li>
 				  <li class="list-group-item"><a  href="/smarttrader/smartea" class="link">SMART EA</a></li>
-				  <li class="list-group-item"><a  href="/trader/smartea" class="link">Mt4 Indicator</a></li>
-				  <li class="list-group-item"><a  href="/trader/smartea" class="link">MT5 Indicator</a></li>
-				  <li class="list-group-item"><a  href="/trader/smartea" class="link">Tech</a></li>
+				  <li class="list-group-item"><a  href="https://thinking-2win.com/indicator" target="_blank" class="link">Download Indicator</a></li>
+				  
 				</ul>
 				
 				<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>

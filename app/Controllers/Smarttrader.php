@@ -15,6 +15,15 @@ class Smarttrader extends AccountController
 		$this->view = 'trader/index';
 	}
 
+
+	public function copytrade(){
+		return redirect()->to("/smarttrader/upvip");
+	}
+
+	public function smartea(){
+		return redirect()->to("/smarttrader/upvip");
+	}
+
 	public function upvip(){
 		$wallet = new Users_walletModel();
 		$this->setSEO(["title" => "Update VIP Signals"]);
