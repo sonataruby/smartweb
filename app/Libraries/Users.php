@@ -74,12 +74,22 @@ class Users extends Model{
         if(intval($ac_id) > 0){
             $this->update($ac_id,$arv);
             session()->setFlashdata("confirm",lang("users.profile_update"));
+            $this->setLoginSession("firstname",$arv["firstname"]);
+            $this->setLoginSession("lastname",$arv["lastname"]);
+            $this->setLoginSession("avatar",$arv["avatar"]);
             return true;
         }
         session()->setFlashdata("errors",lang("users.profile_error"));
         return false;
     }
 
+    public function resetCodeintivite(){
+         $ac_id = $this->getAccountID();
+         $arv["intivited_code"] = generate_short_unique_id();
+         $this->update($ac_id,$arv);
+         $this->setLoginSession("refcode",$arv["intivited_code"]);
+         return true;
+    }
     /*
     Change Password
     */
@@ -96,6 +106,8 @@ class Users extends Model{
         session()->setFlashdata("errors",lang("users.password_error"));
         return false;
     }
+
+
 	/*
 	Create User
 	*/
@@ -190,6 +202,15 @@ class Users extends Model{
     public function hasLogin(){
         if($this->session->has("userlogin")) return true;
         return false;
+    }
+
+
+    public function setLoginSession($name, $value){
+       // $arv["userlogin"][$name] = $value; 
+        $data = (array)$this->getSession();
+        $data = array_merge($data,[$name => $value]);
+        $this->session->set(["userlogin" => $data]);
+        return $this;
     }
 
 	public function register($email, $password, $username="",$firstname="",$lastname="",$autologin=true){
@@ -354,6 +375,8 @@ class Users extends Model{
                     'slug' => $slug,
                     'avatar' => $g_user->avatar,
                     'user_type' => "google",
+                    'intivited_code' => generate_short_unique_id(),
+                    'login_first' => 1,
                     'created_at' => date('Y-m-d H:i:s')
                 );
                 if (!empty($data['email'])) {
@@ -393,6 +416,8 @@ class Users extends Model{
                     'slug' => $slug,
                     'avatar' => "https://graph.facebook.com/" . $fb_user->id . "/picture?type=large",
                     'user_type' => "facebook",
+                    'intivited_code' => generate_short_unique_id(),
+                    'login_first' => 1,
                     'created_at' => date('Y-m-d H:i:s')
                 );
                 if (!empty($data['email'])) {

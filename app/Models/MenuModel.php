@@ -19,7 +19,7 @@ class MenuModel extends BaseModel
     protected $returnType     = 'object';
     protected $useSoftDeletes = false;
 
-    protected $allowedFields = ["name","parent","short","main_short","status","oncepage","language","router","layout","display"];
+    protected $allowedFields = ["name","parent","short","main_short","status","oncepage","language","router","display"];
 
     protected $useTimestamps = false;
     protected $createdField  = 'created_at';

@@ -14,4 +14,9 @@ class Members extends AccountController
 		
 		$this->view = 'account/members';
 	}
+
+	public function resetcode(){
+		$this->user->resetCodeintivite();
+		return redirect()->to("/members");
+	}
 }
