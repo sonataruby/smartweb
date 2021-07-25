@@ -26,24 +26,28 @@
 	<div class="container">
 		<h3>Report Week</h3>
 		<div class="row">
+			
+    		
+
 			<div class="col-md-3 col-6 pb-3">
 				
 				<div class="bg-primary p-3 rounded text-light">Profit : <?php echo $report->usd;?>$</div>
     			
     		</div>
+
     		<div class="col-md-3 col-6">
     			
-        		<div class="bg-primary p-3 rounded text-light">Pips : <?php echo $report->pip;?> pips</div>
+        		<div class="border border-primary p-3 rounded">Pips : <?php echo $report->pip;?> pips</div>
 			</div>
 
 			<div class="col-md-3 col-6">
 				
-				<div class="bg-primary p-3 rounded text-light">Member VIP : <?php echo $report->member;?></div>
+				<div class="border border-warning p-3 rounded">Member VIP : <?php echo $report->member;?></div>
     			
     		</div>
     		<div class="col-md-3 col-6">
     			
-        		<div class="bg-primary p-3 rounded text-light">Orders : <?php echo $report->signals;?></div>
+        		<div class="bg-success p-3 rounded"><a href="/members" class="text-light">Airdrop get free token</a></div>
 			</div>
 
 		</div>
