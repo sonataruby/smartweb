@@ -74,7 +74,7 @@
 							?>
 							<li>
 								
-								<div class="bd-callout <?php echo ($value->type == "SELL"  ? "bd-sell" : "bd-buy");?> <?php echo $value->status == "target" ? "bd-target" : "");?>">
+								<div class="bd-callout <?php echo ($value->type == "SELL"  ? "bd-sell" : "bd-buy");?> <?php echo ($value->status == "target" ? "bd-target" : "");?>">
 									<h5 class="d-flex justify-content-between">
 										<?php echo $value->symbol;?><?php echo ($value->is_free == "yes" || $value->access == "vip" ? " | ". $value->type : "");?>
 										<div style="font-size:12px;"><?php echo $value->opendate;?></div>
