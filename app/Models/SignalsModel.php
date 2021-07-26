@@ -178,6 +178,7 @@ class SignalsModel extends BaseModel
     public function updateRowTicket($ticket, $data=[]){
         
 
+
         if($data && $this->update(["ticket" => $ticket],$data)){
             //if($data["is_free"] == "yes"){
             $this->sendTelegram($data,"update");
@@ -191,6 +192,7 @@ class SignalsModel extends BaseModel
     }
 
     public function closeRowTicket($ticket, $data=[],$targetby="close"){
+        
         if($data && $this->update(["ticket" => $ticket],$data)){
             //if($data["is_free"] == "yes"){
             $this->sendTelegram($data,"close",$targetby);

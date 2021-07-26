@@ -176,11 +176,14 @@ class Trader extends BaseController
 		$type = $json->type;
 		$symbol = $json->symbol;
 		$ticket = $json->ticket;
+		$targetby 			= $json->targetby;
 		$arv = [];
+		$arv["symbol"] = $symbol;
+		$arv["type"] = $type;
 		$arv["close"] 		= $json->close;
 		$arv["profits"] 	= $json->pips;
-		$arv["status"] 		= 'target';
-		$targetby 			= $json->targetby;
+		$arv["status"] 		= $targetby == "cancel" ? "cancel" : 'target';
+		
 		$supportSymbol = $this->symbol();
 		if($supportSymbol[$symbol] != "") $signals->closeRowTicket($ticket,$arv,$targetby);
 		exit();
@@ -192,6 +195,8 @@ class Trader extends BaseController
 		$symbol = $json->symbol;
 		$ticket = $json->ticket;
 		$arv = [];
+		$arv["symbol"] = $symbol;
+		$arv["type"] = $type;
 		$arv["open"] 	= $json->open;
 		$arv["sl"] 	= $json->sl;
 		$arv["tp1"] 	= $json->tp;
