@@ -61,7 +61,7 @@
 			
 			<div class="col-md-9">
 				
-				<div style="max-height:950px; overflow-y: auto;overflow-x: hidden;">
+				<div style="max-height:1000px; overflow-y: auto;overflow-x: hidden;">
 					
 						<ul>
 							<?php 

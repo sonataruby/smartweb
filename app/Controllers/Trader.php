@@ -159,6 +159,7 @@ class Trader extends BaseController
 		$arv["symbol"] = $symbol;
 		$arv["is_free"] = "no";
 		$arv["opendate"] = date("Y-m-d h:i:s");
+		$arv["active"] = "active";
 		$supportSymbol = $this->symbol();
 		if($supportSymbol[$symbol] != "") $signals->createRow($arv);
 
@@ -171,12 +172,32 @@ class Trader extends BaseController
 
 
 	public function closesignals(){
-		$json = $this->request->getJSON();
+		$json = json_decode(urldecode($_SERVER['argv'][3]));
+		$type = $json->type;
+		$symbol = $json->symbol;
+		$ticket = $json->ticket;
+		$arv = [];
+		$arv["close"] 		= $json->close;
+		$arv["profits"] 	= $json->pips;
+		$arv["status"] 		= 'target';
+		$targetby 			= $json->targetby;
+		$supportSymbol = $this->symbol();
+		if($supportSymbol[$symbol] != "") $signals->closeRowTicket($ticket,$arv,$targetby);
 		exit();
 	}
 
 	public function movesignals(){
-		$json = $this->request->getJSON();
+		$json = json_decode(urldecode($_SERVER['argv'][3]));
+		$type = $json->type;
+		$symbol = $json->symbol;
+		$ticket = $json->ticket;
+		$arv = [];
+		$arv["open"] 	= $json->open;
+		$arv["sl"] 	= $json->sl;
+		$arv["tp1"] 	= $json->tp;
+		$signals = new SignalsModel;
+		$supportSymbol = $this->symbol();
+		if($supportSymbol[$symbol] != "") $signals->updateRowTicket($ticket,$arv);
 		exit();
 	}
 	

@@ -175,6 +175,34 @@ class SignalsModel extends BaseModel
         }
     }
 
+    public function updateRowTicket($ticket, $data=[]){
+        
+
+        if($data && $this->update(["ticket" => $ticket],$data)){
+            //if($data["is_free"] == "yes"){
+            $this->sendTelegram($data,"update");
+            //}
+            session()->setFlashdata("confirm",lang("globals.update_confirm"));
+            return $ticket;
+        }else{
+            session()->setFlashdata("errors",lang("globals.update_error"));
+            return $ticket;
+        }
+    }
+
+    public function closeRowTicket($ticket, $data=[],$targetby="close"){
+        if($data && $this->update(["ticket" => $ticket],$data)){
+            //if($data["is_free"] == "yes"){
+            $this->sendTelegram($data,"close",$targetby);
+            //}
+            session()->setFlashdata("confirm",lang("globals.update_confirm"));
+            return $ticket;
+        }else{
+            session()->setFlashdata("errors",lang("globals.update_error"));
+            return $ticket;
+        }
+    }
+
     public function removeRow($id){
         if($this->delete($id)){
             session()->setFlashdata("confirm",lang("globals.delete_confirm"));
@@ -186,7 +214,7 @@ class SignalsModel extends BaseModel
     }
 
 
-    private function sendTelegram($data,$type){
+    private function sendTelegram($data,$type, $targetby="close"){
         $token = "1005922514:AAEPO0P1Wdt4VyFY-oz9L3IxISFLPyNcXTM";
         $channel = "@vsmartchannel";
 
@@ -200,6 +228,23 @@ class SignalsModel extends BaseModel
             $msg .=  "Open : ".$data["open"]."\n";
             $msg .=  "SL   : ".$data["sl"]."\n";
             $msg .=  "TP   : ".$data["tp1"]."\n";
+        }
+
+        if($type == "close"){
+            $msg =  "============================\n";
+            if($targetby == "close"){
+                $msg .= $data["symbol"]." - ".$data["type"]." [CLOSE]\n";
+            }
+            if($targetby == "sl"){
+                $msg .= $data["symbol"]." - ".$data["type"]." [HIT SL]\n";
+            }
+            if($targetby == "tp"){
+                $msg .= $data["symbol"]." - ".$data["type"]." [HIT TP]\n";
+            }
+            $msg .=  "Open : ".$data["open"]."\n";
+            $msg .=  "SL   : ".$data["sl"]."\n";
+            $msg .=  "TP   : ".$data["tp1"].($data["tp2"] ? "|".$data["tp2"] : "").($data["tp3"] ? "|".$data["tp3"] : "")."\n";
+            $msg .=  "Profit : ".$data["profits"]." pip(s)\n";
         }
 
         $msg .=  "Full Signal : https://vsmart.ltd/trader\n";
