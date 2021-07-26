@@ -143,7 +143,7 @@ class SignalsModel extends BaseModel
         if($this->mutilanguage != false){
             $data["language"] = $this->mutilanguage;
         }
-        
+        $data["opendate"] = date("Y-m-d h:i:s");
         if($data && $this->insert($data)){
             //if($data["is_free"] == "yes"){
             $this->sendTelegram($data,"create");
@@ -161,7 +161,7 @@ class SignalsModel extends BaseModel
             $this->where("language",$this->mutilanguage);
         }
 
-        
+        $data["opendate"] = date("Y-m-d h:i:s");
 
         if($data && $this->update($id,$data)){
             //if($data["is_free"] == "yes"){
