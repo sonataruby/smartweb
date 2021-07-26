@@ -32,8 +32,8 @@ class Smarttrader extends AccountController
 			
 				$signalSelect = $this->request->getVar("signals");
 				$options[$signalSelect] = [
-					"size" => $this->request->getVar("size"),
-					"limit" => $this->request->getVar("limit")
+					"size" => $this->request->getVar("size") > 0 && $this->request->getVar("size") < 3 ? $this->request->getVar("size") : 1,
+					"limit" => $this->request->getVar("limit") > 0 && $this->request->getVar("limit") < 16 ? $this->request->getVar("limit") : 10
 				];
 				
 				
@@ -62,7 +62,8 @@ class Smarttrader extends AccountController
 					
 					$builder->where("id",$read->id)->update($arv);
 				}
-			
+			session()->setFlashdata("confirm","Copytrade Setting Update ".$signalSelect." signals");
+			return redirect()->to("/smarttrader/copytrade");
 		}
 		$this->view = 'trader/copytrade';
 		//return redirect()->to("/smarttrader/upvip");
