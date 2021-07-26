@@ -43,12 +43,13 @@ class Trader extends BaseController
 		
 	}
 
-	public function signals($returndata=false){
+	public function signals($returndata=false, $token=""){
 		$db = \Config\Database::connect();
         $query = $db->query("SELECT * FROM signals where active='active' AND status != 'complete' AND status != 'cancel' ORDER BY id DESC LIMIT 100")->getResult();
         $arv = [];
+        $symbolSignalVip = $this->getMemberGroups($token);
         foreach ($query as $key => $value) {
-        	$value->access = $this->getMemberGroups($value->symbol);
+        	$value->access = $symbolSignalVip[$value->symbol] ? "vip" : "guest";
         	$value->open = $this->formatSymbolPrice($value->symbol,$value->open);
         	$value->sl = $this->formatSymbolPrice($value->symbol,$value->sl);
         	$value->tp1 = $this->formatSymbolPrice($value->symbol,$value->tp1);
@@ -64,16 +65,19 @@ class Trader extends BaseController
 		
 	}
 	
-	private function getMemberGroups($symbol){
-		if($this->user->hasLogin() == false ) return "guest";
+	private function getMemberGroups($token){
+		if($this->user->hasLogin() == false ) return [];
 
 
 		$db = \Config\Database::connect();
-        $query = $db->query("SELECT * FROM signals_access where symbol='".$symbol."' AND account_id = '".$this->user->getAccountID()."' AND status = 'active' AND starttime < '".time()."' AND endtime > '".time()."' ORDER BY id DESC LIMIT 1")->getNumRows();
-        if($query > 0) return "vip";
+        $query = $db->query("SELECT * FROM signals_access where account_id = '".$this->user->getAccountID()."' AND status = 'active' AND starttime < '".time()."' AND endtime > '".time()."' ORDER BY id DESC LIMIT 100")->getResult();
+        $arv = [];
+        foreach ($query as $key => $value) {
+        	$arv[$value->symbol] = true;
+        }
 
 
-		return "guest";
+		return $arv;
 	}
 
 	
