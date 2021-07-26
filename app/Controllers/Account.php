@@ -202,4 +202,9 @@ class Account extends BaseController
 
 		return redirect()->to("/cpanel");
 	}
+
+
+	public function permission(){
+		$this->setSEO(["title" => "Permission"]);
+	}
 }
