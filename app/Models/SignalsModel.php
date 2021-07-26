@@ -19,7 +19,7 @@ class SignalsModel extends BaseModel
     protected $returnType     = 'object';
     protected $useSoftDeletes = false;
 
-    protected $allowedFields = ["is_free","symbol","type","open","sl","tp1","tp2","tp3","status","active","profits","opendate","closedate","ticket","close"];
+    protected $allowedFields = ["is_free","symbol","type","open","sl","tp1","tp2","tp3","status","active","profits","opendate","closedate","ticket","close","week"];
 
     protected $useTimestamps = false;
     protected $createdField  = 'created_at';
@@ -138,7 +138,15 @@ class SignalsModel extends BaseModel
         return $this->insertID();
     }
 
-
+    public function getWeekReport(){
+        $this->where("week",date("W"));
+        $this->select("SUM(profits) as pipsTotals");
+        $arv["pips"] = $this->first()->pipsTotals;
+        $query = new SignalsModel;
+        $query->where("week",date("W"));
+        $arv["orders"] = $query->countAllResults();
+        return (object)$arv;
+    }
     public function createRow($data=[]){
         if($this->mutilanguage != false){
             $data["language"] = $this->mutilanguage;

@@ -27,6 +27,7 @@ class Trader extends BaseController
 			["image" => "https://www.geopower-i4c.eu/wp-content/uploads/2019/11/apprendre-a-trader.jpg", "link" => "https://www.youtube.com/watch?v=xwXDy2bwa5A"]
 		];
 		
+		
 	}
 
 	public function account($meta_id){
@@ -129,11 +130,13 @@ class Trader extends BaseController
 
 
 	private function getReport(){
+		$s = new SignalsModel;
+		$report = $s->getWeekReport();
 		$arv = [
-			"usd" => 520.7,
-			"pip" => 780,
+			"usd" => $report->pips,
+			"pip" => $report->pips,
 			"member" => $this->user->getTotals(),
-			"signals" => 24
+			"signals" => $report->orders
 		];
 		return (object)$arv;
 	}
@@ -168,6 +171,7 @@ class Trader extends BaseController
 		$arv["symbol"] = $symbol;
 		$arv["is_free"] = "no";
 		$arv["opendate"] = date("Y-m-d h:i:s");
+		$arv["week"] = date("W");
 		$arv["active"] = "active";
 		$supportSymbol = $this->symbol();
 		if($supportSymbol[$symbol] != "") $signals->createRow($arv);
@@ -192,6 +196,7 @@ class Trader extends BaseController
 		$arv["close"] 		= $json->close;
 		$arv["profits"] 	= $json->pips;
 		$arv["status"] 		= $targetby == "cancel" ? "cancel" : 'target';
+		$arv["closedate"] 	= date("Y-m-d h:i:s");
 		$signals = new SignalsModel;
 		$supportSymbol = $this->symbol();
 		if($supportSymbol[$symbol] != "") $signals->closeRowTicket($ticket,$arv,$targetby);
