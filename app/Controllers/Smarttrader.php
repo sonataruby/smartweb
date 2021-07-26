@@ -17,7 +17,55 @@ class Smarttrader extends AccountController
 
 
 	public function copytrade(){
-		return redirect()->to("/smarttrader/upvip");
+		$db = \Config\Database::connect();
+		$builder = $db->table('copytrade');
+		$userid = $this->user->getAccountID();
+		$signal = $db->query("SELECT * FROM signals_access where account_id='".$userid."' AND endtime >= NOW() + INTERVAL 1 DAY LIMIT 100")->getResult();
+		$this->data["signal"] = $signal;
+
+		$read = $builder->where("account_id",$userid)->get()->getRow();
+		$this->data["signalinfo"] = $read;
+		$this->data["signalready"] = (array)json_decode($read->options);
+
+		if($this->request->getVar("metaid") && $this->request->getVar("metaid") != ""){
+				
+			
+				$signalSelect = $this->request->getVar("signals");
+				$options[$signalSelect] = [
+					"size" => $this->request->getVar("size"),
+					"limit" => $this->request->getVar("limit")
+				];
+				
+				
+
+
+				if(!$read){
+					$arv = [
+						"account_id" => $userid,
+						"meta_id" => $this->request->getVar("metaid"),
+						"meta_password" => $this->request->getVar("metapass"),
+						"metaserver" => $this->request->getVar("servermeta"),
+						"serialmeta" => generate_token(),
+						"options" => json_encode($options)
+					];
+					$builder->insert($arv);
+				}else{
+					if($read->options != ""){
+						$options = array_merge($this->data["signalready"],$options);
+					}
+					$arv = [
+						"meta_id" => $this->request->getVar("metaid"),
+						"meta_password" => $this->request->getVar("metapass"),
+						"metaserver" => $this->request->getVar("servermeta"),
+						"options" => json_encode($options)
+					];
+					
+					$builder->where("id",$read->id)->update($arv);
+				}
+			
+		}
+		$this->view = 'trader/copytrade';
+		//return redirect()->to("/smarttrader/upvip");
 	}
 
 	public function smartea(){
@@ -64,11 +112,11 @@ class Smarttrader extends AccountController
 
 		$db = \Config\Database::connect();
 		
-		$readOldAccess = $db->query("SELECT * FROM signals_access where account_id='1' AND symbol='GBPJPY'")->getResult();
+		$readOldAccess = $db->query("SELECT * FROM signals_access where account_id='".$this->user->getAccountID()."' AND symbol='".$symbol."'")->getRow();
 		$starttime  = date('Y-m-d h:i:s');
-		$checktime = strtotime($readOldAccess[0]->endtime);
-		if($checktime > time() && @$readOldAccess[0]->endtime != ""){
-			$endtime 	= date('Y-m-d h:i:s',strtotime( "+30 day",strtotime($readOldAccess[0]->endtime)));
+		$checktime = strtotime($readOldAccess->endtime);
+		if($checktime > time() && @$readOldAccess->endtime != ""){
+			$endtime 	= date('Y-m-d h:i:s',strtotime( "+30 day",strtotime($readOldAccess->endtime)));
 		}else{
 			$endtime 	= date('Y-m-d h:i:s',strtotime( "+30 day",strtotime($starttime)));
 		}
