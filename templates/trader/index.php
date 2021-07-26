@@ -8,6 +8,9 @@
 .bd-sell {
     border-color: var(--bs-red) !important;
 }
+.bd-target{
+	border-color: var(--bs-blue) !important;
+}
 .bd-callout {
     padding: 1.25rem;
     
@@ -71,7 +74,7 @@
 							?>
 							<li>
 								
-								<div class="bd-callout <?php echo ($value->type == "SELL" ? "bd-sell" : "bd-buy");?>">
+								<div class="bd-callout <?php echo ($value->type == "SELL"  ? "bd-sell" : "bd-buy");?> <?php echo $value->status == "target" ? "bd-target" : "");?>">
 									<h5 class="d-flex justify-content-between">
 										<?php echo $value->symbol;?><?php echo ($value->is_free == "yes" || $value->access == "vip" ? " | ". $value->type : "");?>
 										<div style="font-size:12px;"><?php echo $value->opendate;?></div>
@@ -87,7 +90,8 @@
 											<div class="col-4">Profit<br><?php echo $value->profits;?> (pip)</div>
 
 											<div class="col-3 text-end">
-												<b><?php echo ucfirst($value->status);?></b> <br><a href="https://one.exness.link/a/tjm6vjm6" target="_bank" class="btn btn-sm btn-danger">Trade Now</a>
+												<b><?php echo ucfirst($value->status);?></b> <br>
+												<?php echo $value->profits;?> (pip)
 											</div>
 										<?php }else{ ?>
 										<?php if($value->is_free == "no" && $value->access == "guest"){ ?>
