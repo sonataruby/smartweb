@@ -187,8 +187,8 @@ class Trader extends BaseController
 		$ticket = $json->ticket;
 		$targetby 			= $json->targetby;
 		$arv = [];
-		$arv["symbol"] = $symbol;
-		$arv["type"] = $type;
+		//$arv["symbol"] = $symbol;
+		//$arv["type"] = $type;
 		$arv["close"] 		= $json->close;
 		$arv["profits"] 	= $json->pips;
 		$arv["status"] 		= $targetby == "cancel" ? "cancel" : 'target';
