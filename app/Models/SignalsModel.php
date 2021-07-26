@@ -178,10 +178,12 @@ class SignalsModel extends BaseModel
     public function updateRowTicket($ticket, $data=[]){
         
 
+        $read = $this->where("ticket",$ticket)->first();
+        $teleAray = array_merge((array)$read,$data);
 
-        if($data && $this->update(["ticket" => $ticket],$data)){
+        if($read && $this->update($read->id,$data)){
             //if($data["is_free"] == "yes"){
-            $this->sendTelegram($data,"update");
+            $this->sendTelegram($teleAray,"update");
             //}
             session()->setFlashdata("confirm",lang("globals.update_confirm"));
             return $ticket;
@@ -192,10 +194,12 @@ class SignalsModel extends BaseModel
     }
 
     public function closeRowTicket($ticket, $data=[],$targetby="close"){
-        
-        if($data && $this->update(["ticket" => $ticket],$data)){
+        $read = $this->where("ticket",$ticket)->first();
+        $teleAray = array_merge((array)$read,$data);
+
+        if($read && $this->update($read->id,$data)){
             //if($data["is_free"] == "yes"){
-            $this->sendTelegram($data,"close",$targetby);
+            $this->sendTelegram($teleAray,"close",$targetby);
             //}
             session()->setFlashdata("confirm",lang("globals.update_confirm"));
             return $ticket;
