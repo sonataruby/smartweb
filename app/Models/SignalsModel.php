@@ -19,7 +19,7 @@ class SignalsModel extends BaseModel
     protected $returnType     = 'object';
     protected $useSoftDeletes = false;
 
-    protected $allowedFields = ["is_free","symbol","type","open","sl","tp1","tp2","tp3","status","active","profits","opendate","closedate","ticket"];
+    protected $allowedFields = ["is_free","symbol","type","open","sl","tp1","tp2","tp3","status","active","profits","opendate","closedate","ticket","close"];
 
     protected $useTimestamps = false;
     protected $createdField  = 'created_at';
