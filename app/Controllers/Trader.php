@@ -46,7 +46,7 @@ class Trader extends BaseController
 
 	public function signals($returndata=false, $token=""){
 		$db = \Config\Database::connect();
-        $query = $db->query("SELECT * FROM signals where active='active' AND status != 'complete' AND status != 'cancel' ORDER BY id DESC LIMIT 100")->getResult();
+        $query = $db->query("SELECT * FROM signals where opendate >= NOW() - INTERVAL 1 DAY AND active='active' AND status != 'complete' AND status != 'cancel' ORDER BY id DESC LIMIT 100")->getResult();
         $arv = [];
         $symbolSignalVip = $this->getMemberGroups($token);
         foreach ($query as $key => $value) {
