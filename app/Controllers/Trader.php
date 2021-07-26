@@ -20,7 +20,12 @@ class Trader extends BaseController
 			["link" => "https://www.icmarkets.com/?camp=38308","image" => "https://promo.icmarkets.com/ic markets_logo_black_200x200.jpg"],
 			["link" => "https://secure.tickmill.com?utm_campaign=ib_link&utm_content=IB21222244","image" => "https://cdn.tickmill.com/promotional/3/banners/static/Welcome-Account_240x400_en.png"]
 		];
-		$this->data["video"] = [];
+		$this->data["video"] = [
+			["image" => "https://media.istockphoto.com/videos/stock-market-bar-graph-trading-video-id1027118706?s=640x640", "link" => "https://www.youtube.com/watch?v=xwXDy2bwa5A"],
+			["image" => "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_jp2o6UMC7ee33mz0HzIDguzwMNwg1eU3p6T0snZws4H-OLfs07q5XdipTRjOh__o3IE&usqp=CAU", "link" => "https://www.youtube.com/watch?v=xwXDy2bwa5A"],
+			["image" => "https://i.pinimg.com/736x/c6/c3/8d/c6c38de1fe8027631c61cbbf8e501eb0.jpg", "link" => "https://www.youtube.com/watch?v=xwXDy2bwa5A"],
+			["image" => "https://www.geopower-i4c.eu/wp-content/uploads/2019/11/apprendre-a-trader.jpg", "link" => "https://www.youtube.com/watch?v=xwXDy2bwa5A"]
+		];
 		
 	}
 

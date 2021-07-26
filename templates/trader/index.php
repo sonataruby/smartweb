@@ -201,41 +201,18 @@
 	<div class="container">
 		<h3>Video Live Trade</h3>
 		<div class="row">
+			<?php foreach ($video as $key => $value) { ?>
 			<div class="col-md-3  col-6 pb-3">
 				
-				<a href="https://secure.tickmill.com?utm_campaign=ib_link&utm_content=IB21222244&utm_medium=Banner&utm_source=%2430+Welcome+Account&lp=https%3A%2F%2Ftickmill.com%2Flp%2Ftrade-cfds-on-gold-with-ultra-fast-execution%2F" target="_blank">
+				<a href="<?php echo $value["link"];?>" target="_blank">
 					<div style="overflow: hidden; height:180px;">
-	    				<img src="https://cdn.tickmill.com/promotional/3/banners/static/Welcome-Account_240x400_en.png" style="width:100%;" />
+	    				<img src="<?php echo $value["image"];?>" style="width:100%;" />
 	    			</div>
     			</a>
     			
     		</div>
-    		<div class="col-md-3  col-6">
-    			
-        		<a href="https://one.exness.link/a/tjm6vjm6?p=250x250_VI_Registration_AccessFunds">
-        			<div style="overflow: hidden; height:180px;">
-					  <img src="https://www.exness.com/media/banners/vi/static/250x250_VI_Registration_AccessFunds.png" width="100%"  alt=""/>
-					</div>
-				</a>
-			</div>
-
-			<div class="col-md-3  col-6">
-				
-				<a href="https://secure.tickmill.com?utm_campaign=ib_link&utm_content=IB21222244&utm_medium=Banner&utm_source=%2430+Welcome+Account&lp=https%3A%2F%2Ftickmill.com%2Flp%2Ftrade-cfds-on-gold-with-ultra-fast-execution%2F" target="_blank">
-					<div style="overflow: hidden; height:180px;">
-	    				<img src="https://cdn.tickmill.com/promotional/3/banners/static/Welcome-Account_240x400_en.png" style="width:100%;" />
-	    			</div>
-    			</a>
-    			
-    		</div>
-    		<div class="col-md-3  col-6">
-    			
-        		<a href="https://one.exness.link/a/tjm6vjm6?p=250x250_VI_Registration_AccessFunds">
-        			<div style="overflow: hidden; height:180px;">
-					  <img src="https://www.exness.com/media/banners/vi/static/250x250_VI_Registration_AccessFunds.png" width="100%"  alt=""/>
-					</div>
-				</a>
-			</div>
+    		<?php } ?>
+    		
 
 		</div>
 	</div>
