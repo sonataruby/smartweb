@@ -9,7 +9,7 @@
 		<div class="row">
 			<div class="col-md-4 col-6 pb-3">
 				MT4/MT5 ID
-				<input type="text" name="metaid" value="<?php echo $signalinfo->meta_id;?>" class="form-control">
+				<input type="text" name="metaid" required value="<?php echo $signalinfo->meta_id;?>" class="form-control">
 			</div>
 			<div class="col-md-4 col-6 pb-3">
 				Password
