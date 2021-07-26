@@ -71,7 +71,7 @@ class Trader extends BaseController
 
 
 		$db = \Config\Database::connect();
-        $query = $db->query("SELECT * FROM signals_access where account_id = '".$this->user->getAccountID()."' AND status = 'active' AND starttime < '".time()."' AND endtime > '".time()."' ORDER BY id DESC LIMIT 100")->getResult();
+        $query = $db->query("SELECT * FROM signals_access where account_id = '".$this->user->getAccountID()."' AND status = 'active' AND endtime >= NOW() + INTERVAL 1 DAY  ORDER BY id DESC LIMIT 100")->getResult();
         $arv = [];
         foreach ($query as $key => $value) {
         	$arv[$value->symbol] = true;

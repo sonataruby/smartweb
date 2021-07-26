@@ -53,6 +53,7 @@ class Smarttrader extends AccountController
 		$this->data["price_signals"] = $this->price_signals;
 		$this->data["tokenname"] = $wallet->getTokenName();
 		$this->view = 'trader/upvip';
+		
 	}
 
 
@@ -62,7 +63,18 @@ class Smarttrader extends AccountController
 
 
 		$db = \Config\Database::connect();
-        $query = $db->query("INSERT INTO signals_access (`account_id`, `symbol`, `status`, `created_at`, `starttime`, `endtime`) VALUES ('".$this->user->getAccountID()."', '".$symbol."', 'active', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);");
+		
+		$readOldAccess = $db->query("SELECT * FROM signals_access where account_id='1' AND symbol='GBPJPY'")->getResult();
+		$starttime  = date('Y-m-d h:i:s');
+		$checktime = strtotime($readOldAccess[0]->endtime);
+		if($checktime > time() && @$readOldAccess[0]->endtime != ""){
+			$endtime 	= date('Y-m-d h:i:s',strtotime( "+30 day",strtotime($readOldAccess[0]->endtime)));
+		}else{
+			$endtime 	= date('Y-m-d h:i:s',strtotime( "+30 day",strtotime($starttime)));
+		}
+		
+
+        $query = $db->query("INSERT INTO signals_access (`account_id`, `symbol`, `status`, `created_at`, `starttime`, `endtime`) VALUES ('".$this->user->getAccountID()."', '".$symbol."', 'active', CURRENT_TIMESTAMP, '".$starttime."', '".$endtime."');");
 
 	}
 	
