@@ -205,7 +205,7 @@
 			<div class="col-md-3  col-6 pb-3">
 				
 				<a href="<?php echo $value["link"];?>" target="_blank">
-					<div style="overflow: hidden; height:180px;">
+					<div style="overflow: hidden; height:120px;">
 	    				<img src="<?php echo $value["image"];?>" style="width:100%;" />
 	    			</div>
     			</a>
