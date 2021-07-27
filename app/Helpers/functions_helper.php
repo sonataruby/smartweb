@@ -43,6 +43,12 @@ if(!function_exists("nav_language")){
 	}
 }
 
+if(!function_exists("str_slug")){
+	function str_slug($string=""){
+		return url_title(convert_accented_characters($string), '-', true);
+	}
+}
+
 if(!function_exists("oncepage")){
 	function oncepage($parent=0){
 		$db = \Config\Database::connect();

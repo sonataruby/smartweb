@@ -12,4 +12,8 @@ class Dashboard extends BaseController
 		
 		//return $this->view = 'home/index';
 	}
+
+	public function show404(){
+		$this->view = 'dashboard/404';
+	}
 }

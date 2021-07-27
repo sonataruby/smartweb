@@ -138,15 +138,15 @@ class BaseController extends Controller
         $this->layout = $this->getTemplates();
 
 	}
-	public function _remap($method = null)
+	public function _remap($method = null,...$params)
     {
         $router = service('router');
         $controller_full_name = explode('\\', $router->controllerName());
         $view_folder = strtolower(end($controller_full_name));
-       
+        
         //Checks if it's a 404 or not
         if (method_exists($this, $method)) {
-            $redirect = call_user_func_array(array($this, $method), $this->arguments);
+            $redirect = call_user_func_array(array($this, $method), $params ? $params : $this->arguments);
         } else {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
@@ -234,7 +234,9 @@ class BaseController extends Controller
             '<a href="#"><em class="icon fab fa-youtube"></em></a>',
             '<a href="#"><em class="icon fab fa-github"></em></a>',
             '<a href="#"><em class="icon fab fa-bitcoin"></em></a>',
-            '<a href="#"><em class="icon fab fa-medium-m"></em></a>'
+            '<a href="#"><em class="icon fab fa-medium-m"></em></a>',
+            '<a href="#">Privacy Policy</a>',
+            '<a href="#">Terms &amp; Conditions</a>'
         ];
         $social_replace = [
             '<a href="#" target="_bank"><em class="icon fab fa-facebook-f"></em></a>',
@@ -242,7 +244,9 @@ class BaseController extends Controller
             '<a href="https://www.youtube.com/channel/UCj8D3MumkbD74cSna7QBdLA" target="_bank"><em class="icon fab fa-youtube"></em></a>',
             '<a href="https://github.com/smartfinace" target="_bank"><em class="icon fab fa-github"></em></a>',
             '<a href="#" target="_bank"><em class="icon fab fa-bitcoin"></em></a>',
-            '<a href="#" target="_bank"><em class="icon fab fa-medium-m"></em></a>'
+            '<a href="#" target="_bank"><em class="icon fab fa-medium-m"></em></a>',
+            '<a href="/page/privacy-policy.html" target="_bank">Privacy Policy</a>',
+            '<a href="/page/terms.html" target="_bank">Terms &amp; Conditions</a>'
         ];
         $html = str_replace($social_find, $social_replace, $html);
         return str_replace($find,$replace,$html);
