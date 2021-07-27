@@ -138,15 +138,15 @@ class BaseController extends Controller
         $this->layout = $this->getTemplates();
 
 	}
-	public function _remap($method = null,...$params)
+	public function _remap($method = null)
     {
         $router = service('router');
         $controller_full_name = explode('\\', $router->controllerName());
         $view_folder = strtolower(end($controller_full_name));
-        
+        //print_r(parent::$params);
         //Checks if it's a 404 or not
         if (method_exists($this, $method)) {
-            $redirect = call_user_func_array(array($this, $method), $params ? $params : $this->arguments);
+            $redirect = call_user_func_array(array($this, $method), $this->arguments);
         } else {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
