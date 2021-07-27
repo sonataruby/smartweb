@@ -31,6 +31,7 @@
 
 <!-- Bundle and Base CSS -->
 <link rel="stylesheet" href="templates/assets/core/bootstrap.css">
+<link rel="stylesheet" href="templates/assets/core/pages.css">
 <link rel="stylesheet" href="templates/assets/css/style.css">
 <!-- Extra CSS -->
 <link rel="stylesheet" href="templates/assets/css/theme.css">

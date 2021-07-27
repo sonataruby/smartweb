@@ -19,7 +19,7 @@ class PagesModel extends BaseModel
     protected $returnType     = 'object';
     protected $useSoftDeletes = false;
 
-    protected $allowedFields = ["title","image","banner","language","description","contents","keyword"];
+    protected $allowedFields = ["title","image","banner","language","contents_highlight","description","contents","keyword"];
 
     protected $useTimestamps = false;
     protected $createdField  = 'created_at';
@@ -83,7 +83,7 @@ class PagesModel extends BaseModel
             $this->where($where);
         }
         if($next == true){
-            return ["items" => $this->find($id),"next" => "", "last" => ""];
+            return ["items" => $this->find($id),"next" => $this->getNextRow(), "last" => $this->getPreviousRow()];
         }else{
             return $this->find($id);
         }

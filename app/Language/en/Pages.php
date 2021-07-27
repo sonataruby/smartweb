@@ -8,6 +8,7 @@ return [
 	"language" => "language",
 	"description" => "description",
 	"contents" => "contents",
-	"keyword" => "keyword"
+	"keyword" => "keyword",
+	"contents_highlight" => "contents_highlight"
 ];
 ?>

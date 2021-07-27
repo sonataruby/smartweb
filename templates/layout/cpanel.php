@@ -30,6 +30,7 @@
 <!-- Bundle and Base CSS -->
 
 <link rel="stylesheet" href="templates/assets/core/bootstrap.css">
+<link rel="stylesheet" href="templates/assets/core/pages.css">
 <link rel="stylesheet" href="templates/assets/css/style.css">
 <!-- Extra CSS -->
 <link rel="stylesheet" href="templates/assets/css/theme.css">
@@ -126,61 +127,7 @@
   </div>
 </div>
 <?php } ?>
-<style type="text/css">
-    .bd-layout {
-        grid-template-columns: 1fr 5fr;
-    }
-    .bd-layout {
-        display: grid;
-        gap: 1.5rem;
-        grid-template-areas: "sidebar main";
-        grid-template-columns: 1fr 3fr;
-    }
-    .bd-sidebar {
-        grid-area: sidebar;
-        column-rule: 1px solid lightblue;
-    }
-    .bd-links {
-        position: -webkit-sticky;
-        position: sticky;
-        top: 5rem;
-        display: block !important;
-        height: calc(100vh - 7rem);
-       
-        overflow-y: auto;
-    }
-    .bd-links {
-        overflow: auto;
-        overflow-y: auto;
-        
-    }
-    .skippy {
- background-color:#563d7c
-}
-.skippy a {
- color:#fff
-}
-@media (max-width: 768px) {
- .bd-layout {
-  display:grid;
-  gap:inherit;
-  grid-template-areas:"sidebar main";
-  grid-template-columns:auto auto;
-  
- }
-}
 
-
-@media (min-width: 992px) {
- .bd-layout {
-  grid-template-columns:1fr 5fr
- }
-}
-
-
-
-
-</style>
 <div class="container my-md-4 bd-layout">
     <aside class="bd-sidebar d-none d-sm-block">
         <nav class="collapse bd-links" id="bd-docs-nav" aria-label="Docs navigation">

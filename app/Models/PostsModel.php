@@ -19,7 +19,7 @@ class PostsModel extends BaseModel
     protected $returnType     = 'object';
     protected $useSoftDeletes = false;
 
-    protected $allowedFields = ["title","description","contents","keyword","image","tags"];
+    protected $allowedFields = ["language","image","title","contents_highlight","description","contents","keyword","tags"];
 
     protected $useTimestamps = false;
     protected $createdField  = 'created_at';
@@ -35,7 +35,7 @@ class PostsModel extends BaseModel
     
     private $search = [];
     private $NumTotals = 0;
-    private $mutilanguage = false;
+    private $mutilanguage = true;
     private $system_where = [];
 
     function __construct()
@@ -83,7 +83,7 @@ class PostsModel extends BaseModel
             $this->where($where);
         }
         if($next == true){
-            return ["items" => $this->find($id),"next" => "", "last" => ""];
+            return ["items" => $this->find($id),"next" => $this->getNextRow(), "last" => $this->getPreviousRow()];
         }else{
             return $this->find($id);
         }
