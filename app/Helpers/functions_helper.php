@@ -38,7 +38,7 @@ if(!function_exists("nav_language")){
 	function nav_language($arv=["en" => "English"]){
 		
 		foreach ($arv as $key => $value) {
-			echo '<li><a href="#">'.$value.'</a></li> ';
+			echo '<li><a href="?language='.$key.'">'.$value.'</a></li> ';
 		}
 	}
 }
