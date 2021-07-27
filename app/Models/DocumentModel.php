@@ -19,7 +19,7 @@ class DocumentModel extends BaseModel
     protected $returnType     = 'object';
     protected $useSoftDeletes = false;
 
-    protected $allowedFields = ["title","image","contents_highlight","contents","tags"];
+    protected $allowedFields = ["language","title","image","contents_highlight","contents","tags"];
 
     protected $useTimestamps = false;
     protected $createdField  = 'created_at';
@@ -35,7 +35,7 @@ class DocumentModel extends BaseModel
     
     private $search = [];
     private $NumTotals = 0;
-    private $mutilanguage = false;
+    private $mutilanguage = true;
     private $system_where = [];
 
     function __construct()

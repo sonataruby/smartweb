@@ -9,6 +9,18 @@
 
 <hr>
 <div class="mb-3 row">
+    <label for="textlanguage" class="col-sm-2 col-form-label"><?php echo lang('document.language');?></label>
+    <div class="col-sm-10">
+      <select type="text" class="form-select" id="textlanguage" name="post[language]">
+          <option value="<?php echo session()->get("lang");?>">Default</option>
+          <?php foreach ($supportlangauge as $key => $value) { ?>
+            <option value="<?php echo $key;?>" <?php echo ($item->language == $key ? "selected" : "");?>><?php echo $value;?></option>
+          <?php } ?>
+          
+      </select>
+    </div>
+</div>
+<div class="mb-3 row">
     <label for="texttitle" class="col-sm-2 col-form-label"><?php echo lang('document.title');?></label>
     <div class="col-sm-10">
       <input type="text" class="form-control" id="texttitle" name="post[title]" value="<?php echo $item->title;?>">

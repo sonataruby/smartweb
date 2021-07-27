@@ -14,7 +14,8 @@
 	<table class="table table-hover">
 	<thead>
 		<td><?php echo lang("globals.stt");?></td>
-		<td><a href="<?php echo $linkcache;?>title"><?php echo lang("document.title");?></a></td>
+		<td><a href="<?php echo $linkcache;?>language"><?php echo lang("document.language");?></a></td>
+<td><a href="<?php echo $linkcache;?>title"><?php echo lang("document.title");?></a></td>
 <td><a href="<?php echo $linkcache;?>image"><?php echo lang("document.image");?></a></td>
 <td><a href="<?php echo $linkcache;?>contents_highlight"><?php echo lang("document.contents_highlight");?></a></td>
 <td><a href="<?php echo $linkcache;?>contents"><?php echo lang("document.contents");?></a></td>
@@ -25,7 +26,8 @@
 	<?php foreach($data["items"] as $key => $item){?>
 		<tr>
 			<td><?php echo (($key+1) + $data["offset"]);?></td>
-			<td><?php echo $item->title;?></td>
+			<td><?php echo $item->language;?></td>
+<td><?php echo $item->title;?></td>
 <td><?php echo $item->image;?></td>
 <td><?php echo $item->contents_highlight;?></td>
 <td><?php echo $item->contents;?></td>
