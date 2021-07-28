@@ -123,7 +123,7 @@ class Trader extends BaseController
 	private function formatSymbolPrice($symbol,$price){
 		$arv = $this->symbol();
 		if(is_array($arv[$symbol]) && $price > 0){
-			return number_format($price,$arv[$symbol]["format"]); 
+			return number_format($price,$arv[$symbol]["format"],"","."); 
 		}
 		return $price;
 	}

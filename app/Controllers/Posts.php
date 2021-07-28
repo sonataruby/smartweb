@@ -17,6 +17,7 @@ class Posts extends BaseController
 		
 		$post = new PostsModel;
 		$this->data["posts"] = $post->getItem($id);
+		$this->setSEO(["title" => $this->data["posts"]->title, "image" => $this->data["posts"]->image]);
 		$this->layout = "layout/blog";
 		$this->view = "pages/posts-info";
 	}

@@ -8,6 +8,7 @@ class Document extends BaseController
 	{
 		$post = new DocumentModel;
 		$this->data["docs"] = $post->getItem($id);
+		$this->setSEO(["title" => $this->data["docs"]->title, "image" => $this->data["docs"]->image]);
 		$this->layout = "layout/docs";
 		$this->view = "pages/document";
 	}

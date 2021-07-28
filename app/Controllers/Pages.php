@@ -8,6 +8,7 @@ class Pages extends BaseController
 	{
 		$post = new PagesModel;
 		$this->data["pages"] = $post->getItem($id);
+		$this->setSEO(["title" => $this->data["pages"]->title, "image" => $this->data["pages"]->image]);
 		$this->layout = "layout/blog";
 		$this->view = "pages/pages";
 	}
