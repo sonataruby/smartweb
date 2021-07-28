@@ -229,7 +229,7 @@ class SignalsModel extends BaseModel
 
 
     private function sendTelegram($data,$type, $targetby="close"){
-        $token = "1005922514:AAEPO0P1Wdt4VyFY-oz9L3IxISFLPyNcXTM";
+        $token = "1279919331:AAFW68mtfiC1niRGpZPgsa7YHH4RIE2yIB4";
         $channel = "@vsmartchannel";
 
         $msg =  "============================\n";

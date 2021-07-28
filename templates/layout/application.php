@@ -57,6 +57,7 @@
   <script src="templates/assets/core/jquery.js"></script>
   <script src="templates/assets/js/scripts.js"></script>
   <script src="templates/assets/js/charts.js"></script>
+  
 </body>
 
 </html>
