@@ -21,7 +21,7 @@ $routes->setDefaultNamespace('App\Controllers');
 $routes->setDefaultController('Dashboard');
 $routes->setDefaultMethod('index');
 $routes->setTranslateURIDashes(false);
-$routes->set404Override();
+$routes->set404Override('Dashboard::show404');
 $routes->setAutoRoute(true);
 
 /*
@@ -34,6 +34,10 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 $routes->get('/', 'Dashboard::index');
 //$routes->get('/admin', 'Home::dashboard');
+//$routes['(:any)-(:num).html'] = 'Posts::info/$2';
+$routes->get('(:any)-(:num).html', "Posts::info");
+$routes->get('page/(:any).html', "Pages::index");
+$routes->get('docs/(:any).html', "Document::index");
 /*
  * --------------------------------------------------------------------
  * Additional Routing
