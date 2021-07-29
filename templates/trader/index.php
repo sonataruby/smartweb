@@ -219,15 +219,24 @@
 </section>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/push.js/1.0.8/push.js" integrity="sha512-x0GVeKL5uwqADbWOobFCUK4zTI+MAXX/b7dwpCVfi/RT6jSLkSEzzy/ist27Iz3/CWzSvvbK2GBIiT7D4ZxtPg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script type="text/javascript">
-    Push.create('Hi there!', {
-	    body: 'This is a notification.',
-	    icon: 'icon.png',
-	    timeout: 8000,               // Timeout before notification closes automatically.
-	    vibrate: [100, 100, 100],    // An array of vibration pulses for mobile devices.
-	    onClick: function() {
-	        // Callback for when the notification is clicked. 
-	        console.log(this);
-	    }  
+	const socket = io("https://api.vsmart.ltd/");
+
+	socket.on("connect", () => {
+		  console.log(socket.connected); // true
 	});
+	socket.on('open', (data) => {
+	    Push.create('Hi there!', {
+		    body: 'This is a notification.',
+		    icon: 'icon.png',
+		    timeout: 8000,               // Timeout before notification closes automatically.
+		    vibrate: [100, 100, 100],    // An array of vibration pulses for mobile devices.
+		    onClick: function() {
+		        // Callback for when the notification is clicked. 
+		        console.log(this);
+		    }  
+		});
+	});
+
+    
   </script>
 <?php echo $this->endSection() ?>
