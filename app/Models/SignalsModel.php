@@ -69,7 +69,7 @@ class SignalsModel extends BaseModel
         }
         
         if ($request->getVar("short")) {
-            $this->orderBy($request->getVar("short"), $request->getVar("des") == "asc" ? 'ASC' : 'DESC');
+            $this->orderBy($request->getVar("short") == "" ? "opendate" : $request->getVar("short"), $request->getVar("des") == "asc" ? 'ASC' : 'DESC');
         }
         $result = $this->findAll($this->per_page,$offset);
         $this->NumTotals = $this->getTotals($where);
