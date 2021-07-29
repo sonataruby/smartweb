@@ -18,7 +18,7 @@ class Trader extends BaseController
 			["link" => "https://secure.tickmill.com?utm_campaign=ib_link&utm_content=IB21222244","image" => "https://cdn.tickmill.com/promotional/3/banners/static/Welcome-Account_240x400_en.png"],
 			["link" => "https://one.exness.link/a/tjm6vjm6","image" => "https://www.exness.com/media/banners/vi/static/250x250_VI_Registration_AccessFunds.png"],
 			["link" => "https://www.icmarkets.com/?camp=38308","image" => "https://promo.icmarkets.com/ic markets_logo_black_200x200.jpg"],
-			["link" => "https://secure.tickmill.com?utm_campaign=ib_link&utm_content=IB21222244","image" => "https://cdn.tickmill.com/promotional/3/banners/static/Welcome-Account_240x400_en.png"]
+			["link" => "http://welcome-partners.thinkmarkets.com/afs/come.php?cid=12506&ctgid=1001&atype=1&brandid=5","image" => "https://forex.com.vn/wp-content/uploads/2020/02/san-thinkmarket.jpg"]
 		];
 		$this->data["video"] = [
 			["image" => "https://media.istockphoto.com/videos/stock-market-bar-graph-trading-video-id1027118706?s=640x640", "link" => "https://www.youtube.com/watch?v=xwXDy2bwa5A"],
