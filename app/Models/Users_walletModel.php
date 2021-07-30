@@ -49,6 +49,11 @@ class Users_walletModel extends BaseModel
         }
         $this->user = new Users();
         parent::__construct();
+        $tokenname = getenv("tokenname");
+        if($tokenname){
+            $this->tokenname = $tokenname;
+        }
+
     }
 
     public function getTokenName(){
