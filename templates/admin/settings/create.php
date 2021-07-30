@@ -63,7 +63,7 @@
     <label for="textlanguage" class="col-sm-2 col-form-label"><?php echo lang('settings.language');?></label>
     <div class="col-sm-10">
       <select type="text" class="form-select" id="textlanguage" name="post[language]">
-          <option value="<?php echo session()->get("lang");?>">Default</option>
+          <option value="">All</option>
           <?php foreach ($supportlangauge as $key => $value) { ?>
             <option value="<?php echo $key;?>" <?php echo ($item->language == $key ? "selected" : "");?>><?php echo $value;?></option>
           <?php } ?>
