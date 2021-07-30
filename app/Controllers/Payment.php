@@ -7,8 +7,8 @@ class Payment extends BaseController
 {
 	//AZgXuZZ0zqKppoB1GgPNQ4ymTqssQMCKvgEjT1dJTeDaNtGr-qSdPiCajuS_Hu8w4TKT94LorYmrEYMG
 	//EJBAS33Vv62aeQUx7Nvl6uzjHzxqUh5N8UkR1wax8odJc4FiPFaudy4kCX9LkQDs7Co0jtrOhhbUVtZw
-	public $paypal_client = "Aafu2Nq8NSYSWq9KeU5_Ht4Ge6YjboAWLrVlZCptGHw0s2JoclY5U9js8RyICCfCSF2lh27gqefmGteW";
-	public $paypal_secret = "EJs8bpM09hRXZTczxFA5mvMwVXYE3P_g-S4WcVf_PumSDIfv_A7ik7QWCFBkZHjDqjPcXc2mHC5ZzNBj";
+	public $paypal_client = "AZgXuZZ0zqKppoB1GgPNQ4ymTqssQMCKvgEjT1dJTeDaNtGr-qSdPiCajuS_Hu8w4TKT94LorYmrEYMG";
+	public $paypal_secret = "EJBAS33Vv62aeQUx7Nvl6uzjHzxqUh5N8UkR1wax8odJc4FiPFaudy4kCX9LkQDs7Co0jtrOhhbUVtZw";
 
 	public function index()
 	{
@@ -55,7 +55,7 @@ class Payment extends BaseController
 		if($paypal_client == "" || $paypal_secret == ""){
 			$paypal_client = $this->paypal_client;
 			$paypal_secret = $this->paypal_secret;
-			$paypal_mode = "sandbox";
+			$paypal_mode = "live";
 		}
 		$total = session()->get("payment_amount");
 		$nameinvoice = session()->get("payment_name");
@@ -134,7 +134,7 @@ class Payment extends BaseController
 		if($paypal_client == "" || $paypal_secret == ""){
 			$paypal_client = $this->paypal_client;
 			$paypal_secret = $this->paypal_secret;
-			$paypal_mode = "sandbox";
+			$paypal_mode = "live";
 		}
 		$total = session()->get("payment_amount");
 
@@ -147,7 +147,7 @@ class Payment extends BaseController
         );
         $apiContext->setConfig(
             array(
-                'mode' => "sandbox",
+                'mode' => $paypal_mode,
                 'log.LogEnabled' => false,
                 'log.FileName' => 'PayPal.log',
                 'log.LogLevel' => 'FINE'
