@@ -27,11 +27,11 @@ class Payment extends BaseController
 		$hex_data   = bin2hex($data);
         $save_name  = $hex_data . '.png';
         if($service == "btc"){
-			$params['data']     = "0x3aebc70aa356187b2f7391f842bc72da67e46b04?amount=0.01";
-			$this->data["service"] = "BTC BEP20 (BSC)";
+			$params['data']     = getenv("btc_wallet") ? getenv("btc_wallet") : "0x3aebc70aa356187b2f7391f842bc72da67e46b04";
+			$this->data["service"] = getenv("btc_wallet_name") ? getenv("btc_wallet_name") : "BTC BEP20 (BSC)";
 		}
 		if($service == "eth"){
-			$params['data']     = "0xd2D1e9a0E2Ba929c5114e5aF4e2B0F45586422C0?amount=0.01";
+			$params['data']     = getenv("eth_wallet") ? getenv("eth_wallet") :"0xd2D1e9a0E2Ba929c5114e5aF4e2B0F45586422C0?amount=0.01";
 			$this->data["service"] = "Ethereum";
 		}
         $params['level']    = 'R';
