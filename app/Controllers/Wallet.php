@@ -59,9 +59,7 @@ class Wallet extends AccountController
 		return redirect()->to("/wallet");
 	}
 
-	public function deposit($network=""){
-
-	}
+	
 
 
 	public function buytoken(){
@@ -72,5 +70,31 @@ class Wallet extends AccountController
 		$this->data["price_token"] = $wallet->getTokenPrice();
 		$this->data["price_btc"] = $wallet->getTokenPrice("BTC");
 		$this->data["price_eth"] = $wallet->getTokenPrice("ETH");
+	}
+
+
+	public function deposit(){
+		$wallet = new Users_walletModel();
+		$this->setSEO(["title" => "Deposit ".$wallet->getTokenName()]);
+		$this->data["token"] = $wallet->getTokenName();
+	}
+
+	public function withdraw(){
+		$wallet = new Users_walletModel();
+		$this->setSEO(["title" => "Withdraw ".$wallet->getTokenName()]);
+		$this->data["token"] = $wallet->getTokenName();
+	}
+
+
+	public function setTransection(){
+
+	}
+
+	public function setDeposit(){
+
+	}
+
+	public function setWithdraw(){
+
 	}
 }

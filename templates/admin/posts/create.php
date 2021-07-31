@@ -8,18 +8,14 @@
 <?php echo form_open();?>
 
 <hr>
+
 <div class="mb-3 row">
-    <label for="textlanguage" class="col-sm-2 col-form-label"><?php echo lang('posts.language');?></label>
+    <label for="texttitle" class="col-sm-2 col-form-label"><?php echo lang('posts.title');?></label>
     <div class="col-sm-10">
-      <select type="text" class="form-select" id="textlanguage" name="post[language]">
-          <option value="<?php echo session()->get("lang");?>">Default</option>
-          <?php foreach ($supportlangauge as $key => $value) { ?>
-            <option value="<?php echo $key;?>" <?php echo ($item->language == $key ? "selected" : "");?>><?php echo $value;?></option>
-          <?php } ?>
-          
-      </select>
+      <input type="text" class="form-control" id="texttitle" name="post[title]" value="<?php echo $item->title;?>">
     </div>
 </div>
+
 <div class="mb-3 row">
     <label for="fileimage" class="col-sm-2 col-form-label"><?php echo lang('posts.image');?></label>
     <div class="col-sm-2">
@@ -31,11 +27,12 @@
       <input type="hidden" class="form-control" id="textimage" name="post[image]" value="<?php echo $item->image;?>">
     </div>
 </div>
+
 <script type="text/javascript">
 
     $(document).ready(function() {
       $("#fileimage").AjaxFileUpload({
-        action: "/upload/images?name=image",
+        action: "/upload/images<?php echo ($item->image ? "?name=".basename($item->image) : "");?>",
          
         onComplete: function(filename, response) {
           $("#textimage").val(response.url);
@@ -45,31 +42,27 @@
     });
 
   </script>
+
+
 <div class="mb-3 row">
-    <label for="texttitle" class="col-sm-2 col-form-label"><?php echo lang('posts.title');?></label>
+    <label for="textdescription" class="col-sm-2 col-form-label"><?php echo lang('posts.description');?></label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="texttitle" name="post[title]" value="<?php echo $item->title;?>">
+      <textarea type="text" style="min-height:150px;" class="form-control" id="textdescription" name="post[description]"><?php echo $item->description;?></textarea>
     </div>
 </div>
+
 <div class="mb-3 row">
-    <label for="textdescription" class="col-sm-12 col-form-label"><?php echo lang('posts.description');?></label>
-    <div class="col-sm-12">
-      <textarea type="text" class="form-control" id="textdescription" name="post[description]"><?php echo $item->description;?></textarea>
-    </div>
-</div>
-<div class="mb-3 row">
-    <label for="textcontents_highlight" class="col-sm-12 col-form-label"><?php echo lang('posts.contents_highlight');?></label>
-    <div class="col-sm-12">
-      <textarea type="text" class="form-control" id="textcontents_highlight" name="post[contents_highlight]"><?php echo $item->contents_highlight;?></textarea>
+    <label for="textcontents_highlight" class="col-sm-2 col-form-label"><?php echo lang('posts.contents_highlight');?></label>
+    <div class="col-sm-10">
+      <textarea type="text" class="form-control" style="min-height:350px;" id="textcontents_highlight" name="post[contents_highlight]"><?php echo $item->contents_highlight;?></textarea>
     </div>
 </div>
 <?php echo editer('textcontents_highlight');?>
 
-
 <div class="mb-3 row">
-    <label for="textcontents" class="col-sm-12 col-form-label"><?php echo lang('posts.contents');?></label>
-    <div class="col-sm-12">
-      <textarea type="text" class="form-control" id="textcontents" name="post[contents]"><?php echo $item->contents;?></textarea>
+    <label for="textcontents" class="col-sm-2 col-form-label"><?php echo lang('posts.contents');?></label>
+    <div class="col-sm-10">
+      <textarea type="text" class="form-control" style="min-height:350px;" id="textcontents" name="post[contents]"><?php echo $item->contents;?></textarea>
     </div>
 </div>
 <?php echo editer('textcontents');?>

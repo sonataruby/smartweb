@@ -13,7 +13,7 @@
 			</div>
 
 			<div class="col-md-6 col-6 pb-3">
-				<div class="border rounded p-4"><a href="" class="btn btn-sm btn-info">Deposit</a>  <a class="btn btn-sm btn-danger">Withdraw</a></div>
+				<div class="border rounded p-4"><a href="/wallet/deposit" class="btn btn-sm btn-info">Deposit</a>  <a class="btn btn-sm btn-danger" href="/wallet/withdraw">Withdraw</a></div>
 			</div>
 		</div>
 	</div>

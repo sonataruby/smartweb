@@ -3,20 +3,19 @@
 <?php echo $this->section('body') ?>
 
 
-<h3 class="title"><i data-feather="edit"></i> <?php echo lang("document.create");?></h3>
+<h3 class="title"><i data-feather="edit"></i> <?php echo lang("finaceapps.create");?></h3>
 
 <?php echo form_open();?>
 
 <hr>
-
 <div class="mb-3 row">
-    <label for="texttitle" class="col-sm-2 col-form-label"><?php echo lang('document.title');?></label>
+    <label for="textname" class="col-sm-2 col-form-label"><?php echo lang('finaceapps.name');?></label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="texttitle" name="post[title]" value="<?php echo $item->title;?>">
+      <input type="text" class="form-control" id="textname" name="post[name]" value="<?php echo $item->name;?>">
     </div>
 </div>
 <div class="mb-3 row">
-    <label for="fileimage" class="col-sm-2 col-form-label"><?php echo lang('document.image');?></label>
+    <label for="fileimage" class="col-sm-2 col-form-label"><?php echo lang('finaceapps.image');?></label>
     <div class="col-sm-2">
         <div id="previewimage" class="border" style="min-height: 80px;"><img src="<?php echo $item->image;?>" style="width: 100%;"/></div>
     </div>
@@ -41,26 +40,17 @@
 
   </script>
 <div class="mb-3 row">
-    <label for="textcontents_highlight" class="col-sm-2 col-form-label"><?php echo lang('document.contents_highlight');?></label>
+    <label for="textdescription" class="col-sm-2 col-form-label"><?php echo lang('finaceapps.description');?></label>
     <div class="col-sm-10">
-      <textarea type="text" style="min-height:350px;"  class="form-control" id="textcontents_highlight" name="post[contents_highlight]"><?php echo $item->contents_highlight;?></textarea>
+      <input type="text" class="form-control" id="textdescription" name="post[description]" value="<?php echo $item->description;?>">
     </div>
 </div>
-<?php echo editer('textcontents_highlight');?>
 <div class="mb-3 row">
-    <label for="textcontents" class="col-sm-2 col-form-label"><?php echo lang('document.contents');?></label>
+    <label for="textlink" class="col-sm-2 col-form-label"><?php echo lang('finaceapps.link');?></label>
     <div class="col-sm-10">
-      <textarea type="text" style="min-height:350px;" class="form-control" id="textcontents" name="post[contents]"><?php echo $item->contents;?></textarea>
+      <input type="text" class="form-control" id="textlink" name="post[link]" value="<?php echo $item->link;?>">
     </div>
 </div>
-<?php echo editer('textcontents');?>
-<div class="mb-3 row">
-    <label for="texttags" class="col-sm-2 col-form-label"><?php echo lang('document.tags');?></label>
-    <div class="col-sm-10">
-      <textarea type="text" class="form-control" id="texttags" name="post[tags]"><?php echo $item->tags;?></textarea>
-    </div>
-</div>
-
 <div class="form-group row border-top pt-3">
     <div class="col-sm-2">
     </div>

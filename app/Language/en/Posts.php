@@ -1,14 +1,14 @@
 <?php
 return [
 "modules" => "News",
-	"title" => "title",
+	"title" => "Post Name",
 	"create" => "Posts Manager",
-	"contents" => "contents",
-	"image" => "image",
-	"tags" => "tags",
-	"language" => "language",
-	"description" => "description",
-	"contents_highlight" => "contents_highlight",
-	"keyword" => "keyword"
+	"contents" => "Contents",
+	"image" => "Image",
+	"tags" => "Tags",
+	"language" => "Language",
+	"description" => "Description",
+	"contents_highlight" => "Highlight",
+	"keyword" => "Keyword"
 ];
 ?>

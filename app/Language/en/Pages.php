@@ -1,14 +1,14 @@
 <?php
 return [
 "modules" => "Pages",
-	"title" => "title",
+	"title" => "Page Name",
 	"create" => "Pages Manager",
-	"image" => "image",
-	"banner" => "banner",
-	"language" => "language",
-	"description" => "description",
-	"contents" => "contents",
-	"keyword" => "keyword",
-	"contents_highlight" => "contents_highlight"
+	"image" => "Image",
+	"banner" => "Banner",
+	"language" => "Language",
+	"description" => "Description",
+	"contents" => "Contents",
+	"keyword" => "Keyword",
+	"contents_highlight" => "Highlight"
 ];
 ?>

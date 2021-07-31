@@ -1,12 +1,12 @@
 <?php
 return [
 "modules" => "Document",
-	"title" => "title",
+	"title" => "Document Name",
 	"create" => "Document Manager",
-	"image" => "image",
-	"contents_highlight" => "contents_highlight",
-	"contents" => "contents",
-	"tags" => "tags",
-	"language" => "language"
+	"image" => "Image",
+	"contents_highlight" => "Highlight",
+	"contents" => "Contents",
+	"tags" => "Tags",
+	"language" => "Language"
 ];
 ?>

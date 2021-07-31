@@ -16,22 +16,34 @@ class Payment extends BaseController
 	}
 
 	public function genservice($service, $total){
+
+		$wallet = new Users_walletModel;
 		if($service == "paypal"){
-			$wallet = new Users_walletModel;
+			
 			$sum = $wallet->converTokenToUSD($total);
 			session()->set(["payment_amount" => $sum,"payment_name" => "BUY ".$wallet->getTokenName()]);
 			echo "paypal";
 			exit();
+		}else if($service == "btc"){
+			$sum = $wallet->converTokenToBTC($total);
+		}else if($service == "eth"){
+			$sum = $wallet->converTokenToETH($total);
 		}
+
+
 		$qrcode = new SmartQrcode;
 		$hex_data   = bin2hex($data);
         $save_name  = $hex_data . '.png';
         if($service == "btc"){
-			$params['data']     = getenv("btc_wallet") ? getenv("btc_wallet") : "0x3aebc70aa356187b2f7391f842bc72da67e46b04";
+			$params['data']     = getenv("btc_wallet") ? getenv("btc_wallet") : "0x3aebc70aa356187b2f7391f842bc72da67e46b04?amount=".$sum;
 			$this->data["service"] = getenv("btc_wallet_name") ? getenv("btc_wallet_name") : "BTC BEP20 (BSC)";
+			$this->data["wallet"] = getenv("btc_wallet") ? getenv("btc_wallet") : "0x3aebc70aa356187b2f7391f842bc72da67e46b04";
+			$this->data["amount"] = $sum . " BTC";
 		}
 		if($service == "eth"){
-			$params['data']     = getenv("eth_wallet") ? getenv("eth_wallet") :"0xd2D1e9a0E2Ba929c5114e5aF4e2B0F45586422C0?amount=0.01";
+			$params['data']     = getenv("eth_wallet") ? getenv("eth_wallet") :"0xd2D1e9a0E2Ba929c5114e5aF4e2B0F45586422C0?amount=".$sum;
+			$this->data["wallet"] = getenv("eth_wallet") ? getenv("eth_wallet") : "0xd2D1e9a0E2Ba929c5114e5aF4e2B0F45586422C0";
+			$this->data["amount"] = $sum . " ETH";
 			$this->data["service"] = "Ethereum";
 		}
         $params['level']    = 'R';
@@ -40,7 +52,7 @@ class Payment extends BaseController
         //$params['savename'] = FCPATH . "/uploads/qrcode/" . $save_name;
 
 		$this->data["qrcode"] = $qrcode->getQrcode64($params);
-		$this->data["wallet"] = $params['data'];
+		//$this->data["wallet"] = $params['data'];
 		
 		$this->layout = "layout/empty";
 	}

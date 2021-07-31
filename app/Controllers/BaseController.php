@@ -145,10 +145,14 @@ class BaseController extends Controller
         $view_folder = strtolower(end($controller_full_name));
         
         if($view_folder == "posts" || $view_folder == "pages" || $view_folder == "document"){
-            $chars = preg_split('/([0-9]*).html/i', $this->request->uri->getSegment(1), -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
+            $url2 = $this->request->uri->getSegment(2);
+            if(trim($url2) == "") $url2 = $this->request->uri->getSegment(1);
+            $chars = preg_split('/([0-9]*).html/i', $url2, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
             
             //$exURI = end(explode($this->request->uri->getSegments(1), "-"));
             $this->arguments = [intval($chars[1])];
+           
+
         }
         //Checks if it's a 404 or not
         if (method_exists($this, $method)) {

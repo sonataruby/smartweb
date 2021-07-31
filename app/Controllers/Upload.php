@@ -45,7 +45,7 @@ class Upload extends AccountController
         if ($validated) {
 
             $avatar = $this->request->getFile('file');
-            $name = $avatar->getRandomName().".".$avatar->getClientExtension();
+            $name = str_replace(".".$avatar->getClientExtension(),"",$avatar->getRandomName()).".".$avatar->getClientExtension();
             if($_GET["name"] != "") $name = $_GET["name"].".".$avatar->getClientExtension();
             if(file_exists(FCPATH . 'uploads/'.$name)){
                 @unlink(FCPATH . 'uploads/'.$name);

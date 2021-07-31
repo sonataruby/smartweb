@@ -2,9 +2,11 @@
 
 namespace App\Controllers;
 use App\Models\Users_walletModel;
+use App\Models\FinaceappsModel;
+
 class Finance extends AccountController
 {
-	private $tokenname = "SMFX";
+	
 
 	public function index()
 	{
@@ -13,5 +15,7 @@ class Finance extends AccountController
 		$this->breadcrumb->add("finance", '/finance');
 		$this->breadcrumb->add("Smart Finance Apps", '/index');
 		$this->data['breadcrumbs'] = $this->breadcrumb->render();
+		$app = new FinaceappsModel;
+		$this->data["app"] = $app->getItems();
 	}
 }

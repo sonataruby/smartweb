@@ -42,6 +42,7 @@ class Users_walletModel extends BaseModel
 
     private $tokenname = "SMFX";
     private $airdropAmount = 5;
+   
     function __construct()
     {
         if($this->mutilanguage == true){
@@ -52,6 +53,11 @@ class Users_walletModel extends BaseModel
         $tokenname = getenv("tokenname");
         if($tokenname){
             $this->tokenname = $tokenname;
+        }
+
+        $tokenprice = getenv("tokenprice");
+        if($tokenprice){
+            $this->price_token = $tokenprice;
         }
 
     }
@@ -70,17 +76,19 @@ class Users_walletModel extends BaseModel
        
         return $data->USD;
     }
-
+ 
     public function converTokenToUSD($tokenNumber){
         return number_format($tokenNumber * $this->getTokenPrice(),2);
     }
 
-    public function getTokenBTC(){
-        return $this->tokenname;
+    public function converTokenToBTC($tokenNumber){
+        //$tokenusd = $this->converTokenToUSD($tokenNumber);
+        return number_format($tokenNumber * ($this->getTokenPrice() / $this->getTokenPrice("BTC")),8);
     }
     
-    public function getTokenETH(){
-        return $this->tokenname;
+    public function converTokenToETH($tokenNumber){
+        //$tokenusd = $this->converTokenToUSD($tokenNumber);
+        return number_format($tokenNumber * ($this->getTokenPrice() / $this->getTokenPrice("ETH")),4);
     }
 
     public function getItems($where=[]){
