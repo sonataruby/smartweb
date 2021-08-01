@@ -156,9 +156,7 @@ class SettingsModel extends BaseModel
     }
 
     public function updateRow($id, $data=[]){
-        if($this->mutilanguage != false){
-            $this->where("language",$this->mutilanguage);
-        }
+        
 
         if($data && $this->update($id,$data)){
             session()->setFlashdata("confirm",lang("globals.update_confirm"));
