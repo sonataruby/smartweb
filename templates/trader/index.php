@@ -224,7 +224,7 @@
 </section>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/push.js/1.0.8/push.js" integrity="sha512-x0GVeKL5uwqADbWOobFCUK4zTI+MAXX/b7dwpCVfi/RT6jSLkSEzzy/ist27Iz3/CWzSvvbK2GBIiT7D4ZxtPg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script type="text/javascript">
-	const socket = io("<?php echo $socket;?>/");
+	const socket = io("<?php echo $socket;?>/",{transports: ["websocket"]});
 	socket.connect();
 	socket.on("connect", () => {
 		  console.log(socket.connected); // true
