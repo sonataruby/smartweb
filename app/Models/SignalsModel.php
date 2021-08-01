@@ -289,7 +289,7 @@ class SignalsModel extends BaseModel
                 "username" => "SmartFX",
                 "channel" => "main",
                 "orderid" => "0",
-                "symbol" => $arvs["symbol"]
+                "symbol" => $arvs["symbol"],
                 "type" => $arvs["type"], 
                 "openprice" => $arvs["open"],
                 "stoploss" => "0", 
@@ -303,7 +303,7 @@ class SignalsModel extends BaseModel
                 "username" => "SmartFX",
                 "channel" => "main",
                 "orderid" => "0",
-                "symbol" => $arvs["symbol"]
+                "symbol" => $arvs["symbol"],
                 "type" => $arvs["type"], 
                 "price" => $arvs["close"],
                 "pips" => $arvs["profits"], 
