@@ -1,6 +1,6 @@
 <?php echo $this->extend($layout); ?>
 
-<?php echo $this->section('body') ?>
+<?php $this->section('body') ?>
 	<h3 class="justify-content-between d-flex">Wallet <a href="/wallet/create" class="btn btn-sm btn-primary"><i data-feather="edit"></i> Create</a></h3>	
 	
 
@@ -39,4 +39,4 @@
 		  -webkit-box-orient: vertical;
 		}
 </style>
-<?php echo $this->endSection() ?>
+<?php $this->endSection() ?>

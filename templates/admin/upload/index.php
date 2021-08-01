@@ -1,6 +1,6 @@
 <?php echo $this->extend($layout); ?>
 
-<?php echo $this->section('body') ?>
+<?php $this->section('body') ?>
 
 
 <h1 class="border-bottom d-flex justify-content-between">
@@ -87,4 +87,4 @@
 
 	
 </script>
-<?php echo $this->endSection() ?>
+<?php $this->endSection() ?>

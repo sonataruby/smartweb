@@ -1,6 +1,6 @@
 <?php echo $this->extend($layout); ?>
 
-<?php echo $this->section('body') ?>
+<?php $this->section('body') ?>
 	<?php echo form_open("profile/update");?>
 	<h3>Profile</h3>
 
@@ -139,4 +139,4 @@
 	    </div>
 	</div>
 	<?php echo form_close();?>
-<?php echo $this->endSection() ?>
+<?php $this->endSection() ?>

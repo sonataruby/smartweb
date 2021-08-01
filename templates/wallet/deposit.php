@@ -1,6 +1,6 @@
 <?php echo $this->extend($layout); ?>
 
-<?php echo $this->section('body') ?>
+<?php $this->section('body') ?>
 	<h3>Deposit</h3>	
 	
 	<div class="row">
@@ -10,4 +10,4 @@
 		</div>
 	</div>
 	
-<?php echo $this->endSection() ?>
+<?php $this->endSection() ?>

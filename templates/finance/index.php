@@ -1,6 +1,6 @@
 <?php echo $this->extend($layout); ?>
 
-<?php echo $this->section('body') ?>
+<?php $this->section('body') ?>
 	
 	<div class="row row-cols-1 row-cols-md-3 g-4">
 		<?php foreach ($app["items"] as $key => $item) { ?>
@@ -20,4 +20,4 @@
 		
 	</div>
 	<?php echo $app["page"];?>
-<?php echo $this->endSection() ?>
+<?php $this->endSection() ?>

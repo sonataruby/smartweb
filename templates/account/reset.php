@@ -1,6 +1,6 @@
 <?php echo $this->extend($layout); ?>
 
-<?php echo $this->section('body') ?>
+<?php $this->section('body') ?>
     
     
     <div class="ath-container">
@@ -21,4 +21,4 @@
         </div>
     </div>
    
-<?php echo $this->endSection() ?>
+<?php $this->endSection() ?>

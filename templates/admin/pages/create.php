@@ -1,6 +1,6 @@
 <?php echo $this->extend($layout); ?>
 
-<?php echo $this->section('body') ?>
+<?php $this->section('body') ?>
 
 
 <h3 class="title"><i data-feather="edit"></i> <?php echo lang("pages.create");?></h3>
@@ -105,4 +105,4 @@
     </div>
 </div>
 <?php echo form_close();?>
-<?php echo $this->endSection() ?>
+<?php $this->endSection() ?>

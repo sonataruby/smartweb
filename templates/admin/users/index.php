@@ -1,6 +1,6 @@
 <?php echo $this->extend($layout); ?>
 
-<?php echo $this->section('body') ?>
+<?php $this->section('body') ?>
 
 
 <h3 class="title">
@@ -61,4 +61,4 @@
 </div>
 <?php echo form_close();?>
 <?php echo $data["page"];?>
-<?php echo $this->endSection() ?>
+<?php $this->endSection() ?>

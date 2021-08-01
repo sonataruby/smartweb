@@ -1,9 +1,9 @@
 <?php echo $this->extend($layout); ?>
 
-<?php echo $this->section('bodyTop') ?>
-<?php echo $this->endSection() ?>
+<?php $this->section('bodyTop') ?>
+<?php $this->endSection() ?>
 
-<?php echo $this->section('body') ?>
+<?php $this->section('body') ?>
    
         
     <div class="row row-cols-1 row-cols-md-2 g-4">
@@ -22,4 +22,4 @@
       <?php } ?>
       
     </div>
-<?php echo $this->endSection() ?>
+<?php $this->endSection() ?>

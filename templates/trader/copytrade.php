@@ -1,6 +1,6 @@
 <?php echo $this->extend($layout); ?>
 
-<?php echo $this->section('body') ?>
+<?php $this->section('body') ?>
 
 <?php echo form_open();?>
 <section class="nb-contents" style="padding-top:10px; padding-bottom: 50px;">
@@ -78,4 +78,4 @@
 	</div>
 </section>
 
-<?php echo $this->endSection() ?>
+<?php $this->endSection() ?>

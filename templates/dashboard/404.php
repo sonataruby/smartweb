@@ -1,6 +1,6 @@
 <?php echo $this->extend($layout); ?>
 
-<?php echo $this->section('body') ?>
+<?php $this->section('body') ?>
     
     <div class="my-auto py-5">
         <div class="row justify-content-center">
@@ -15,4 +15,4 @@
         </div>
     </div>
    
- <?php echo $this->endSection() ?>
+ <?php $this->endSection() ?>

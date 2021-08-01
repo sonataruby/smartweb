@@ -1,6 +1,6 @@
 <?php echo $this->extend($layout); ?>
 
-<?php echo $this->section('body') ?>
+<?php $this->section('body') ?>
     <h1>Templates</h1>
     <div class="row">
    <?php
@@ -43,4 +43,4 @@
    ?>
    </div>
 
-<?php echo $this->endSection() ?>
+<?php $this->endSection() ?>

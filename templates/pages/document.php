@@ -1,9 +1,19 @@
 <?php echo $this->extend($layout); ?>
 
-<?php echo $this->section('bodyTop') ?>
-<?php echo $this->endSection() ?>
+<?php  $this->section('bodyNav') ?>
+        <h5>Document</h5>
+        <ul class="list-group list-group-flush">
+                <?php foreach ($listdoc["items"] as $key => $value) { ?>
+                        <li class="list-group-item" style="padding-left:0;"><a href="/docs/<?php echo str_slug($value->title);?>-<?php echo $value->id;?>.html"><?php echo $value->title;?></a></li>
+                <?php } ?>
 
-<?php echo $this->section('body') ?>
+        </ul>
+<?php  $this->endSection() ?>
+
+<?php  $this->section('bodyTop') ?>
+<?php  $this->endSection() ?>
+
+<?php  $this->section('body') ?>
    
         
     <div class="row row-cols-1 row-cols-md-2 g-4">
@@ -22,4 +32,4 @@
       <?php } ?>
       
     </div>
-<?php echo $this->endSection() ?>
+<?php  $this->endSection() ?>

@@ -1,6 +1,6 @@
 <?php echo $this->extend($layout); ?>
 
-<?php echo $this->section('body') ?>
+<?php $this->section('body') ?>
 <style type="text/css">
 .bd-buy {
     border-color: var(--bs-green) !important;
@@ -68,6 +68,11 @@
 					
 						<ul>
 							<?php 
+							if(!$signals){
+							?>
+							<li><div class="alert alert-danger" role="alert">Wait new signals public</div></li>
+							<?php
+							}
 							foreach ($signals as $key => $value) {
 								
 								
@@ -239,4 +244,4 @@
 
     
   </script>
-<?php echo $this->endSection() ?>
+<?php $this->endSection() ?>

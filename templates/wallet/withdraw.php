@@ -1,6 +1,6 @@
 <?php echo $this->extend($layout); ?>
 
-<?php echo $this->section('body') ?>
+<?php $this->section('body') ?>
 	<?php echo form_open();?>
 	<h3>Withdraw | <?php echo $token;?></h3>	
 	
@@ -12,4 +12,4 @@
 		<button class="btn btn-primary btn-sm">Withdraw</button>
 	</div>
 	<?php echo form_close();?>
-<?php echo $this->endSection() ?>
+<?php $this->endSection() ?>

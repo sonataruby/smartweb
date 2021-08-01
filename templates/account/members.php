@@ -1,6 +1,6 @@
 <?php echo $this->extend($layout); ?>
 
-<?php echo $this->section('body') ?>
+<?php $this->section('body') ?>
 	<h3>Intivite URL</h3>
 	<div>
 
@@ -51,4 +51,4 @@
 		  alert("Copied the url: " + copyText.value);
 		} 
 </script>
-<?php echo $this->endSection() ?>
+<?php $this->endSection() ?>

@@ -71,21 +71,36 @@
     
     <div class="nk-pages">
       <div class="container  bd-layout">
+        <?php 
+          ob_start();
+          $this->renderSection('bodyNav');
+          $nav = ob_get_contents();
+          ob_end_clean();
+        if(trim($nav) != ""){ ?>
         <aside class="bd-sidebar d-none d-sm-block">
-          <nav class="collapse bd-links" id="bd-docs-nav" aria-label="Docs navigation">
-              <?php echo $this->renderSection('bodyNav') ?> 
+          <nav class="collapse bd-links" id="bd-docs-nav" aria-label="Docs navigation" style="padding-top:120px;">
+              <?php echo $nav ?> 
           </nav>
         </aside>
+        <?php } ?>
 
         <main class="bd-main order-1">
           <div class="bd-intro ps-lg-4">
             <?php echo $this->renderSection('bodyTop') ?> 
           </div>
               
-          
+          <?php 
+            ob_start();
+            $this->renderSection('bodyRight');
+            $right = ob_get_contents();
+            ob_end_clean();
+           if(trim($right) != "") { 
+          ?>
           <div class="bd-toc mt-4 mb-5 my-md-0 ps-xl-3 mb-lg-5 text-muted">
-            <?php echo $this->renderSection('bodyRight') ?>
+            <?php echo $right ?>
           </div>
+          <?php } ?>
+
           <div class="bd-content ps-lg-4">
             <?php echo $this->renderSection('body') ?>
           </div>

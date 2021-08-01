@@ -1,6 +1,6 @@
 <?php echo $this->extend($layout); ?>
 
-<?php echo $this->section('bodyTop') ?>
+<?php $this->section('bodyTop') ?>
 
 
 <h3 class="d-flex justify-content-between">
@@ -28,9 +28,9 @@
 	</tr>
 <?php } ?>
 </table>
-<?php echo $this->endSection() ?>
+<?php $this->endSection() ?>
 
-<?php echo $this->section('body') ?>
+<?php $this->section('body') ?>
 <?php echo form_open();?>
 <div class="input-group mb-3">
   <span class="input-group-text" id="basic-addon1">Select File</span>
@@ -70,4 +70,4 @@
 </div>
 <?php echo form_close();?>
 
-<?php echo $this->endSection() ?>
+<?php $this->endSection() ?>

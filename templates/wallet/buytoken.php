@@ -1,6 +1,6 @@
 <?php echo $this->extend($layout); ?>
 
-<?php echo $this->section('body') ?>
+<?php $this->section('body') ?>
 
 
 <section class="nb-contents" style="padding-top:10px; padding-bottom: 50px;">
@@ -96,4 +96,4 @@
 		
 	
 </script>
-<?php echo $this->endSection() ?>
+<?php $this->endSection() ?>
