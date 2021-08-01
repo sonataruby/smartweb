@@ -126,6 +126,24 @@ class Smarttrader extends AccountController
         $query = $db->query("INSERT INTO signals_access (`account_id`, `symbol`, `status`, `created_at`, `starttime`, `endtime`) VALUES ('".$this->user->getAccountID()."', '".$symbol."', 'active', CURRENT_TIMESTAMP, '".$starttime."', '".$endtime."');");
 
 	}
+
+
+	public function signals(){
+		$db = \Config\Database::connect();
+		
+		$readOldAccess = $db->query("SELECT * FROM signals_access where account_id='".$this->user->getAccountID()."'")->getResult();
+
+		$wallet = new Users_walletModel();
+		$this->setSEO(["title" => "VIP Signals"]);
+		$this->breadcrumb->add('Dashboard', '/cpanel');
+		$this->breadcrumb->add('Signals', "/smarttrader/signals");
+		$this->breadcrumb->add('VIP Signals', '/signals');
+		$this->data['breadcrumbs'] = $this->breadcrumb->render();
+		$this->data["balance_token"] = $wallet->getBalance("token");
+		$this->data["tokenname"] = $wallet->getTokenName();
+		$this->data["symbolvip"] = $readOldAccess;
+		$this->view = 'trader/mysignals';
+	}
 	
 }
 
