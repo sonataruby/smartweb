@@ -282,7 +282,34 @@ class SignalsModel extends BaseModel
 
     }
 
-    private function alertSocket($ivent, $arv=[]){
+    private function alertSocket($ivent, $arvs=[]){
+        $arv = [];
+        if($ivent == "open"){
+            $arv = [
+                "username" => "SmartFX",
+                "channel" => "main",
+                "orderid" => "0",
+                "symbol" => $arvs["symbol"]
+                "type" => $arvs["type"], 
+                "openprice" => $arvs["open"],
+                "stoploss" => "0", 
+                "takeprofit" => "0", 
+                "opentime" => "0", 
+                "exittime" => "0"
+            ];
+        }
+        if($ivent == "close"){
+            $arv = [
+                "username" => "SmartFX",
+                "channel" => "main",
+                "orderid" => "0",
+                "symbol" => $arvs["symbol"]
+                "type" => $arvs["type"], 
+                "price" => $arvs["close"],
+                "pips" => $arvs["profits"], 
+                "closetime" => "0"
+            ];
+        }
         $client = new \App\Libraries\SocketIO();
         $client->send("127.0.0.1",9000,$ivent,json_encode($arv));
     }
