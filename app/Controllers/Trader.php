@@ -7,6 +7,8 @@ class Trader extends BaseController
 {
 	private $SocketIOServer = "127.0.0.1";
 	private $SocketIOPort = "3000";
+	private $SocketClient = "https://api.vsmart.ltd";
+
 	public function index()
 	{
 		$this->setSEO(["title" => "Smart Signal"]);
@@ -14,6 +16,7 @@ class Trader extends BaseController
 		$this->data["signals"] = $this->signals(true);
 		$this->data["symbol"] = $this->symbol();
 		$this->data["report"] = $this->getReport();
+		$this->data["socket"] = $this->SocketClient;
 		$this->data["bestbroker"] = [
 			["link" => "https://secure.tickmill.com?utm_campaign=ib_link&utm_content=IB21222244","image" => "https://cdn.tickmill.com/promotional/3/banners/static/Welcome-Account_240x400_en.png"],
 			["link" => "https://one.exness.link/a/tjm6vjm6","image" => "https://www.exness.com/media/banners/vi/static/250x250_VI_Registration_AccessFunds.png"],
