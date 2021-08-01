@@ -239,7 +239,7 @@ $this->mutilanguage = $language->getLocale();
 
 
     private function sendTelegram($data,$type, $targetby="close"){
-        $token = "1279919331:AAFW68mtfiC1niRGpZPgsa7YHH4RIE2yIB4";
+        $token = "1833554173:AAEe6AEA_CqnpZtVOMKtfYuS32k0y-NLRqU";
         $channel = "@smartiqx";
 
         $msg =  "============================\n";
