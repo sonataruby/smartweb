@@ -29,7 +29,7 @@
 <?php 
 $file = glob ( FCPATH . "templates/assets/core/trumbowyg/plugins/*/trumbowyg.*.js");
 foreach ($file as $key => $value) { 
-    if(strpos($value,".min") !== false){
+    if(strpos($value,".min") !== false && basename($value) != "trumbowyg.highlight.min.js"){
     ?>
     <script type='text/javascript' src='<?php echo str_replace(FCPATH,'',$value);?>'></script>
 <?php 
