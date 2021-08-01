@@ -7,8 +7,8 @@ class Trader extends BaseController
 {
 	private $SocketIOServer = "127.0.0.1";
 	private $SocketIOPort = "9000";
-	private $SocketClient = "https://api.vsmart.ltd";
-
+	//private $SocketClient = "https://api.vsmart.ltd";
+	private $SocketClient = "http://127.0.0.1:9000";
 	public function index()
 	{
 		$this->setSEO(["title" => "Smart Signal"]);
@@ -29,7 +29,6 @@ class Trader extends BaseController
 			["image" => "https://i.pinimg.com/736x/c6/c3/8d/c6c38de1fe8027631c61cbbf8e501eb0.jpg", "link" => "https://www.youtube.com/watch?v=xwXDy2bwa5A"],
 			["image" => "https://www.geopower-i4c.eu/wp-content/uploads/2019/11/apprendre-a-trader.jpg", "link" => "https://www.youtube.com/watch?v=xwXDy2bwa5A"]
 		];
-		
 		
 	}
 

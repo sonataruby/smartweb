@@ -168,6 +168,7 @@
 		  console.log(socket.connected); // true
 	});
 	socket.on('open', (data) => {
+		console.log(data); // true
 		$("#loadSingals").load("/trader/signalsajax");
 	    Push.create('Hi there!', {
 		    body: 'New Signals Open.',

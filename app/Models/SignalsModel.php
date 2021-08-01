@@ -73,8 +73,12 @@ class SignalsModel extends BaseModel
         }
         $result = $this->findAll($this->per_page,$offset);
         $this->NumTotals = $this->getTotals($where);
+       
         return ["items" => $result,"offset" => $offset, "page" => $this->getPages()];
         
+    }
+    public function test(){
+         $this->alertSocket("open",["symbol" => "XAUUSD", "type" => "SELL", "open" => "1900"]);
     }
 
     public function getItem($id=false,$where=[],$next=false){
@@ -286,32 +290,37 @@ class SignalsModel extends BaseModel
         $arv = [];
         if($ivent == "open"){
             $arv = [
-                "username" => "SmartFX",
-                "channel" => "main",
-                "orderid" => "0",
+                
                 "symbol" => $arvs["symbol"],
                 "type" => $arvs["type"], 
-                "openprice" => $arvs["open"],
-                "stoploss" => "0", 
-                "takeprofit" => "0", 
-                "opentime" => "0", 
-                "exittime" => "0"
+                "open" => $arvs["open"]
             ];
+            $url = "open?".http_build_query($arv);
         }
         if($ivent == "close"){
             $arv = [
-                "username" => "SmartFX",
-                "channel" => "main",
-                "orderid" => "0",
+                
                 "symbol" => $arvs["symbol"],
                 "type" => $arvs["type"], 
-                "price" => $arvs["close"],
-                "pips" => $arvs["profits"], 
-                "closetime" => "0"
+                "close" => $arvs["close"]
             ];
+            $url = "close?".http_build_query($arv);
         }
-        $client = new \App\Libraries\SocketIO();
-        $client->send("127.0.0.1",9000,$ivent,json_encode($arv));
+
+       
+        $ch = curl_init();
+        $optArray = array(
+                CURLOPT_URL => "https://api.vsmart.ltd/".$url,
+                CURLOPT_RETURNTRANSFER => true,
+        );
+        curl_setopt_array($ch, $optArray); 
+        $result = curl_exec($ch);
+        curl_close($ch);
+
+        //print_r($result);
+        //$client = new \App\Libraries\SocketIO();
+        
+        //$client->send("127.0.0.1",9000,"open");
     }
 
 }
