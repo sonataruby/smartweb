@@ -16,6 +16,7 @@
 
 <link rel="stylesheet" href="templates/assets/theme.css">
 <link rel="stylesheet" href="templates/assets/core/admin.css">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="templates/assets/core/apps.js"></script>
 <script src="templates/assets/core/bootstrap-datepicker.js"></script>
 <link rel="stylesheet" href="templates/assets/core/datepicker.css"/>
