@@ -141,7 +141,8 @@ class Users_walletModel extends BaseModel
     }
 
     public function setLanguage($lang=""){
-        $this->mutilanguage = session()->get("lang");
+        $language = \Config\Services::language();
+$this->mutilanguage = $language->getLocale();
         $this->system_where["language"] = $this->mutilanguage;
         return $this;
     }

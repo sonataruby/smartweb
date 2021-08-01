@@ -9,7 +9,8 @@ if(!function_exists("admin_url")){
 if(!function_exists("nav_menu")){
 	function nav_menu($key="", $parent=0){
 		$db = \Config\Database::connect();
-		$query = $db->query("SELECT * FROM menu where language='".service('request')->getLocale()."' AND status='1' AND  display='".$key."' AND parent='".$parent."' ORDER BY short ASC")->getResult();
+		$language = \Config\Services::language();
+		$query = $db->query("SELECT * FROM menu where language='".$language->getLocale()."' AND status='1' AND  display='".$key."' AND parent='".$parent."' ORDER BY short ASC")->getResult();
 		$html = [];
 		foreach($query as $k => $v){
 			$html[] = '<li class="menu-item"><a class="menu-link nav-link" href="'.$v->router.'">'.$v->name.'</a></li>';
@@ -21,7 +22,8 @@ if(!function_exists("nav_menu")){
 if(!function_exists("widgets")){
 	function widgets($display="", $format="html"){
 		$db = \Config\Database::connect();
-		$query = $db->query("SELECT * FROM windget where language='".service('request')->getLocale()."' AND  display='".$display."' AND format='".$format."' ORDER BY short ASC")->getResult();
+		$language = \Config\Services::language();
+		$query = $db->query("SELECT * FROM windget where language='".$language->getLocale()."' AND  display='".$display."' AND format='".$format."' ORDER BY short ASC")->getResult();
 		if($format == "html"){
 			$html = [];
 			foreach($query as $k => $v){

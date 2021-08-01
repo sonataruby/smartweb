@@ -94,7 +94,8 @@ class SettingsModel extends BaseModel
     }
 
     public function setLanguage($lang=""){
-        $this->mutilanguage = service('request')->getLocale();
+        $language = \Config\Services::language();
+$this->mutilanguage = $language->getLocale();
         //$this->system_where["language"] = $this->mutilanguage;
         return $this;
     }

@@ -84,7 +84,8 @@ class AdminController extends Controller
             $locale = "en";
         }
         $this->data['language'] = $this->session->has("lang") ? $this->session->get("lang") : $locale;
-        $this->request->setLocale($this->data['language']);
+        $language = \Config\Services::language();
+        $language->setLocale($this->data['language']);
         
         $this->data["supportlangauge"] = ["en" => "EN"];
         // Arguments to be used in the callback remap

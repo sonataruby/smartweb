@@ -85,6 +85,7 @@ class BaseController extends Controller
                 $this->agent = 'Unidentified User Agent';
         }
 
+        $language = \Config\Services::language();
 		$this->session = \Config\Services::session();
         $this->user = new Users();
         $this->data["users"] = $this->user->getSession();
@@ -102,10 +103,16 @@ class BaseController extends Controller
         if(is_cli()){
             $locale = "en";
         }
+
+
         $this->data['language'] = $this->session->has("lang") ? $this->session->get("lang") : $locale;
-        $this->request->setLocale($this->data['language']);
+
+
+        $language->setLocale($this->data['language']);
         $this->data["supportlangauge"] = ["en" => "EN"];
         
+        
+
         //--------------------------------------------------------------------
         // Check for flashdata
         //--------------------------------------------------------------------
