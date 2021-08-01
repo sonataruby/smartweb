@@ -61,6 +61,8 @@ class SettingsModel extends BaseModel
         if($where){
             $this->where($where);
         }
+        $this->where("language",service('request')->getLocale());
+        $this->OrWhere("language","");
 
         if($this->search && is_array($this->search)){
             foreach ($this->search as $key => $value) {
@@ -92,8 +94,8 @@ class SettingsModel extends BaseModel
     }
 
     public function setLanguage($lang=""){
-        $this->mutilanguage = session()->get("lang");
-        $this->system_where["language"] = $this->mutilanguage;
+        $this->mutilanguage = service('request')->getLocale();
+        //$this->system_where["language"] = $this->mutilanguage;
         return $this;
     }
 
