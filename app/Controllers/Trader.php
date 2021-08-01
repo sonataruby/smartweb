@@ -33,6 +33,11 @@ class Trader extends BaseController
 		
 	}
 
+	public function signalsajax(){
+		$this->data["signals"] = $this->signals(true);
+		$this->layout = "layout/nolayout";
+	}
+
 	public function account($meta_id){
 		$db = \Config\Database::connect();
         $query = $db->query("SELECT * FROM trader where meta_id='".$meta_id."' AND active='1'")->getRow();
