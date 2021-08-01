@@ -154,7 +154,7 @@ class SignalsModel extends BaseModel
         $data["opendate"] = date("Y-m-d h:i:s");
         if($data && $this->insert($data)){
             //if($data["is_free"] == "yes"){
-            $this->alertSocket("open",$data);
+            $this->alertSocket("open",["symbol" => $data["symbol"], "type" => $data["type"], "open" => $data["open"]]);
             $this->sendTelegram($data,"create");
             //}
             session()->setFlashdata("confirm",lang("globals.insert_confirm"));
@@ -174,7 +174,7 @@ class SignalsModel extends BaseModel
 
         if($data && $this->update($id,$data)){
             //if($data["is_free"] == "yes"){
-            $this->alertSocket("update",$data);
+            $this->alertSocket("update",["symbol" => $data["symbol"], "type" => $data["type"], "open" => $data["open"]]);
             $this->sendTelegram($data,"update");
             //}
             session()->setFlashdata("confirm",lang("globals.update_confirm"));
@@ -193,7 +193,7 @@ class SignalsModel extends BaseModel
 
         if($read && $this->update($read->id,$data)){
             //if($data["is_free"] == "yes"){
-            $this->alertSocket("update",(array)$read);
+            $this->alertSocket("update",["symbol" => $read->symbol, "type" => $read->type, "open" => $read->open]);
             $this->sendTelegram($teleAray,"update");
             //}
             session()->setFlashdata("confirm",lang("globals.update_confirm"));
@@ -210,7 +210,7 @@ class SignalsModel extends BaseModel
 
         if($read && $this->update($read->id,$data)){
             //if($data["is_free"] == "yes"){
-            $this->alertSocket("close",(array)$read);
+            $this->alertSocket("close",["symbol" => $read->symbol, "type" => $read->type, "close" => $data["close"],"profits" => $data["profits"]]);
             $this->sendTelegram($teleAray,"close",$targetby);
             //}
             session()->setFlashdata("confirm",lang("globals.update_confirm"));
