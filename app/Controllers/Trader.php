@@ -6,7 +6,7 @@ use App\Models\SignalsModel;
 class Trader extends BaseController
 {
 	private $SocketIOServer = "127.0.0.1";
-	private $SocketIOPort = "3000";
+	private $SocketIOPort = "9000";
 	private $SocketClient = "https://api.vsmart.ltd";
 
 	public function index()
@@ -237,10 +237,7 @@ class Trader extends BaseController
 
 	}
 
-	private function alertSocket(){
-		//$client = new \Libs\SocketIO();
-		//$client->send($this->SocketIOServer,$this->SocketIOPort,'waitevent',"Events : ".$msg);
-	}
+	
 
 	private function alertApps($contents){
 		$content = array(

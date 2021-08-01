@@ -154,6 +154,7 @@ class SignalsModel extends BaseModel
         $data["opendate"] = date("Y-m-d h:i:s");
         if($data && $this->insert($data)){
             //if($data["is_free"] == "yes"){
+            $this->alertSocket("open",$data);
             $this->sendTelegram($data,"create");
             //}
             session()->setFlashdata("confirm",lang("globals.insert_confirm"));
@@ -173,6 +174,7 @@ class SignalsModel extends BaseModel
 
         if($data && $this->update($id,$data)){
             //if($data["is_free"] == "yes"){
+            $this->alertSocket("update",$data);
             $this->sendTelegram($data,"update");
             //}
             session()->setFlashdata("confirm",lang("globals.update_confirm"));
@@ -191,6 +193,7 @@ class SignalsModel extends BaseModel
 
         if($read && $this->update($read->id,$data)){
             //if($data["is_free"] == "yes"){
+            $this->alertSocket("update",(array)$read);
             $this->sendTelegram($teleAray,"update");
             //}
             session()->setFlashdata("confirm",lang("globals.update_confirm"));
@@ -207,6 +210,7 @@ class SignalsModel extends BaseModel
 
         if($read && $this->update($read->id,$data)){
             //if($data["is_free"] == "yes"){
+            $this->alertSocket("close",(array)$read);
             $this->sendTelegram($teleAray,"close",$targetby);
             //}
             session()->setFlashdata("confirm",lang("globals.update_confirm"));
@@ -219,6 +223,7 @@ class SignalsModel extends BaseModel
 
     public function removeRow($id){
         if($this->delete($id)){
+
             session()->setFlashdata("confirm",lang("globals.delete_confirm"));
             return $id;
         }else{
@@ -275,6 +280,11 @@ class SignalsModel extends BaseModel
         $result = curl_exec($ch);
         curl_close($ch);
 
+    }
+
+    private function alertSocket($ivent, $arv=[]){
+        $client = new \App\Libraries\SocketIO();
+        $client->send("127.0.0.1",9000,$ivent,json_encode($arv));
     }
 
 }
