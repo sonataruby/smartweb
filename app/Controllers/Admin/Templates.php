@@ -70,6 +70,12 @@ class Templates extends AdminController
 
 	public function develop(){
 		helper(['filesystem','html']);
+		if($this->request->getVar("code") && $this->request->getVar("file")){
+			$filename = FCPATH . "templates/".$this->request->getVar("file");
+			file_put_contents($filename, $this->request->getVar("code"));
+			 session()->setFlashdata("confirm",lang("globals.update_confirm"));
+			 return redirect()->to("/admin/templates/develop?file=".$this->request->getVar("file"));
+		}
 		$path = directory_map(FCPATH . "templates/", false, FALSE);
 		$this->data["file"] = $path;
 	}

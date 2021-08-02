@@ -1,7 +1,9 @@
 <?php echo $this->extend($layout); ?>
 
 <?php $this->section('body') ?>
-    <h1>Templates EDIT</h1>
+ <?php echo form_open();?>
+    <h1 class="d-flex justify-content-between">Templates EDIT <div><button class="btn btn-sm btn-primary">Save</button></div></h1>
+    <hr>
     <div class="row">
         <div class="col-md-4 col-12">
             <div style="max-height:750px; overflow:auto;">
@@ -22,8 +24,12 @@
             </ul>
             </div>
         </div>
+        
         <div class="col-md-8 col-12">
-            <textarea class="form-control" style="min-height:650px;" id="code"><?php echo ($_GET['file'] ? file_get_contents(FCPATH.$_GET['file']) : "");?></textarea>
+          
+           
+            <textarea class="form-control" style="min-height:650px;" name="code" id="code"><?php echo ($_GET['file'] ? file_get_contents(FCPATH."templates/".$_GET['file']) : "");?></textarea>
+            
         </div>
     </div>
 <?php
@@ -55,4 +61,12 @@ function ulmake($arv=[], $path=""){
     tabMode: "indent"
   });
 </script>
+<style type="text/css">
+    .CodeMirror {
+  border: 1px solid #eee;
+  height: 750px;
+}
+
+</style>
+<?php echo form_close();?>
 <?php $this->endSection() ?>

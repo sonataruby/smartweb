@@ -1,7 +1,8 @@
 <?php echo $this->extend($layout); ?>
 
 <?php $this->section('body') ?>
-    <h1>Templates</h1>
+    <h1 class="d-flex justify-content-between">Templates <div><a href="/admin/templates/develop" class="btn btn-sm btn-primary">Edit Code</a></div></h1>
+    <hr>
     <div class="row">
    <?php
         
@@ -9,7 +10,7 @@
             <div class="col-4 mb-4">
                 <div class="card">
                     <div class="card-body">
-                        <img src="<?php echo $value->thumb;?>">
+                        <img src="<?php echo $value->thumb;?>" style="width:100%;">
                         <?php echo ucfirst($value->name);?>
                     </div>
                     <div class="card-footer">
