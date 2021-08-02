@@ -1,6 +1,6 @@
 <?php echo $this->extend($layout); ?>
 
-<?php echo $this->section('body') ?>
+<?php $this->section('body') ?>
 <?php 
     $obj = json_decode(file_get_contents(FCPATH."data/".($_GET["language"] ? $_GET["language"] : "en")."_app.json"));
 
@@ -97,4 +97,4 @@
 </div>
 </form>
 
-<?php echo $this->endSection() ?>
+<?php $this->endSection() ?>
