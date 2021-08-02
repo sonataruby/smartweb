@@ -1,6 +1,6 @@
 <?php echo $this->extend($layout); ?>
 
-<?php echo $this->section('body') ?>
+<?php $this->section('body') ?>
 
 
 <h3 class="title"><i data-feather="edit"></i> <?php echo lang("signals.create");?></h3>
@@ -67,7 +67,11 @@
       
       <select class="form-select" name="post[status]">
         <option value = "">Select Option</option>
-        <option value="active" <?php echo ($item->status == "active" ? "selected" : "");?>>Active</option><option value="pending" <?php echo ($item->status == "pending" ? "selected" : "");?>>Pendding</option><option value="cancel" <?php echo ($item->status == "cancel" ? "selected" : "");?>>Cancel</option><option value="remove" <?php echo ($item->status == "remove" ? "selected" : "");?>>Remove</option>
+        <option value="active" <?php echo ($item->status == "active" ? "selected" : "");?>>Active</option>
+        <option value="target" <?php echo ($item->status == "target" ? "selected" : "");?>>Target</option>
+        <option value="pending" <?php echo ($item->status == "pending" ? "selected" : "");?>>Pending</option>
+        <option value="cancel" <?php echo ($item->status == "cancel" ? "selected" : "");?>>Cancel</option>
+
       </select>
     </div>
 </div>
@@ -116,4 +120,4 @@
     </div>
 </div>
 <?php echo form_close();?>
-<?php echo $this->endSection() ?>
+<?php $this->endSection() ?>
