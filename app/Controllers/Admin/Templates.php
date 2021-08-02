@@ -66,4 +66,11 @@ class Templates extends AdminController
 			}
 		}
 	}
+
+
+	public function develop(){
+		helper(['filesystem','html']);
+		$path = directory_map(FCPATH . "templates/", false, FALSE);
+		$this->data["file"] = $path;
+	}
 }

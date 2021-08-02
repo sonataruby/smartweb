@@ -143,6 +143,12 @@ $this->mutilanguage = $language->getLocale();
         return $this->insertID();
     }
 
+    public function countSingalDaily(){
+        $query = new SignalsModel;
+        $query->where("daily",date("Y-m-d"));
+        $count = $query->countAllResults();
+        return $count;
+    }
     public function getWeekReport(){
         $this->where("week",date("W"));
         $this->select("SUM(profits) as pipsTotals");
@@ -157,6 +163,10 @@ $this->mutilanguage = $language->getLocale();
             $data["language"] = $this->mutilanguage;
         }
         $data["opendate"] = date("Y-m-d h:i:s");
+        $data["daily"] = date("Y-m-d");
+        if($this->countSingalDaily() == 0){
+            $data["is_free"] = "yes";
+        }
         if($data && $this->insert($data)){
             //if($data["is_free"] == "yes"){
             $this->alertSocket("open",["symbol" => $data["symbol"], "type" => $data["type"], "open" => $data["open"]]);
