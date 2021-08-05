@@ -37,12 +37,16 @@ class Trader extends BaseController
 		$this->layout = "layout/nolayout";
 	}
 
-	public function account($meta_id){
+	public function account($meta_id=0){
+		if($meta_id == 0) return ["serial" => "", "size" => "auto"];
+		$json = json_decode(urldecode($_SERVER['argv'][3]));
+		$meta_id = $json->meta_id;
 		$db = \Config\Database::connect();
-        $query = $db->query("SELECT * FROM trader where meta_id='".$meta_id."' AND active='1'")->getRow();
+        $query = $db->query("SELECT * FROM copytrade where meta_id='".$meta_id."'")->getRow();
         $arv = [];
-        $arv["serial"] = "";
-        $arv["size"] = "auto";
+        $arv["serial"] = $query->serialmeta;
+        $arv["accountid"] = $query->account_id;
+        $arv["symbol"] = $query->options;
         header('Content-Type: application/json');
 		echo json_encode($arv);
 		exit();
