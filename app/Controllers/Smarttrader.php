@@ -9,7 +9,9 @@ class Smarttrader extends AccountController
 {
 	
 	private $price_signals = 12;
-	
+	private $price_copy = 3;
+	private $price_vps = 15;//USD
+
 	public function index()
 	{
 		$this->view = 'trader/index';
@@ -17,6 +19,23 @@ class Smarttrader extends AccountController
 
 
 	public function copytrade(){
+
+		$wallet = new Users_walletModel();
+		$this->setSEO(["title" => "Smart Copy Trade"]);
+		$this->breadcrumb->add('Dashboard', '/cpanel');
+		$this->breadcrumb->add('Signals', "/trader");
+		$this->breadcrumb->add('Copy Trade', '/index');
+		$this->data['breadcrumbs'] = $this->breadcrumb->render();
+		$this->data["balance_token"] = $wallet->getBalance("token");
+		$trade = new Trader;
+		$this->data["symbol"] = $trade->symbol();
+		$this->data["price_token"] = $wallet->getTokenPrice();
+		$this->data["price_btc"] = $wallet->getTokenPrice("BTC");
+		$this->data["price_eth"] = $wallet->getTokenPrice("ETH");
+		$this->data["price_copy"] = $wallet->converUSDToToken($this->price_copy);
+		$this->data["price_vps"] = $wallet->converUSDToToken($this->price_vps);
+		$this->data["tokenname"] = $wallet->getTokenName();
+
 		$db = \Config\Database::connect();
 		$builder = $db->table('copytrade');
 		$userid = $this->user->getAccountID();

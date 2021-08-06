@@ -76,7 +76,10 @@ class Users_walletModel extends BaseModel
        
         return $data->USD;
     }
- 
+    
+    public function converUSDToToken($usd){
+        return number_format($usd / $this->getTokenPrice(),2);
+    }
     public function converTokenToUSD($tokenNumber){
         return number_format($tokenNumber * $this->getTokenPrice(),2);
     }
